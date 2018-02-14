@@ -1,0 +1,150 @@
+﻿@using System.Text
+@using IUERM_RRS.Helpers
+<!DOCTYPE html>
+<html class="no-js ie9" itemscope="itemscope" itemtype="http://schema.org/WebSite" lang="en">
+<head prefix="og: http://ogp.me/ns# profile: http://ogp.me/ns/profile# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+        Records Retention Schedule
+    </title>
+    <meta content="-" name="description" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <link href="https://assets.iu.edu/favicon.ico" rel="shortcut icon" type="image/x-icon" /><!-- Canonical URL -->
+    <link href="~/Views/Home/index.cshtml" itemprop="url" rel="canonical" /><!-- Facebook Open Graph -->
+    <meta content=" Indiana Alzheimer Disease Center" property="og:title" />
+    <meta content="-" property="og:description" />
+    <meta content="~/Views/Home/index.cshtml" property="og:url" />
+    <meta content=" Indiana Alzheimer Disease Center" property="og:site_name" />
+    <meta content="en_US" property="og:locale" />
+    <meta content="website" property="og:type" /><!-- Twitter Card Tags -->
+    <meta content=" Indiana Alzheimer Disease Center" name="twitter:title" />
+    <meta content="-" name="twitter:description" />
+    <meta content="summary_large_image" name="twitter:card" /><!-- Google/Microdata Tags -->
+    <meta content="Records Retention Schedule" itemprop="name" />
+    <meta content="-" itemprop="description" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.iu.edu/style.css?family=BentonSans:regular,bold|BentonSansCond:regular|GeorgiaPro:regular">
+    <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/web/fonts/icon-font.css">
+    <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/web/3.x/css/iu-framework.min.css">
+    <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/brand/3.x/brand.css">
+    <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/search/3.x/search.css">
+    <link href="@Url.Content("/_assets/css/site.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/kendo/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/kendo/kendo.common-bootstrap.core.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/kendo/kendo.bootstrap.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("/Scripts/jquery-2.1.3.js")"></script>
+    <script src="@Url.Content("/Scripts/kendo/jszip.min.js")"></script>
+    <script src="@Url.Content("/Scripts/kendo/kendo.all.min.js")"></script>
+    <script src="@Url.Content("/Scripts/kendo/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("/Scripts/modernizr-2.8.3.js")"></script>
+</head>
+@if (ViewBag.isHomePage != null)
+{
+    <text>
+        <body class="mahogany has-banner has-page-title" id="home">
+    </text>
+}
+else // home page
+{
+    <text>
+        <body class="mahogany no-banner has-page-title">
+    </text>
+}
+@*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/tag-manager.html")))*@
+@*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/skipnav.html")))*@
+<div id="branding-bar" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity" role="complementary" aria-labelledby="campus-name">
+    <div class="row pad">
+        <img src="//assets.iu.edu/brand/3.x/trident-large.png" alt="IU" />
+        <p id="iu-campus">
+            <a href="https://www.indiana.edu" title="IUPUI">
+                <span id="campus-name" class="show-on-desktop" itemprop="name">Records Retention Schedule</span>
+                <span class="show-on-tablet" itemprop="name">IUPUI</span>
+                <span class="show-on-mobile" itemprop="name">Records Retention Schedule</span>
+            </a>
+        </p>
+    </div>
+</div>
+<div id="toggles">
+    <div class="row pad">
+        <button class="button hide-for-large" data-toggle="offCanvas">Menu</button>
+    </div>
+</div>
+<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+    <div class="off-canvas-content" data-off-canvas-content="">
+        @*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/site-title.html")))*@
+        @{
+            string navMenu = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                HttpCookie navCookie = Request.Cookies["navCookie"];
+
+                if (navCookie == null)
+                {
+                    navCookie = NavigationHandler.CreateNavCookie(navCookie, false);
+                }
+                string navMenuInHex = navCookie.Value;
+                string navMenuBack = navMenuInHex.Replace("-", "");
+                byte[] ba = new byte[navMenuBack.Length / 2];  //One byte for each two chars in zHex
+                for (int ZZ = 0; ZZ < ba.Length; ZZ++)
+                {
+                    ba[ZZ] = Convert.ToByte(navMenuBack.Substring(ZZ * 2, 2), 16);
+                }
+                navMenu = Encoding.ASCII.GetString(ba);
+            }
+
+            @Html.Raw(navMenu)
+
+        }
+        <div class="nav-secondary show-for-large">
+            <div class="row pad">
+                <ul class="inline separators" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">@Html.Partial("_LoginPartial")</ul>
+            </div>
+        </div>
+        @RenderBody()
+        @*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/belt.html")))*@
+        <footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
+            <div class="row pad">
+                <p class="tagline">Fulfilling <span>the</span> Promise</p>
+                <p class="signature">
+                    <a href="https://www.iu.edu" class="signature-link">Indiana University</a>
+                </p>
+                <p class="copyright">
+                    <a href="https://www.iu.edu/copyright/index.html">Copyright</a> &#169; 2017 <span class="line-break-small">The Trustees of <a href="https://www.iu.edu/" itemprop="url"><span itemprop="name">Indiana University</span></a></span><span class="hide-on-mobile"> | </span><span class="line-break"><a href="/privacy" id="privacy-policy-link">Privacy Notice</a> | <a href="https://accessibility.iu.edu" id="accessibility-link" title="Having trouble accessing this web page because of a disability? Visit this page for assistance.">Accessibility</a></span>
+                </p>
+            </div>
+        </footer>
+    </div><!-- /.off-canvas-content -->
+</div><!-- /.off-canvas-wrappper-inner --><div class="off-canvas position-right" data-off-canvas="" data-position="right" id="offCanvas">
+    @{
+        string navMobileMenu = "";
+        if (User.Identity.IsAuthenticated)
+        {
+            HttpCookie navMobileCookie = Request.Cookies["navMobileCookie"];
+
+            if (navMobileCookie == null)
+            {
+                navMobileCookie = NavigationHandler.CreateNavCookie(navMobileCookie, true);
+            }
+            string navMobileMenuInHex = navMobileCookie.Value;
+            string navMobileMenuBack = navMobileMenuInHex.Replace("-", "");
+            byte[] baMobile = new byte[navMobileMenuBack.Length / 2];  //One byte for each two chars in zHex
+            for (int ZZ = 0; ZZ < baMobile.Length; ZZ++)
+            {
+                baMobile[ZZ] = Convert.ToByte(navMobileMenuBack.Substring(ZZ * 2, 2), 16);
+            }
+            navMobileMenu = Encoding.ASCII.GetString(baMobile);
+        }
+    }
+    <div class="mobile off-canvas-list" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+        <ul>
+            @Html.Partial("_LoginPartial")
+        </ul>
+    </div>
+    @Html.Raw(navMobileMenu)
+
+</div><!-- /#offCanvas -->
+<script src="https://assets.iu.edu/web/3.x/js/iu-framework.min.js" type="text/javascript"></script>
+<script src="https://assets.iu.edu/search/3.x/search.js" type="text/javascript"></script>
+<script src="@Url.Content("/_assets/js/site.js" )" type="text/javascript"></script>
+</body>
+</html>

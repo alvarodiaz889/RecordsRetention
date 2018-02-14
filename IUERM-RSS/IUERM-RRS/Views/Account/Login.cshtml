@@ -1,0 +1,21 @@
+﻿@using IUERM_RRS.Models
+@{
+    ViewBag.Title = "Login";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h1 style="margin-top:5px">@ViewBag.Title</h1>
+        <fieldset>
+            <div class="formSection">
+                <p>Not all IU account holders may access this site. If you cannot logon, please contact the department administrator.</p>
+                <p>To report technical problems, please contact the department administrator. </p>
+            </div>
+            <div class="formSection">
+                <div class="formSectionLeft">
+                    @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    <p style="clear: both;">This site uses the IU Central Authentication System. For additional information, see <a href="http://kb.indiana.edu/data/akui.html" target="_blank" title="Opens New Window">IU CAS</a>.</p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
