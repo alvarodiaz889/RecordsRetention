@@ -1,0 +1,202 @@
+﻿@model IUERM_RRS.Schedule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Schedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_StewardDomain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_StewardDomain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_RetentionArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_RetentionArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_RetentionSubArea)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_RetentionSubArea)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_RetentionAreaDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_RetentionAreaDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Coordinator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Coordinator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_RecordSeries)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_RecordSeries)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_RecordSeriesCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_RecordSeriesCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Vital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Vital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_Reason)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_Reason)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.SCH_RquiresCertDestruction)
+        </dt>*@
+
+        @*<dd>
+            @Html.DisplayFor(model => model.SCH_RquiresCertDestruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SCH_CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SCH_CreationDate)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaScope.AS_Scope)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaScope.AS_Scope)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DispositionOption.DOP_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DispositionOption.DOP_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoverningPolicy.GPO_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoverningPolicy.GPO_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoverningRegulation.GRE_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoverningRegulation.GRE_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GoverningStatute.GST_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GoverningStatute.GST_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficeOfRecord.OOR_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficeOfRecord.OOR_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OfficialRecordMedium.ORM_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OfficialRecordMedium.ORM_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Retainer.RET_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Retainer.RET_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Retention.RET_BasedOnCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Retention.RET_BasedOnCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SCH_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

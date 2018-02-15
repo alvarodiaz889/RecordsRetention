@@ -240,6 +240,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DispositionOption.cs">
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
@@ -292,6 +293,7 @@
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\MainRepositoryImpl.cs" />
     <Compile Include="Repositories\RoleRepositoryImpl.cs" />
+    <Compile Include="Repositories\ScheduleRepositoryImpl.cs" />
     <Compile Include="Repositories\UserRepositoryImpl.cs" />
     <Compile Include="Retainer.cs">
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
@@ -309,6 +311,7 @@
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="Controllers\RecordsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -2864,6 +2867,12 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-HK.min.js.map" />
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Shared\EditorTemplates\Roles.cshtml" />
+    <Content Include="Views\Schedule\Create.cshtml" />
+    <Content Include="Views\Schedule\Delete.cshtml" />
+    <Content Include="Views\Schedule\Details.cshtml" />
+    <Content Include="Views\Schedule\Edit.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Records\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

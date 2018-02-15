@@ -336,7 +336,6 @@ namespace IUERM_RRS.Controllers
                 SignInManager.SignIn(user, true, true);
             }
 
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToLocal(returnUrl);
         }
         //

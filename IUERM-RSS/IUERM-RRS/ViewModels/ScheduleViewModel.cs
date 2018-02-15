@@ -26,10 +26,19 @@ namespace IUERM_RRS.ViewModels
         public int GoverningRegulationsId { get; set; }
         public int GoverningPoliciesId { get; set; }
         public string Reason { get; set; }
-        public int RecordMedium { get; set; }
+        public int RecordMediumId { get; set; }
         public int RetainerId { get; set; }
         public int DispositionId { get; set; }
         public bool RquiresCertDestruction { get; set; }
+        public List<AreaScope> AreaScopes { get; set; }
+        public List<DispositionOption> DispositionOptions { get; set; }
+        public List<GoverningPolicy> GoverningPolicies { get; set; }
+        public List<GoverningRegulation> GoverningRegulations { get; set; }
+        public List<GoverningStatute> GoverningStatutes { get; set; }
+        public List<OfficeOfRecord> OfficeOfRecords { get; set; }
+        public List<OfficialRecordMedium> OfficialRecordMediums { get; set; }
+        public List<Retainer> Retainers { get; set; }
+        public List<Retention> Retentions { get; set; }
 
     }
 }

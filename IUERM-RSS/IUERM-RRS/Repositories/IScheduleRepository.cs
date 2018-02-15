@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IUERM_RRS.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,10 @@ namespace IUERM_RRS.Repositories
 {
     public interface IScheduleRepository
     {
-        //Area Scope
-        List<ScheduleViewModel> GetAllSchedules();
-        ScheduleViewModel GetScheduleById(string id);
-        void Insert(ScheduleViewModel schedule);
-        void Delete(ScheduleViewModel schedule);
-        void Update(ScheduleViewModel schedule);
+        List<ScheduleViewModelEdit> GetAllSchedules();
+        ScheduleViewModelEdit GetScheduleById(string id);
+        void Insert(ScheduleViewModelEdit schedule);
+        void Delete(ScheduleViewModelEdit schedule);
+        void Update(ScheduleViewModelEdit schedule);
     }
 }

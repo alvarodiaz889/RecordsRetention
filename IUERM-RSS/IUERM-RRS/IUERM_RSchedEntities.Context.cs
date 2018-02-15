@@ -25,7 +25,7 @@ namespace IUERM_RRS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ScheduleViewModel> AreaScopes { get; set; }
+        public virtual DbSet<AreaScope> AreaScopes { get; set; }
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<DispositionOption> DispositionOptions { get; set; }

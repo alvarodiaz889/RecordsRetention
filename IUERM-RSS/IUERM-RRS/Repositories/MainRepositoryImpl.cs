@@ -11,27 +11,27 @@ namespace IUERM_RRS.Repositories
         private IUERM_RSchedEntities context = new IUERM_RSchedEntities();
 
         #region AreaScope
-        public List<ScheduleViewModel> GetAllAreaScopes()
+        public List<AreaScope> GetAllAreaScopes()
         {
             return context.AreaScopes.ToList();
         }
-        public ScheduleViewModel GetAreaScopeById(int id)
+        public AreaScope GetAreaScopeById(int id)
         {
             return context.AreaScopes.Where(o => o.AS_Id == id).FirstOrDefault();
         }
-        public void InsertAreaScope(ScheduleViewModel areaScope)
+        public void InsertAreaScope(AreaScope areaScope)
         {
             context.AreaScopes.Add(areaScope);
             context.SaveChanges();
         }
 
-        public void UpdateAreaScope(ScheduleViewModel areaScope)
+        public void UpdateAreaScope(AreaScope areaScope)
         {
             context.AreaScopes.Attach(areaScope);
             context.Entry(areaScope).State = EntityState.Modified;
             context.SaveChanges();
         }
-        public void DeleteAreaScope(ScheduleViewModel areaScope)
+        public void DeleteAreaScope(AreaScope areaScope)
         {
             context.AreaScopes.Remove(areaScope);
             context.SaveChanges();

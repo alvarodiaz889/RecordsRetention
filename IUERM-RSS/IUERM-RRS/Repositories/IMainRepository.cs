@@ -9,11 +9,11 @@ namespace IUERM_RRS.Repositories
     public interface IMainRepository
     {
         //Area Scope
-        List<ScheduleViewModel> GetAllAreaScopes();
-        ScheduleViewModel GetAreaScopeById(int id);
-        void InsertAreaScope(ScheduleViewModel areaScope);
-        void DeleteAreaScope(ScheduleViewModel areaScope);
-        void UpdateAreaScope(ScheduleViewModel areaScope);
+        List<AreaScope> GetAllAreaScopes();
+        AreaScope GetAreaScopeById(int id);
+        void InsertAreaScope(AreaScope areaScope);
+        void DeleteAreaScope(AreaScope areaScope);
+        void UpdateAreaScope(AreaScope areaScope);
 
         //DispositionOptions
         List<DispositionOption> GetAllDispositionOptions();

@@ -9,16 +9,12 @@ using IUERM_RRS.Repositories;
 
 namespace IUERM_RRS.Controllers
 {
-    //[Authorize(Roles = "SuperAdmin")]
+    [Authorize(Roles = "SuperAdmin")]
     public class UserController : Controller
     {
         private IUserRepository userRepository;
         private IRoleRepository roleRepository;
-
-        public UserController()
-        {
-            this.userRepository = new UserRepositoryImpl();
-        }
+        
         public UserController(IUserRepository userRepository,IRoleRepository roleRepository)
         {
             this.userRepository = userRepository;

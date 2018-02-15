@@ -1,0 +1,34 @@
+﻿
+@(Html.Kendo().Grid<IUERM_RRS.Schedule>()
+      .Name("grid")
+      .Columns(columns =>
+      {
+        columns.Bound(c => c.SCH_StewardDomain);
+        columns.Bound(c => c.SCH_RetentionArea);
+        columns.Bound(c => c.SCH_RetentionSubArea);
+        columns.Bound(c => c.SCH_RetentionAreaDescription);
+        columns.Bound(c => c.SCH_Type);
+        columns.Bound(c => c.SCH_Coordinator);
+        columns.Bound(c => c.SCH_RecordSeries);
+        columns.Bound(c => c.SCH_RecordSeriesCode);
+        columns.Bound(c => c.SCH_Description);
+        columns.Bound(c => c.SCH_Active);
+        columns.Bound(c => c.SCH_Vital);
+        columns.Bound(c => c.SCH_Reason);
+        columns.Bound(c => c.SCH_RquiresCertDestruction);
+        columns.Bound(c => c.SCH_CreationDate);
+      })
+      .ToolBar(toolbar => {
+            toolbar.Excel();
+            toolbar.Pdf();
+      })
+      .Pageable()
+      .Sortable(sortable => {
+          sortable.SortMode(GridSortMode.SingleColumn);
+      })
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+          .Ajax()
+          .Read(read => read.Action("Schedules_Read", "Records"))
+      )
+)

@@ -16,6 +16,8 @@ namespace IUERM_RRS
             
             container.RegisterType<IRoleRepository, RoleRepositoryImpl>();
             container.RegisterType<IUserRepository, UserRepositoryImpl>();
+            container.RegisterType<IScheduleRepository, ScheduleRepositoryImpl>();
+            container.RegisterType<IMainRepository, MainRepositoryImpl>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
