@@ -9,42 +9,28 @@ namespace IUERM_RRS.Repositories
     public class ScheduleRepositoryImpl : IScheduleRepository
     {
         private IUERM_RSchedEntities context = new IUERM_RSchedEntities();
-        public List<ScheduleViewModelEdit> GetAllSchedules()
+
+        public List<Schedule> GetAllRecords()
         {
-            List<ScheduleViewModelEdit> schedulesVM = new List<ScheduleViewModelEdit>();
-            var schedules = context.Schedules.ToList();
-            foreach (var sch in schedules)
-            {
-                var vm = new ScheduleViewModelEdit
-                {
-                    AreaScopes = context.AreaScopes.ToList(),
-                    GoverningPolicies = context.GoverningPolicies.ToList()
-                };
-            }
-            return schedulesVM;
+            return context.Schedules.ToList();
         }
 
-        List<ScheduleViewModelEdit> IScheduleRepository.GetAllSchedules()
+        public Schedule GetScheduleById(string id)
         {
             throw new NotImplementedException();
         }
 
-        ScheduleViewModelEdit IScheduleRepository.GetScheduleById(string id)
+        public void Insert(Schedule schedule)
         {
             throw new NotImplementedException();
         }
 
-        public void Insert(ScheduleViewModelEdit schedule)
+        public void Delete(Schedule schedule)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(ScheduleViewModelEdit schedule)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ScheduleViewModelEdit schedule)
+        public void Update(Schedule schedule)
         {
             throw new NotImplementedException();
         }

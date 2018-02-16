@@ -1,7 +1,28 @@
 ﻿@model IUERM_RRS.Schedule
 
+<style>
+    .popUp {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+    }
+</style>
 
-<div style="width: 30%; margin: 0 auto;">
+<div style="width: 30%; margin: 100px auto;">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -36,12 +57,16 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SCH_AreaScopeId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_AreaScopeId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                    <a href="javascript:void(0);" class="edit-data" data-id="_AreaScope"> (Edit)</a>
+                </div>
                 <div class="col-md-10">
                     @Html.DropDownList("SCH_AreaScopeId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.SCH_AreaScopeId, "", new { @class = "text-danger" })
                 </div>
             </div>
+
 
             <div class="form-group">
                 @Html.LabelFor(model => model.SCH_RetentionAreaDescription, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -180,22 +205,22 @@
             </div>
 
             @*<div class="form-group">
-                @Html.LabelFor(model => model.SCH_RquiresCertDestruction, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.SCH_RquiresCertDestruction)
-                        @Html.ValidationMessageFor(model => model.SCH_RquiresCertDestruction, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.SCH_RquiresCertDestruction, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.SCH_RquiresCertDestruction)
+                            @Html.ValidationMessageFor(model => model.SCH_RquiresCertDestruction, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
 
             @*<div class="form-group">
-                @Html.LabelFor(model => model.SCH_CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_CreationDate, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_CreationDate, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
+                    @Html.LabelFor(model => model.SCH_CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SCH_CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SCH_CreationDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
@@ -208,6 +233,52 @@
         @Html.ActionLink("Back to List", "Index")
     </div>
 </div>
-    
+<div id='myModal' class='modal' style="display:none">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
 
-    
+</div>
+
+
+<script>
+
+    var TeamDetailPostBackURL = '/Schedule/GetPartial';
+    $(function () {
+        $(".edit-data").click(function () {
+            //alert('Hola');
+            var $buttonClicked = $(this);
+            var partial = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: TeamDetailPostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { "partial": partial },
+                datatype: "json",
+                success: function (data) {
+                    console.log(data)
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+                    $('#myModal').addClass('popUp');
+                    //console.log("ol")
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+
+        $("#closbtn").click(function () {
+            $('#myModal').modal('hide');
+        });
+    });
+
+</script>
+
+
+
+

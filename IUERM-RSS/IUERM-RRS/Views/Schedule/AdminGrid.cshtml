@@ -1,0 +1,51 @@
+﻿<div style="width: 90%; margin: 0 auto;">
+    <h3 class="section-title capitalize">SCHEDULE</h3>
+
+
+    @(Html.Kendo().Grid<IUERM_RRS.Schedule>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(c => c.SCH_StewardDomain);
+                columns.Bound(c => c.SCH_RetentionArea);
+                columns.Bound(c => c.SCH_RetentionSubArea);
+                columns.Bound(c => c.SCH_RetentionAreaDescription);
+                columns.Bound(c => c.SCH_Type);
+                columns.Bound(c => c.SCH_Coordinator);
+                columns.Bound(c => c.SCH_RecordSeries);
+                columns.Bound(c => c.SCH_RecordSeriesCode);
+                columns.Bound(c => c.SCH_Description);
+                columns.Bound(c => c.SCH_Active);
+                columns.Bound(c => c.SCH_Vital);
+                columns.Bound(c => c.SCH_Reason);
+                columns.Bound(c => c.SCH_RquiresCertDestruction);
+                columns.Bound(c => c.SCH_CreationDate);
+                columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+            })
+            .ToolBar(toolbar =>
+            {
+                toolbar.Create();
+                toolbar.Excel();
+                toolbar.Pdf();
+            })
+            .ColumnMenu()
+            .Editable(editable => editable.Mode(GridEditMode.PopUp))
+            .Pageable()
+            .Navigatable()
+            .Sortable(sortable =>
+            {
+                sortable.SortMode(GridSortMode.SingleColumn);
+            })
+            .Filterable()
+            .Scrollable()
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model => model.Id(p => p.SCH_ID))
+                .Read(read => read.Action("Schedules_Read", "Schedule"))
+                .Create(create => create.Action("Schedules_Create", "Schedule"))
+                .Update(update => update.Action("Schedules_Update", "Schedule"))
+                .Destroy(destroy => destroy.Action("Schedules_Destroy", "Schedule"))
+            )
+    )
+
+</div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IUERM_RRS.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,74 +10,74 @@ namespace IUERM_RRS.Repositories
     public interface IMainRepository
     {
         //Area Scope
-        List<AreaScope> GetAllAreaScopes();
-        AreaScope GetAreaScopeById(int id);
-        void InsertAreaScope(AreaScope areaScope);
-        void DeleteAreaScope(AreaScope areaScope);
-        void UpdateAreaScope(AreaScope areaScope);
+        List<AreaScopeViewModel> GetAllAreaScopes();
+        AreaScopeViewModel GetAreaScopeById(int id);
+        void InsertAreaScope(AreaScopeViewModel areaScope);
+        void DeleteAreaScope(AreaScopeViewModel areaScope);
+        void UpdateAreaScope(AreaScopeViewModel areaScope);
 
         //DispositionOptions
-        List<DispositionOption> GetAllDispositionOptions();
-        DispositionOption GetDispositionOptionsById(int id);
-        void InsertDispositionOption(DispositionOption dispositionOption);
-        void DeleteDispositionOption(DispositionOption dispositionOption);
-        void UpdateDispositionOption(DispositionOption dispositionOption);
+        List<DispositionOptionViewModel> GetAllDispositionOptions();
+        DispositionOptionViewModel GetDispositionOptionsById(int id);
+        void InsertDispositionOption(DispositionOptionViewModel dispositionOption);
+        void DeleteDispositionOption(DispositionOptionViewModel dispositionOption);
+        void UpdateDispositionOption(DispositionOptionViewModel dispositionOption);
 
         //EventCodes
-        List<EventCode> GetAllEventCodes();
-        EventCode GetEventCodesByCode(string code);
-        void InsertEventCodes(EventCode eventCode);
-        void DeleteEventCodes(EventCode eventCode);
-        void UpdateEventCodes(EventCode eventCode);
+        List<EventCodeViewModel> GetAllEventCodes();
+        EventCodeViewModel GetEventCodesByCode(string code);
+        void InsertEventCodes(EventCodeViewModel eventCode);
+        void DeleteEventCodes(EventCodeViewModel eventCode);
+        void UpdateEventCodes(EventCodeViewModel eventCode);
 
         //GoverningPolicies
-        List<GoverningPolicy> GetAllGoverningPolicies();
-        GoverningPolicy GetGoverningPolicyById(int id);
-        void InsertGoverningPolicy(GoverningPolicy governingPolicy);
-        void DeleteGoverningPolicy(GoverningPolicy governingPolicy);
-        void UpdateGoverningPolicy(GoverningPolicy governingPolicy);
+        List<IdNameViewModel> GetAllGoverningPolicies();
+        IdNameViewModel GetGoverningPolicyById(int id);
+        void InsertGoverningPolicy(IdNameViewModel governingPolicy);
+        void DeleteGoverningPolicy(IdNameViewModel governingPolicy);
+        void UpdateGoverningPolicy(IdNameViewModel governingPolicy);
 
         //GoverningRegulations
-        List<GoverningRegulation> GetAllGoverningRegulations();
-        GoverningRegulation GetGoverningRegulationById(int id);
-        void InsertGoverningRegulation(GoverningRegulation governingRegulation);
-        void DeleteGoverningRegulation(GoverningRegulation governingRegulation);
-        void UpdateGoverningRegulation(GoverningRegulation governingRegulation);
+        List<IdNameViewModel> GetAllGoverningRegulations();
+        IdNameViewModel GetGoverningRegulationById(int id);
+        void InsertGoverningRegulation(IdNameViewModel governingRegulation);
+        void DeleteGoverningRegulation(IdNameViewModel governingRegulation);
+        void UpdateGoverningRegulation(IdNameViewModel governingRegulation);
 
         //GoverningStatutes
-        List<GoverningStatute> GetAllGoverningStatutes();
-        GoverningStatute GetGoverningStatuteById(int id);
-        void InsertGoverningStatutes(GoverningStatute governingStatute);
-        void DeleteGoverningStatutes(GoverningStatute governingStatute);
-        void UpdateGoverningStatutes(GoverningStatute governingStatute);
+        List<IdNameViewModel> GetAllGoverningStatutes();
+        IdNameViewModel GetGoverningStatuteById(int id);
+        void InsertGoverningStatutes(IdNameViewModel governingStatute);
+        void DeleteGoverningStatutes(IdNameViewModel governingStatute);
+        void UpdateGoverningStatutes(IdNameViewModel governingStatute);
 
         //OfficeOfRecords
-        List<OfficeOfRecord> GetAllOfficeOfRecords();
-        OfficeOfRecord GetOfficeOfRecordById(int id);
-        void InsertOfficeOfRecord(OfficeOfRecord officeOfRecord);
-        void DeleteOfficeOfRecord(OfficeOfRecord officeOfRecord);
-        void UpdateOfficeOfRecord(OfficeOfRecord officeOfRecord);
+        List<OfficeOfRecordViewModel> GetAllOfficeOfRecords();
+        OfficeOfRecordViewModel GetOfficeOfRecordById(int id);
+        void InsertOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
+        void DeleteOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
+        void UpdateOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
 
         //OfficialRecordMedium
-        List<OfficialRecordMedium> GetAllOfficialRecordMediums();
-        OfficialRecordMedium GetOfficialRecordMediumById(int id);
-        void InsertOfficialRecordMedium(OfficialRecordMedium officialRecordMedium);
-        void DeleteOfficialRecordMedium(OfficialRecordMedium officialRecordMedium);
-        void UpdateOfficialRecordMedium(OfficialRecordMedium officialRecordMedium);
+        List<IdNameViewModel> GetAllOfficialRecordMediums();
+        IdNameViewModel GetOfficialRecordMediumById(int id);
+        void InsertOfficialRecordMedium(IdNameViewModel officialRecordMedium);
+        void DeleteOfficialRecordMedium(IdNameViewModel officialRecordMedium);
+        void UpdateOfficialRecordMedium(IdNameViewModel officialRecordMedium);
 
         //Retainer
-        List<Retainer> GetAllRetainers();
-        Retainer GetRetainerById(int id);
-        void InsertRetainer(Retainer retainer);
-        void DeleteRetainer(Retainer retainer);
-        void UpdateRetainer(Retainer retainer);
+        List<IdNameViewModel> GetAllRetainers();
+        IdNameViewModel GetRetainerById(int id);
+        void InsertRetainer(IdNameViewModel retainer);
+        void DeleteRetainer(IdNameViewModel retainer);
+        void UpdateRetainer(IdNameViewModel retainer);
 
         //Retention
-        List<Retention> GetAllRetentions();
-        Retention GetRetentionById(int id);
-        void InsertRetention(Retention retention);
-        void DeleteRetention(Retention retention);
-        void UpdateRetention(Retention retention);
+        List<RetentionViewModel> GetAllRetentions();
+        RetentionViewModel GetRetentionById(int id);
+        void InsertRetention(RetentionViewModel retention);
+        void DeleteRetention(RetentionViewModel retention);
+        void UpdateRetention(RetentionViewModel retention);
 
         void Dispose();
     }

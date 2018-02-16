@@ -9,10 +9,10 @@ namespace IUERM_RRS.Repositories
 {
     public interface IScheduleRepository
     {
-        List<ScheduleViewModelEdit> GetAllSchedules();
-        ScheduleViewModelEdit GetScheduleById(string id);
-        void Insert(ScheduleViewModelEdit schedule);
-        void Delete(ScheduleViewModelEdit schedule);
-        void Update(ScheduleViewModelEdit schedule);
+        List<Schedule> GetAllRecords();
+        Schedule GetScheduleById(string id);
+        void Insert(Schedule schedule);
+        void Delete(Schedule schedule);
+        void Update(Schedule schedule);
     }
 }

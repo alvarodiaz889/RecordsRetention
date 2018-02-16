@@ -7,35 +7,33 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using IUERM_RRS;
+using IUERM_RRS.Repositories;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 
 namespace IUERM_RRS.Controllers
 {
     public class ScheduleController : Controller
     {
         private IUERM_RSchedEntities db = new IUERM_RSchedEntities();
+        private IScheduleRepository scheduleRepository; 
+        public ScheduleController(IScheduleRepository scheduleRepository)
+        {
+            this.scheduleRepository = scheduleRepository;
+        }
 
-        // GET: SCH
         public ActionResult Index()
         {
-            var schedules = db.Schedules.Include(s => s.AreaScope).Include(s => s.DispositionOption).Include(s => s.GoverningPolicy).Include(s => s.GoverningRegulation).Include(s => s.GoverningStatute).Include(s => s.OfficeOfRecord).Include(s => s.OfficialRecordMedium).Include(s => s.Retainer).Include(s => s.Retention);
-            return View(schedules.ToList());
+            return View("GeneralView");
         }
-
-        // GET: SCH/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult AdminGrid()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
-            {
-                return HttpNotFound();
-            }
-            return View(schedule);
+            return View();
         }
-
+        public ActionResult GetPartial(string partial)
+        {
+            return PartialView(partial);
+        }
         // GET: SCH/Create
         public ActionResult Create()
         {
@@ -74,85 +72,85 @@ namespace IUERM_RRS.Controllers
             ViewBag.SCH_OfficeId = new SelectList(db.OfficeOfRecords, "OOR_Id", "OOR_Name", schedule.SCH_OfficeId);
             ViewBag.SCH_RecordMedium = new SelectList(db.OfficialRecordMediums, "ORM_Id", "ORM_Name", schedule.SCH_RecordMedium);
             ViewBag.SCH_RetainerId = new SelectList(db.Retainers, "RET_Id", "RET_Name", schedule.SCH_RetainerId);
-            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BasedOnCode", schedule.SCH_RetentionId);
+            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BaseOnDescription", schedule.SCH_RetentionId);
             return View(schedule);
         }
 
-        // GET: SCH/Edit/5
-        public ActionResult Edit(Guid? id)
+        public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.SCH_AreaScopeId = new SelectList(db.AreaScopes, "AS_Id", "AS_Scope", schedule.SCH_AreaScopeId);
-            ViewBag.SCH_DispositionId = new SelectList(db.DispositionOptions, "DOP_Id", "DOP_Name", schedule.SCH_DispositionId);
-            ViewBag.SCH_GoverningPoliciesId = new SelectList(db.GoverningPolicies, "GPO_Id", "GPO_Name", schedule.SCH_GoverningPoliciesId);
-            ViewBag.SCH_GoverningRegulationsId = new SelectList(db.GoverningRegulations, "GRE_Id", "GRE_Name", schedule.SCH_GoverningRegulationsId);
-            ViewBag.SCH_GoverningStatutesId = new SelectList(db.GoverningStatutes, "GST_Id", "GST_Name", schedule.SCH_GoverningStatutesId);
-            ViewBag.SCH_OfficeId = new SelectList(db.OfficeOfRecords, "OOR_Id", "OOR_Name", schedule.SCH_OfficeId);
-            ViewBag.SCH_RecordMedium = new SelectList(db.OfficialRecordMediums, "ORM_Id", "ORM_Name", schedule.SCH_RecordMedium);
-            ViewBag.SCH_RetainerId = new SelectList(db.Retainers, "RET_Id", "RET_Name", schedule.SCH_RetainerId);
-            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BasedOnCode", schedule.SCH_RetentionId);
-            return View(schedule);
+            //List<Schedule> users = new List<Schedule>();
+            //DataSourceResult result = users.AsQueryable().ToDataSourceResult(request);
+            //return Json(result);
+            IQueryable<Schedule> schedules = db.Schedules;
+            DataSourceResult result = schedules.ToDataSourceResult(request, schedule => new {
+                SCH_ID = schedule.SCH_ID,
+                SCH_StewardDomain = schedule.SCH_StewardDomain,
+                SCH_RetentionArea = schedule.SCH_RetentionArea,
+                SCH_RetentionSubArea = schedule.SCH_RetentionSubArea,
+                SCH_RetentionAreaDescription = schedule.SCH_RetentionAreaDescription,
+                SCH_Type = schedule.SCH_Type,
+                SCH_Coordinator = schedule.SCH_Coordinator,
+                SCH_RecordSeries = schedule.SCH_RecordSeries,
+                SCH_RecordSeriesCode = schedule.SCH_RecordSeriesCode,
+                SCH_Description = schedule.SCH_Description,
+                SCH_Active = schedule.SCH_Active,
+                SCH_Vital = schedule.SCH_Vital,
+                SCH_Reason = schedule.SCH_Reason,
+                SCH_RquiresCertDestruction = schedule.SCH_RquiresCertDestruction,
+                SCH_CreationDate = schedule.SCH_CreationDate,
+            });
+
+            return Json(result);
         }
 
-        // POST: SCH/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SCH_ID,SCH_StewardDomain,SCH_RetentionArea,SCH_RetentionSubArea,SCH_AreaScopeId,SCH_RetentionAreaDescription,SCH_Type,SCH_OfficeId,SCH_Coordinator,SCH_RecordSeries,SCH_RecordSeriesCode,SCH_Description,SCH_RetentionId,SCH_Active,SCH_Vital,SCH_GoverningStatutesId,SCH_GoverningRegulationsId,SCH_GoverningPoliciesId,SCH_Reason,SCH_RecordMedium,SCH_RetainerId,SCH_DispositionId,SCH_RquiresCertDestruction,SCH_CreationDate")] Schedule schedule)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Schedules_Create([DataSourceRequest]DataSourceRequest request, Schedule schedule)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(schedule).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
-            ViewBag.SCH_AreaScopeId = new SelectList(db.AreaScopes, "AS_Id", "AS_Scope", schedule.SCH_AreaScopeId);
-            ViewBag.SCH_DispositionId = new SelectList(db.DispositionOptions, "DOP_Id", "DOP_Name", schedule.SCH_DispositionId);
-            ViewBag.SCH_GoverningPoliciesId = new SelectList(db.GoverningPolicies, "GPO_Id", "GPO_Name", schedule.SCH_GoverningPoliciesId);
-            ViewBag.SCH_GoverningRegulationsId = new SelectList(db.GoverningRegulations, "GRE_Id", "GRE_Name", schedule.SCH_GoverningRegulationsId);
-            ViewBag.SCH_GoverningStatutesId = new SelectList(db.GoverningStatutes, "GST_Id", "GST_Name", schedule.SCH_GoverningStatutesId);
-            ViewBag.SCH_OfficeId = new SelectList(db.OfficeOfRecords, "OOR_Id", "OOR_Name", schedule.SCH_OfficeId);
-            ViewBag.SCH_RecordMedium = new SelectList(db.OfficialRecordMediums, "ORM_Id", "ORM_Name", schedule.SCH_RecordMedium);
-            ViewBag.SCH_RetainerId = new SelectList(db.Retainers, "RET_Id", "RET_Name", schedule.SCH_RetainerId);
-            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BasedOnCode", schedule.SCH_RetentionId);
-            return View(schedule);
+
+            return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
-        // GET: SCH/Delete/5
-        public ActionResult Delete(Guid? id)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Schedules_Update([DataSourceRequest]DataSourceRequest request, Schedule schedule)
         {
-            if (id == null)
+            if (ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             }
-            Schedule schedule = db.Schedules.Find(id);
-            if (schedule == null)
-            {
-                return HttpNotFound();
-            }
-            return View(schedule);
+
+            return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
-        // POST: SCH/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Schedules_Destroy([DataSourceRequest]DataSourceRequest request, Schedule schedule)
         {
-            Schedule schedule = db.Schedules.Find(id);
-            db.Schedules.Remove(schedule);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
+        [HttpPost]
+        public ActionResult Excel_Export_Save(string contentType, string base64, string fileName)
+        {
+            var fileContents = Convert.FromBase64String(base64);
+
+            return File(fileContents, contentType, fileName);
+        }
+
+        [HttpPost]
+        public ActionResult Pdf_Export_Save(string contentType, string base64, string fileName)
+        {
+            var fileContents = Convert.FromBase64String(base64);
+
+            return File(fileContents, contentType, fileName);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

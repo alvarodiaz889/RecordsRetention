@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IUERM_RRS.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,275 +12,399 @@ namespace IUERM_RRS.Repositories
         private IUERM_RSchedEntities context = new IUERM_RSchedEntities();
 
         #region AreaScope
-        public List<AreaScope> GetAllAreaScopes()
+        public List<AreaScopeViewModel> GetAllAreaScopes()
         {
-            return context.AreaScopes.ToList();
+            return context.AreaScopes
+                .Select(o => new AreaScopeViewModel { Id = o.AS_Id, Name = o.AS_Scope })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public AreaScope GetAreaScopeById(int id)
+        public AreaScopeViewModel GetAreaScopeById(int id)
         {
-            return context.AreaScopes.Where(o => o.AS_Id == id).FirstOrDefault();
+            return context.AreaScopes.Where(o => o.AS_Id == id)
+                .Select(o => new AreaScopeViewModel { Id = o.AS_Id, Name = o.AS_Scope })
+                .FirstOrDefault();
         }
-        public void InsertAreaScope(AreaScope areaScope)
+        public void InsertAreaScope(AreaScopeViewModel areaScopeVM)
         {
-            context.AreaScopes.Add(areaScope);
+            AreaScope newRecord = new AreaScope { AS_Scope = areaScopeVM.Name };
+            context.AreaScopes.Add(newRecord);
             context.SaveChanges();
         }
 
-        public void UpdateAreaScope(AreaScope areaScope)
+        public void UpdateAreaScope(AreaScopeViewModel areaScopeVM)
         {
-            context.AreaScopes.Attach(areaScope);
-            context.Entry(areaScope).State = EntityState.Modified;
+            AreaScope newRecord = new AreaScope { AS_Id = areaScopeVM.Id, AS_Scope = areaScopeVM.Name };
+            context.AreaScopes.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
-        public void DeleteAreaScope(AreaScope areaScope)
+        public void DeleteAreaScope(AreaScopeViewModel areaScopeVM)
         {
-            context.AreaScopes.Remove(areaScope);
+            AreaScope newRecord = new AreaScope { AS_Id = areaScopeVM.Id, AS_Scope = areaScopeVM.Name };
+            context.AreaScopes.Attach(newRecord);
+            context.AreaScopes.Remove(newRecord);
             context.SaveChanges();
         }
         #endregion
 
         #region DispositionOptions
 
-        public List<DispositionOption> GetAllDispositionOptions()
+        public List<DispositionOptionViewModel> GetAllDispositionOptions()
         {
-            return context.DispositionOptions.ToList();
+            return context.DispositionOptions
+                .Select(o => new DispositionOptionViewModel { Id = o.DOP_Id, Name = o.DOP_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public DispositionOption GetDispositionOptionsById(int id)
+        public DispositionOptionViewModel GetDispositionOptionsById(int id)
         {
-            return context.DispositionOptions.Where(o => o.DOP_Id == id).FirstOrDefault();
+            return context.DispositionOptions
+                .Where(o => o.DOP_Id == id)
+                .Select(o => new DispositionOptionViewModel { Id = o.DOP_Id, Name = o.DOP_Name})
+                .FirstOrDefault();
         }
-        public void InsertDispositionOption(DispositionOption dispositionOption)
+        public void InsertDispositionOption(DispositionOptionViewModel ovm)
         {
-            context.DispositionOptions.Add(dispositionOption);
+            DispositionOption newRecord = new DispositionOption { DOP_Id = ovm.Id , DOP_Name = ovm.Name };
+            context.DispositionOptions.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteDispositionOption(DispositionOption dispositionOption)
+        public void DeleteDispositionOption(DispositionOptionViewModel ovm)
         {
-            context.DispositionOptions.Remove(dispositionOption);
+            DispositionOption newRecord = new DispositionOption { DOP_Id = ovm.Id, DOP_Name = ovm.Name };
+            context.DispositionOptions.Attach(newRecord);
+            context.DispositionOptions.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateDispositionOption(DispositionOption dispositionOption)
+        public void UpdateDispositionOption(DispositionOptionViewModel ovm)
         {
-            context.DispositionOptions.Attach(dispositionOption);
-            context.Entry(dispositionOption).State = EntityState.Modified;
+            DispositionOption newRecord = new DispositionOption { DOP_Id = ovm.Id, DOP_Name = ovm.Name };
+            context.DispositionOptions.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region EventCodes
-        public List<EventCode> GetAllEventCodes()
+        public List<EventCodeViewModel> GetAllEventCodes()
         {
-            return context.EventCodes.ToList();
+            return context.EventCodes
+                .Select(o => new EventCodeViewModel { Code = o.ECD_Code , Description = o.ECD_Description })
+                .OrderBy(o => o.Description)
+                .ToList();
         }
-        public EventCode GetEventCodesByCode(string code)
+        public EventCodeViewModel GetEventCodesByCode(string code)
         {
-            return context.EventCodes.Where(o => o.ECD_Code == code).FirstOrDefault();
+            return context.EventCodes.Where(o => o.ECD_Code == code)
+                .Select(o => new EventCodeViewModel { Code = o.ECD_Code, Description = o.ECD_Description })
+                .FirstOrDefault();
         }
-        public void InsertEventCodes(EventCode eventCode)
+        public void InsertEventCodes(EventCodeViewModel ovm)
         {
-            context.EventCodes.Add(eventCode);
+            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            context.EventCodes.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteEventCodes(EventCode eventCode)
+        public void DeleteEventCodes(EventCodeViewModel ovm)
         {
-            context.EventCodes.Remove(eventCode);
+            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            context.EventCodes.Attach(newRecord);
+            context.EventCodes.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateEventCodes(EventCode eventCode)
+        public void UpdateEventCodes(EventCodeViewModel ovm)
         {
-            context.EventCodes.Attach(eventCode);
-            context.Entry(eventCode).State = EntityState.Modified;
+            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            context.EventCodes.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region GoverningPolicies
 
-        public List<GoverningPolicy> GetAllGoverningPolicies()
+        public List<IdNameViewModel> GetAllGoverningPolicies()
         {
-            return context.GoverningPolicies.ToList();
+            return context.GoverningPolicies
+                .Select(o => new IdNameViewModel { Id = o.GPO_Id , Name = o.GPO_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public GoverningPolicy GetGoverningPolicyById(int id)
+        public IdNameViewModel GetGoverningPolicyById(int id)
         {
-            return context.GoverningPolicies.Where(o => o.GPO_Id == id).FirstOrDefault();
+            return context.GoverningPolicies.Where(o => o.GPO_Id == id)
+                .Select(o => new IdNameViewModel { Id = o.GPO_Id, Name = o.GPO_Name })
+                .FirstOrDefault();
         }
-        public void InsertGoverningPolicy(GoverningPolicy governingPolicy)
+        public void InsertGoverningPolicy(IdNameViewModel ovm)
         {
-            context.GoverningPolicies.Add(governingPolicy);
+            GoverningPolicy newRecord = new GoverningPolicy { GPO_Id = ovm.Id, GPO_Name = ovm.Name };
+            context.GoverningPolicies.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteGoverningPolicy(GoverningPolicy governingPolicy)
+        public void DeleteGoverningPolicy(IdNameViewModel ovm)
         {
-            context.GoverningPolicies.Remove(governingPolicy);
+            GoverningPolicy newRecord = new GoverningPolicy { GPO_Id = ovm.Id, GPO_Name = ovm.Name };
+            context.GoverningPolicies.Attach(newRecord);
+            context.GoverningPolicies.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateGoverningPolicy(GoverningPolicy governingPolicy)
+        public void UpdateGoverningPolicy(IdNameViewModel ovm)
         {
-            context.GoverningPolicies.Attach(governingPolicy);
-            context.Entry(governingPolicy).State = EntityState.Modified;
+            GoverningPolicy newRecord = new GoverningPolicy { GPO_Id = ovm.Id, GPO_Name = ovm.Name };
+            context.GoverningPolicies.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region GoverningRegulations
-        public List<GoverningRegulation> GetAllGoverningRegulations()
+        public List<IdNameViewModel> GetAllGoverningRegulations()
         {
-            return context.GoverningRegulations.ToList();
+            return context.GoverningRegulations
+                .Select(o => new IdNameViewModel { Id = o.GRE_Id , Name = o.GRE_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public GoverningRegulation GetGoverningRegulationById(int id)
+        public IdNameViewModel GetGoverningRegulationById(int id)
         {
-            return context.GoverningRegulations.Where(o => o.GRE_Id == id).FirstOrDefault();
+            return context.GoverningRegulations.Where(o => o.GRE_Id == id)
+                .Select(o => new IdNameViewModel { Id = o.GRE_Id, Name = o.GRE_Name })
+                .FirstOrDefault();
         }
-        public void InsertGoverningRegulation(GoverningRegulation governingRegulation)
+        public void InsertGoverningRegulation(IdNameViewModel ovm)
         {
-            context.GoverningRegulations.Add(governingRegulation);
+            GoverningRegulation newRecord = new GoverningRegulation { GRE_Id = ovm.Id , GRE_Name = ovm.Name};
+            context.GoverningRegulations.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteGoverningRegulation(GoverningRegulation governingRegulation)
+        public void DeleteGoverningRegulation(IdNameViewModel ovm)
         {
-            context.GoverningRegulations.Remove(governingRegulation);
+            GoverningRegulation newRecord = new GoverningRegulation { GRE_Id = ovm.Id, GRE_Name = ovm.Name };
+            context.GoverningRegulations.Attach(newRecord);
+            context.GoverningRegulations.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateGoverningRegulation(GoverningRegulation governingRegulation)
+        public void UpdateGoverningRegulation(IdNameViewModel ovm)
         {
-            context.GoverningRegulations.Attach(governingRegulation);
-            context.Entry(governingRegulation).State = EntityState.Modified;
+            GoverningRegulation newRecord = new GoverningRegulation { GRE_Id = ovm.Id, GRE_Name = ovm.Name };
+            context.GoverningRegulations.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region GoverningStatutes
-        public List<GoverningStatute> GetAllGoverningStatutes()
+        public List<IdNameViewModel> GetAllGoverningStatutes()
         {
-            return context.GoverningStatutes.ToList();
+            return context.GoverningStatutes
+                .Select(o => new IdNameViewModel { Id = o.GST_Id , Name = o.GST_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public GoverningStatute GetGoverningStatuteById(int id)
+        public IdNameViewModel GetGoverningStatuteById(int id)
         {
-            return context.GoverningStatutes.Where(o => o.GST_Id == id).FirstOrDefault();
+            return context.GoverningStatutes.Where(o => o.GST_Id == id)
+                .Select(o => new IdNameViewModel { Id = o.GST_Id, Name = o.GST_Name })
+                .FirstOrDefault();
         }
-        public void InsertGoverningStatutes(GoverningStatute governingStatute)
+        public void InsertGoverningStatutes(IdNameViewModel ovm)
         {
-            context.GoverningStatutes.Add(governingStatute);
+            GoverningStatute newRecord = new GoverningStatute { GST_Id = ovm.Id, GST_Name = ovm.Name };
+            context.GoverningStatutes.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteGoverningStatutes(GoverningStatute governingStatute)
+        public void DeleteGoverningStatutes(IdNameViewModel ovm)
         {
-            context.GoverningStatutes.Remove(governingStatute);
+            GoverningStatute newRecord = new GoverningStatute { GST_Id = ovm.Id, GST_Name = ovm.Name };
+            context.GoverningStatutes.Attach(newRecord);
+            context.GoverningStatutes.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateGoverningStatutes(GoverningStatute governingStatute)
+        public void UpdateGoverningStatutes(IdNameViewModel ovm)
         {
-            context.GoverningStatutes.Attach(governingStatute);
-            context.Entry(governingStatute).State = EntityState.Modified;
+            GoverningStatute newRecord = new GoverningStatute { GST_Id = ovm.Id, GST_Name = ovm.Name };
+            context.GoverningStatutes.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region OfficeOfRecords
-        public List<OfficeOfRecord> GetAllOfficeOfRecords()
+        public List<OfficeOfRecordViewModel> GetAllOfficeOfRecords()
         {
-            return context.OfficeOfRecords.ToList();
+            return context.OfficeOfRecords
+                .Select(o => new OfficeOfRecordViewModel { Id = o.OOR_Id , Name = o.OOR_Name, Code = o.OOR_Code })
+                .OrderBy(o => o.Code)
+                .ToList();
         }
-        public OfficeOfRecord GetOfficeOfRecordById(int id)
+        public OfficeOfRecordViewModel GetOfficeOfRecordById(int id)
         {
-            return context.OfficeOfRecords.Where(o => o.OOR_Id == id).FirstOrDefault();
+            return context.OfficeOfRecords.Where(o => o.OOR_Id == id)
+                .Select(o => new OfficeOfRecordViewModel { Id = o.OOR_Id, Name = o.OOR_Name, Code = o.OOR_Code })
+                .FirstOrDefault();
         }
-        public void InsertOfficeOfRecord(OfficeOfRecord officeOfRecord)
+        public void InsertOfficeOfRecord(OfficeOfRecordViewModel ovm)
         {
-            context.OfficeOfRecords.Add(officeOfRecord);
+            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name, OOR_Code = ovm.Code };
+            context.OfficeOfRecords.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteOfficeOfRecord(OfficeOfRecord officeOfRecord)
+        public void DeleteOfficeOfRecord(OfficeOfRecordViewModel ovm)
         {
-            context.OfficeOfRecords.Remove(officeOfRecord);
+            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name, OOR_Code = ovm.Code };
+            context.OfficeOfRecords.Attach(newRecord);
+            context.OfficeOfRecords.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateOfficeOfRecord(OfficeOfRecord officeOfRecord)
+        public void UpdateOfficeOfRecord(OfficeOfRecordViewModel ovm)
         {
-            context.OfficeOfRecords.Attach(officeOfRecord);
-            context.Entry(officeOfRecord).State = EntityState.Modified;
+            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name, OOR_Code = ovm.Code };
+            context.OfficeOfRecords.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region OfficialRecordMedium
-        public List<OfficialRecordMedium> GetAllOfficialRecordMediums()
+        public List<IdNameViewModel> GetAllOfficialRecordMediums()
         {
-            return context.OfficialRecordMediums.ToList();
+            return context.OfficialRecordMediums
+                .Select(o => new IdNameViewModel { Id = o.ORM_Id , Name = o.ORM_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public OfficialRecordMedium GetOfficialRecordMediumById(int id)
+        public IdNameViewModel GetOfficialRecordMediumById(int id)
         {
-            return context.OfficialRecordMediums.Where(o => o.ORM_Id == id).FirstOrDefault();
+            return context.OfficialRecordMediums.Where(o => o.ORM_Id == id)
+                .Select(o => new IdNameViewModel { Id = o.ORM_Id, Name = o.ORM_Name })
+                .FirstOrDefault();
         }
-        public void InsertOfficialRecordMedium(OfficialRecordMedium officialRecordMedium)
+        public void InsertOfficialRecordMedium(IdNameViewModel ovm)
         {
-            context.OfficialRecordMediums.Add(officialRecordMedium);
+            OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id , ORM_Name = ovm.Name };
+            context.OfficialRecordMediums.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteOfficialRecordMedium(OfficialRecordMedium officialRecordMedium)
+        public void DeleteOfficialRecordMedium(IdNameViewModel ovm)
         {
-            context.OfficialRecordMediums.Remove(officialRecordMedium);
+            OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id, ORM_Name = ovm.Name };
+            context.OfficialRecordMediums.Attach(newRecord);
+            context.OfficialRecordMediums.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateOfficialRecordMedium(OfficialRecordMedium officialRecordMedium)
+        public void UpdateOfficialRecordMedium(IdNameViewModel ovm)
         {
-            context.OfficialRecordMediums.Attach(officialRecordMedium);
-            context.Entry(officialRecordMedium).State = EntityState.Modified;
+            OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id, ORM_Name = ovm.Name };
+            context.OfficialRecordMediums.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region Retainers
 
-        public List<Retainer> GetAllRetainers()
+        public List<IdNameViewModel> GetAllRetainers()
         {
-            return context.Retainers.ToList();
+            return context.Retainers
+                .Select(o => new IdNameViewModel { Id = o.RET_Id , Name = o.RET_Name })
+                .OrderBy(o => o.Name)
+                .ToList();
         }
-        public Retainer GetRetainerById(int id)
+        public IdNameViewModel GetRetainerById(int id)
         {
-            return context.Retainers.Where(o => o.RET_Id == id).FirstOrDefault();
+            return context.Retainers.Where(o => o.RET_Id == id)
+                .Select(o => new IdNameViewModel { Id = o.RET_Id, Name = o.RET_Name })
+                .FirstOrDefault();
         }
-        public void InsertRetainer(Retainer retainer)
+        public void InsertRetainer(IdNameViewModel ovm)
         {
-            context.Retainers.Add(retainer);
+            Retainer newRecord = new Retainer { RET_Id = ovm.Id, RET_Name = ovm.Name };
+            context.Retainers.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteRetainer(Retainer retainer)
+        public void DeleteRetainer(IdNameViewModel ovm)
         {
-            context.Retainers.Remove(retainer);
+            Retainer newRecord = new Retainer { RET_Id = ovm.Id, RET_Name = ovm.Name };
+            context.Retainers.Attach(newRecord);
+            context.Retainers.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateRetainer(Retainer retainer)
+        public void UpdateRetainer(IdNameViewModel ovm)
         {
-            context.Retainers.Attach(retainer);
-            context.Entry(retainer).State = EntityState.Modified;
+            Retainer newRecord = new Retainer { RET_Id = ovm.Id, RET_Name = ovm.Name };
+            context.Retainers.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
 
         #region Retention
-        public List<Retention> GetAllRetentions()
+        public List<RetentionViewModel> GetAllRetentions()
         {
-            return context.Retentions.ToList();
+            return context.Retentions
+                .Select(o => new RetentionViewModel
+                    {
+                        Id = o.RET_Id, BasedOnCode = o.RET_BasedOnCode,
+                        BaseOnDescription = o.RET_BaseOnDescription, Period = o.RET_Period,
+                        EventCode = o.RET_EventCode
+                    })
+                 .OrderBy(o => o.BasedOnCode)
+                .ToList();
         }
-        public Retention GetRetentionById(int id)
+        public RetentionViewModel GetRetentionById(int id)
         {
-            return context.Retentions.Where(o => o.RET_Id == id).FirstOrDefault();
+            return context.Retentions.Where(o => o.RET_Id == id)
+                .Select(o => new RetentionViewModel
+                {
+                    Id = o.RET_Id,
+                    BasedOnCode = o.RET_BasedOnCode,
+                    BaseOnDescription = o.RET_BaseOnDescription,
+                    Period = o.RET_Period,
+                    EventCode = o.RET_EventCode
+                })
+                .FirstOrDefault();
         }
-        public void InsertRetention(Retention retention)
+        public void InsertRetention(RetentionViewModel ovm)
         {
-            context.Retentions.Add(retention);
+            Retention newRecord = new Retention
+            {
+                RET_Id = ovm.Id,
+                RET_BasedOnCode = ovm.BasedOnCode,
+                RET_BaseOnDescription = ovm.BaseOnDescription,
+                RET_EventCode = ovm.EventCode,
+                RET_Period = ovm.Period
+            };
+            context.Retentions.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteRetention(Retention retention)
+        public void DeleteRetention(RetentionViewModel ovm)
         {
-            context.Retentions.Remove(retention);
+            Retention newRecord = new Retention
+            {
+                RET_Id = ovm.Id,
+                RET_BasedOnCode = ovm.BasedOnCode,
+                RET_BaseOnDescription = ovm.BaseOnDescription,
+                RET_EventCode = ovm.EventCode,
+                RET_Period = ovm.Period
+            };
+            context.Retentions.Attach(newRecord);
+            context.Retentions.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateRetention(Retention retention)
+        public void UpdateRetention(RetentionViewModel ovm)
         {
-            context.Retentions.Attach(retention);
-            context.Entry(retention).State = EntityState.Modified;
+            Retention newRecord = new Retention
+            {
+                RET_Id = ovm.Id,
+                RET_BasedOnCode = ovm.BasedOnCode,
+                RET_BaseOnDescription = ovm.BaseOnDescription,
+                RET_EventCode = ovm.EventCode,
+                RET_Period = ovm.Period
+            };
+            context.Retentions.Attach(newRecord);
+            context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
         }
         #endregion
