@@ -27,7 +27,7 @@ namespace IUERM_RRS.Repositories
         }
         public void InsertAreaScope(AreaScopeViewModel areaScopeVM)
         {
-            AreaScope newRecord = new AreaScope { AS_Scope = areaScopeVM.Name };
+            AreaScope newRecord = new AreaScope { AS_Scope = areaScopeVM.Name.Trim() };
             context.AreaScopes.Add(newRecord);
             context.SaveChanges();
         }
@@ -41,10 +41,17 @@ namespace IUERM_RRS.Repositories
         }
         public void DeleteAreaScope(AreaScopeViewModel areaScopeVM)
         {
-            AreaScope newRecord = new AreaScope { AS_Id = areaScopeVM.Id, AS_Scope = areaScopeVM.Name };
-            context.AreaScopes.Attach(newRecord);
-            context.AreaScopes.Remove(newRecord);
-            context.SaveChanges();
+            try
+            {
+                AreaScope newRecord = new AreaScope { AS_Id = areaScopeVM.Id, AS_Scope = areaScopeVM.Name };
+                context.AreaScopes.Attach(newRecord);
+                context.AreaScopes.Remove(newRecord);
+                context.SaveChanges();
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
         #endregion
 
@@ -66,7 +73,7 @@ namespace IUERM_RRS.Repositories
         }
         public void InsertDispositionOption(DispositionOptionViewModel ovm)
         {
-            DispositionOption newRecord = new DispositionOption { DOP_Id = ovm.Id , DOP_Name = ovm.Name };
+            DispositionOption newRecord = new DispositionOption { DOP_Id = ovm.Id , DOP_Name = ovm.Name.Trim() };
             context.DispositionOptions.Add(newRecord);
             context.SaveChanges();
         }
@@ -102,7 +109,7 @@ namespace IUERM_RRS.Repositories
         }
         public void InsertEventCodes(EventCodeViewModel ovm)
         {
-            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            EventCode newRecord = new EventCode { ECD_Code = ovm.Code.Trim(), ECD_Description = ovm.Description.Trim() };
             context.EventCodes.Add(newRecord);
             context.SaveChanges();
         }
@@ -242,18 +249,18 @@ namespace IUERM_RRS.Repositories
         public OfficeOfRecordViewModel GetOfficeOfRecordById(int id)
         {
             return context.OfficeOfRecords.Where(o => o.OOR_Id == id)
-                .Select(o => new OfficeOfRecordViewModel { Id = o.OOR_Id, Name = o.OOR_Name, Code = o.OOR_Code })
+                .Select(o => new OfficeOfRecordViewModel { Id = o.OOR_Id, Name = o.OOR_Name.Trim(), Code = o.OOR_Code.Trim() })
                 .FirstOrDefault();
         }
         public void InsertOfficeOfRecord(OfficeOfRecordViewModel ovm)
         {
-            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name, OOR_Code = ovm.Code };
+            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name?.Trim(), OOR_Code = ovm.Code?.Trim() };
             context.OfficeOfRecords.Add(newRecord);
             context.SaveChanges();
         }
         public void DeleteOfficeOfRecord(OfficeOfRecordViewModel ovm)
         {
-            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name, OOR_Code = ovm.Code };
+            OfficeOfRecord newRecord = new OfficeOfRecord { OOR_Id = ovm.Id, OOR_Name = ovm.Name.Trim(), OOR_Code = ovm.Code.Trim() };
             context.OfficeOfRecords.Attach(newRecord);
             context.OfficeOfRecords.Remove(newRecord);
             context.SaveChanges();
@@ -268,33 +275,33 @@ namespace IUERM_RRS.Repositories
         #endregion
 
         #region OfficialRecordMedium
-        public List<IdNameViewModel> GetAllOfficialRecordMediums()
+        public List<OfficialRecordMediumVM> GetAllOfficialRecordMediums()
         {
             return context.OfficialRecordMediums
-                .Select(o => new IdNameViewModel { Id = o.ORM_Id , Name = o.ORM_Name })
+                .Select(o => new OfficialRecordMediumVM { Id = o.ORM_Id , Name = o.ORM_Name })
                 .OrderBy(o => o.Name)
                 .ToList();
         }
-        public IdNameViewModel GetOfficialRecordMediumById(int id)
+        public OfficialRecordMediumVM GetOfficialRecordMediumById(int id)
         {
             return context.OfficialRecordMediums.Where(o => o.ORM_Id == id)
-                .Select(o => new IdNameViewModel { Id = o.ORM_Id, Name = o.ORM_Name })
+                .Select(o => new OfficialRecordMediumVM { Id = o.ORM_Id, Name = o.ORM_Name })
                 .FirstOrDefault();
         }
-        public void InsertOfficialRecordMedium(IdNameViewModel ovm)
+        public void InsertOfficialRecordMedium(OfficialRecordMediumVM ovm)
         {
             OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id , ORM_Name = ovm.Name };
             context.OfficialRecordMediums.Add(newRecord);
             context.SaveChanges();
         }
-        public void DeleteOfficialRecordMedium(IdNameViewModel ovm)
+        public void DeleteOfficialRecordMedium(OfficialRecordMediumVM ovm)
         {
             OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id, ORM_Name = ovm.Name };
             context.OfficialRecordMediums.Attach(newRecord);
             context.OfficialRecordMediums.Remove(newRecord);
             context.SaveChanges();
         }
-        public void UpdateOfficialRecordMedium(IdNameViewModel ovm)
+        public void UpdateOfficialRecordMedium(OfficialRecordMediumVM ovm)
         {
             OfficialRecordMedium newRecord = new OfficialRecordMedium { ORM_Id = ovm.Id, ORM_Name = ovm.Name };
             context.OfficialRecordMediums.Attach(newRecord);

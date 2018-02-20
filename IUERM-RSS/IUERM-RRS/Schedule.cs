@@ -81,7 +81,7 @@ namespace IUERM_RRS
         public Nullable<int> SCH_DispositionId { get; set; }
         public Nullable<bool> SCH_RquiresCertDestruction { get; set; }
         public Nullable<System.DateTime> SCH_CreationDate { get; set; }
-        
+
         public virtual AreaScope AreaScope { get; set; }
         public virtual DispositionOption DispositionOption { get; set; }
         public virtual GoverningPolicy GoverningPolicy { get; set; }

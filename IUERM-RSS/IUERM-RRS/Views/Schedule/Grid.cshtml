@@ -2,6 +2,8 @@
     <h3 class="section-title capitalize">SCHEDULE</h3>
 
 
+    @Html.ActionLink("Add Record", "Create")
+
     @(Html.Kendo().Grid<IUERM_RRS.Schedule>()
             .Name("grid")
             .Columns(columns =>
@@ -18,13 +20,11 @@
                 columns.Bound(c => c.SCH_Active);
                 columns.Bound(c => c.SCH_Vital);
                 columns.Bound(c => c.SCH_Reason);
-                columns.Bound(c => c.SCH_RquiresCertDestruction);
-                columns.Bound(c => c.SCH_CreationDate);
+                //columns.Bound(c => c.SCH_ID)
                 columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
             })
             .ToolBar(toolbar =>
             {
-                toolbar.Create();
                 toolbar.Excel();
                 toolbar.Pdf();
             })

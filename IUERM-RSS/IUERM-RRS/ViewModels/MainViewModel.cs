@@ -12,6 +12,7 @@ namespace IUERM_RRS.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Scope")]
+        [MaxLength(50)]
         public string Name { get; set; }
     }
 
@@ -20,13 +21,25 @@ namespace IUERM_RRS.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Name")]
+        [MaxLength(255)]
         public string Name { get; set; }
     }
+
+    public class OfficialRecordMediumVM
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Name")]
+        [MaxLength(50)]
+        public string Name { get; set; }
+    }
+    
     public class DispositionOptionViewModel
     {
         public int Id { get; set; }
 
         [Display(Name = "Disposition Option")]
+        [MaxLength(255)]
         public string Name { get; set; }
     }
 
@@ -34,9 +47,11 @@ namespace IUERM_RRS.ViewModels
     {
 
         [Display(Name = "Code")]
+        [MaxLength(10)]
         public string Code { get; set; }
 
         [Display(Name = "Description")]
+        [MaxLength(255)]
         public string Description { get; set; }
     }
 
@@ -45,9 +60,11 @@ namespace IUERM_RRS.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "Name")]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [Display(Name = "Code")]
+        [MaxLength(50)]
         public string Code { get; set; }
     }
 

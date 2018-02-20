@@ -2,18 +2,19 @@
 
     <div class="modal-header">
         @*<button type="button"  class="button" data-dismiss="modal" aria-hidden="true">×</button>*@
-        <h3 class="section-title capitalize">Area Scopes</h3>
+        <h3 class="section-title capitalize">Office Of Records</h3>
     </div>
 
 
     <hr />
     <div>
-        @(Html.Kendo().Grid<IUERM_RRS.ViewModels.AreaScopeViewModel>()
-                .Name("AreaScopesGrid")
+        @(Html.Kendo().Grid<IUERM_RRS.ViewModels.OfficeOfRecordViewModel>()
+                .Name("OfficeOfRecordGrid")
                 .Columns(columns =>
                 {
                     columns.Bound(o => o.Id).HtmlAttributes(new { @style = "vertical-align: top;" }).Visible(false);
                     columns.Bound(o => o.Name).HtmlAttributes(new { @style = "vertical-align: top;" });
+                    columns.Bound(o => o.Code).HtmlAttributes(new { @style = "vertical-align: top;" });
                     columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(100);
                 })
                 .Scrollable()
@@ -21,13 +22,13 @@
                     .Ajax()
                     .ServerOperation(true)
                     .Model(model => model.Id(o => o.Id))
-                    .Read(read => read.Action("ReadAreaScopes", "Main"))
-                    .Destroy(destroy => destroy.Action("DestroyAreaScope", "Main"))
-                    .Update(update => update.Action("UpdateAreaScope", "Main"))
-                    .Create(create => create.Action("CreateAreaScope", "Main"))
+                    .Read(read => read.Action("ReadOfficeOfRecords", "Main"))
+                    .Destroy(destroy => destroy.Action("DestroyOfficeOfRecord", "Main"))
+                    .Update(update => update.Action("UpdateOfficeOfRecord", "Main"))
+                    .Create(create => create.Action("CreateOfficeOfRecord", "Main"))
                     .Events(events => events.RequestEnd(
                         @<text> function(e){if (e.type == "update" || e.type == "create" || e.type == "remove") {
-                            $("#AreaScopesGrid").data("kendoGrid").dataSource.read();
+                            $("#OfficeOfRecordGrid").data("kendoGrid").dataSource.read();
                             }}
                         </text>
                                     )))
@@ -38,7 +39,7 @@
                     .Editable(editable => editable.Mode(GridEditMode.InLine))
                     .NoRecords("No Records.")
                     .Excel(excel => excel
-                        .FileName("AreaScopes.xlsx")
+                        .FileName("OfficeOfRecords.xlsx")
                         .Filterable(true)
                         .AllPages(true))
         )
@@ -47,6 +48,3 @@
     @Html.ActionLink("Go Back", "Create", "Schedule", routeValues: null, htmlAttributes: new { @class = "button"})
 </div>
     
-
-
-

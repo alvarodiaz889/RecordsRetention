@@ -11,8 +11,7 @@ namespace IUERM_RRS
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class AreaScope
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,8 +21,6 @@ namespace IUERM_RRS
         }
     
         public int AS_Id { get; set; }
-
-        [Display(Name="Scope")]
         public string AS_Scope { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

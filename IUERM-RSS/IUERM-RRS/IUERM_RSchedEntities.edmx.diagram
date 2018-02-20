@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="IUERM_RSchedModel.AreaScope" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetUser" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningPolicy" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningRegulation" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
@@ -20,7 +19,6 @@
         <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.User" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" ManuallyRouted="false" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_RETENTION_EVENT_CODES" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" ManuallyRouted="false" />
@@ -30,6 +28,8 @@
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.AspNetUserRoles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.75" PointY="0.875" />
+        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

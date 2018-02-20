@@ -59,11 +59,11 @@ namespace IUERM_RRS.Repositories
         void UpdateOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
 
         //OfficialRecordMedium
-        List<IdNameViewModel> GetAllOfficialRecordMediums();
-        IdNameViewModel GetOfficialRecordMediumById(int id);
-        void InsertOfficialRecordMedium(IdNameViewModel officialRecordMedium);
-        void DeleteOfficialRecordMedium(IdNameViewModel officialRecordMedium);
-        void UpdateOfficialRecordMedium(IdNameViewModel officialRecordMedium);
+        List<OfficialRecordMediumVM> GetAllOfficialRecordMediums();
+        OfficialRecordMediumVM GetOfficialRecordMediumById(int id);
+        void InsertOfficialRecordMedium(OfficialRecordMediumVM officialRecordMedium);
+        void DeleteOfficialRecordMedium(OfficialRecordMediumVM officialRecordMedium);
+        void UpdateOfficialRecordMedium(OfficialRecordMediumVM officialRecordMedium);
 
         //Retainer
         List<IdNameViewModel> GetAllRetainers();

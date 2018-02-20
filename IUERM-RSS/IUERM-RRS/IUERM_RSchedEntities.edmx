@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IUERM_RSchedModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IUERM_RSchedModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AreaScope">
           <Key>
             <PropertyRef Name="AS_Id" />
@@ -48,7 +48,7 @@
           <Key>
             <PropertyRef Name="DOP_Id" />
           </Key>
-          <Property Name="DOP_Id" Type="int" Nullable="false" />
+          <Property Name="DOP_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DOP_Name" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="EventCodes">
@@ -365,8 +365,7 @@
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IUERM_RSchedModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -403,14 +402,6 @@
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="DispositionOption">
-          <Key>
-            <PropertyRef Name="DOP_Id" />
-          </Key>
-          <Property Name="DOP_Id" Type="Int32" Nullable="false" />
-          <Property Name="DOP_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="DispositionOptions" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="EventCode">
           <Key>
@@ -510,7 +501,6 @@
           <Property Name="SCH_RquiresCertDestruction" Type="Boolean" />
           <Property Name="SCH_CreationDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AreaScope" Relationship="Self.FK_SCHEDULE_AREA_SCOPE" FromRole="Schedule" ToRole="AreaScope" />
-          <NavigationProperty Name="DispositionOption" Relationship="Self.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="Schedule" ToRole="DispositionOptions" />
           <NavigationProperty Name="GoverningPolicy" Relationship="Self.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="Schedule" ToRole="GoverningPolicies" />
           <NavigationProperty Name="GoverningRegulation" Relationship="Self.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="Schedule" ToRole="GoverningRegulations" />
           <NavigationProperty Name="GoverningStatute" Relationship="Self.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="Schedule" ToRole="GoverningStatutes" />
@@ -518,6 +508,7 @@
           <NavigationProperty Name="OfficialRecordMedium" Relationship="Self.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="Schedule" ToRole="OfficialRecordMedium" />
           <NavigationProperty Name="Retainer" Relationship="Self.FK_SCHEDULE_RETAINER" FromRole="Schedule" ToRole="Retainer" />
           <NavigationProperty Name="Retention" Relationship="Self.FK_SCHEDULE_RETENTION" FromRole="Schedule" ToRole="Retention" />
+          <NavigationProperty Name="DispositionOption" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="Schedule" ToRole="DispositionOption" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -540,18 +531,6 @@
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="SCH_AreaScopeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_DISPOSITION_OPTIONS">
-          <End Role="DispositionOptions" Type="Self.DispositionOption" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DispositionOptions">
-              <PropertyRef Name="DOP_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_DispositionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -659,7 +638,6 @@
           <EntitySet Name="AreaScopes" EntityType="Self.AreaScope" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="DispositionOptions" EntityType="Self.DispositionOption" />
           <EntitySet Name="EventCodes" EntityType="Self.EventCode" />
           <EntitySet Name="GoverningPolicies" EntityType="Self.GoverningPolicy" />
           <EntitySet Name="GoverningRegulations" EntityType="Self.GoverningRegulation" />
@@ -672,10 +650,6 @@
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_SCHEDULE_AREA_SCOPE" Association="Self.FK_SCHEDULE_AREA_SCOPE">
             <End Role="AreaScope" EntitySet="AreaScopes" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_DISPOSITION_OPTIONS" Association="Self.FK_SCHEDULE_DISPOSITION_OPTIONS">
-            <End Role="DispositionOptions" EntitySet="DispositionOptions" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <AssociationSet Name="FK_RETENTION_EVENT_CODES" Association="Self.FK_RETENTION_EVENT_CODES">
@@ -714,7 +688,32 @@
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="DispositionOptions" EntityType="IUERM_RSchedModel.DispositionOption" />
+          <AssociationSet Name="FK_SCHEDULE_DISPOSITION_OPTIONS" Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS">
+            <End Role="DispositionOption" EntitySet="DispositionOptions" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DispositionOption">
+          <Key>
+            <PropertyRef Name="DOP_Id" />
+          </Key>
+          <Property Name="DOP_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DOP_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="DispositionOption" ToRole="Schedule" />
+        </EntityType>
+        <Association Name="FK_SCHEDULE_DISPOSITION_OPTIONS">
+          <End Type="IUERM_RSchedModel.DispositionOption" Role="DispositionOption" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DispositionOption">
+              <PropertyRef Name="DOP_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_DispositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -752,14 +751,6 @@
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DispositionOptions">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.DispositionOption">
-              <MappingFragment StoreEntitySet="DispositionOptions">
-                <ScalarProperty Name="DOP_Id" ColumnName="DOP_Id" />
-                <ScalarProperty Name="DOP_Name" ColumnName="DOP_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -882,6 +873,14 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DispositionOptions">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.DispositionOption">
+              <MappingFragment StoreEntitySet="DispositionOptions">
+                <ScalarProperty Name="DOP_Name" ColumnName="DOP_Name" />
+                <ScalarProperty Name="DOP_Id" ColumnName="DOP_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

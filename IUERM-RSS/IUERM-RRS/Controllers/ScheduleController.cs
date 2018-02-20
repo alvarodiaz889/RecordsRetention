@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using IUERM_RRS;
 using IUERM_RRS.Repositories;
+using IUERM_RRS.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 
@@ -24,9 +25,14 @@ namespace IUERM_RRS.Controllers
 
         public ActionResult Index()
         {
-            return View("GeneralView");
+            if (User.IsInRole("SuperAdmin"))
+                return RedirectToAction("Index","User");
+            else if (User.IsInRole("Admin"))
+                return View("Grid");
+            else
+                return View("GeneralView");
         }
-        public ActionResult AdminGrid()
+        public ActionResult Grid()
         {
             return View();
         }
@@ -78,28 +84,8 @@ namespace IUERM_RRS.Controllers
 
         public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
         {
-            //List<Schedule> users = new List<Schedule>();
-            //DataSourceResult result = users.AsQueryable().ToDataSourceResult(request);
-            //return Json(result);
-            IQueryable<Schedule> schedules = db.Schedules;
-            DataSourceResult result = schedules.ToDataSourceResult(request, schedule => new {
-                SCH_ID = schedule.SCH_ID,
-                SCH_StewardDomain = schedule.SCH_StewardDomain,
-                SCH_RetentionArea = schedule.SCH_RetentionArea,
-                SCH_RetentionSubArea = schedule.SCH_RetentionSubArea,
-                SCH_RetentionAreaDescription = schedule.SCH_RetentionAreaDescription,
-                SCH_Type = schedule.SCH_Type,
-                SCH_Coordinator = schedule.SCH_Coordinator,
-                SCH_RecordSeries = schedule.SCH_RecordSeries,
-                SCH_RecordSeriesCode = schedule.SCH_RecordSeriesCode,
-                SCH_Description = schedule.SCH_Description,
-                SCH_Active = schedule.SCH_Active,
-                SCH_Vital = schedule.SCH_Vital,
-                SCH_Reason = schedule.SCH_Reason,
-                SCH_RquiresCertDestruction = schedule.SCH_RquiresCertDestruction,
-                SCH_CreationDate = schedule.SCH_CreationDate,
-            });
-
+            List<ScheduleViewModel> users = scheduleRepository.GetAllRecords();
+            DataSourceResult result = users.AsQueryable().ToDataSourceResult(request);
             return Json(result);
         }
 

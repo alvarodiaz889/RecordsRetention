@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/brand/3.x/brand.css">
     <link rel="stylesheet" type="text/css" href="https://assets.iu.edu/search/3.x/search.css">
     @*<link href="@Url.Content("/Content/bootstrap.min.css")" rel="stylesheet" />*@
-    <link href="@Url.Content("/_assets/css/site.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("/_assets/css/site.css")" rel="stylesheet" />*@
     <link href="@Url.Content("/Content/kendo/kendo.common.min.css")" rel="stylesheet" />
     <link href="@Url.Content("/Content/kendo/kendo.common-bootstrap.core.min.css")" rel="stylesheet" />
     <link href="@Url.Content("/Content/kendo/kendo.bootstrap.min.css")" rel="stylesheet" />
@@ -117,36 +117,16 @@ else // home page
         </footer>
     </div><!-- /.off-canvas-content -->
 </div><!-- /.off-canvas-wrappper-inner --><div class="off-canvas position-right" data-off-canvas="" data-position="right" id="offCanvas">
-    @{
-        string navMobileMenu = "";
-        if (User.Identity.IsAuthenticated)
-        {
-            HttpCookie navMobileCookie = Request.Cookies["navMobileCookie"];
-
-            if (navMobileCookie == null)
-            {
-                navMobileCookie = NavigationHandler.CreateNavCookie(navMobileCookie, true);
-            }
-            string navMobileMenuInHex = navMobileCookie.Value;
-            string navMobileMenuBack = navMobileMenuInHex.Replace("-", "");
-            byte[] baMobile = new byte[navMobileMenuBack.Length / 2];  //One byte for each two chars in zHex
-            for (int ZZ = 0; ZZ < baMobile.Length; ZZ++)
-            {
-                baMobile[ZZ] = Convert.ToByte(navMobileMenuBack.Substring(ZZ * 2, 2), 16);
-            }
-            navMobileMenu = Encoding.ASCII.GetString(baMobile);
-        }
-    }
     <div class="mobile off-canvas-list" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
         <ul>
             @Html.Partial("_LoginPartial")
         </ul>
     </div>
-    @Html.Raw(navMobileMenu)
+    @*@Html.Raw(navMobileMenu)*@
 
 </div><!-- /#offCanvas -->
 <script src="https://assets.iu.edu/web/3.x/js/iu-framework.min.js" type="text/javascript"></script>
 <script src="https://assets.iu.edu/search/3.x/search.js" type="text/javascript"></script>
-<script src="@Url.Content("/_assets/js/site.js" )" type="text/javascript"></script>
+@*<script src="@Url.Content("/_assets/js/site.js" )" type="text/javascript"></script>*@
 </body>
 </html>
