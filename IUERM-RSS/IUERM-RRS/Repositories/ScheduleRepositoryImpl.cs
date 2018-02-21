@@ -10,127 +10,138 @@ namespace IUERM_RRS.Repositories
     public class ScheduleRepositoryImpl : IScheduleRepository
     {
         private IUERM_RSchedEntities context = new IUERM_RSchedEntities();
+        private static Func<Schedule, ScheduleViewModel> GetModelFunc = EntityToModel;
+        private static Func<Schedule,string, bool> GetByIdFunc = CompareById;
+        private IMainRepository mainRepository = new MainRepositoryImpl();
 
         public List<ScheduleViewModel> GetAllRecords()
         {
             List<ScheduleViewModel> response = context.Schedules
-                .Select(o => new ScheduleViewModel
-                {
-                    SCH_ID = o.SCH_ID,
-                    SCH_StewardDomain = o.SCH_StewardDomain,
-                    SCH_RetentionArea = o.SCH_RetentionArea,
-                    SCH_RetentionSubArea = o.SCH_RetentionSubArea,
-                    SCH_RetentionAreaDescription = o.SCH_RetentionAreaDescription,
-                    SCH_Type = o.SCH_Type,
-                    SCH_Coordinator = o.SCH_Coordinator,
-                    SCH_RecordSeries = o.SCH_RecordSeries,
-                    SCH_RecordSeriesCode = o.SCH_RecordSeriesCode,
-                    SCH_Description = o.SCH_Description,
-                    SCH_Active = (o.SCH_Active != null) ? (bool)o.SCH_Active : false,
-                    SCH_Vital = (o.SCH_Vital != null) ? (bool)o.SCH_Vital : false,
-                    SCH_Reason = o.SCH_Reason,
-                    SCH_RquiresCertDestruction = o.SCH_RquiresCertDestruction,
-                    SCH_CreationDate = o.SCH_CreationDate,
-                }).ToList();
+                .OrderByDescending(o => o.SCH_CreationDate)
+                .Select(GetModelFunc)
+                .ToList();
             return response;
         }
 
         public ScheduleViewModel GetScheduleById(string id)
         {
-            return context.Schedules
-                .Where(o => o.SCH_ID == Guid.Parse(id))
-                .Select(o => new ScheduleViewModel
-                {
-                    SCH_ID = o.SCH_ID,
-                    SCH_StewardDomain = o.SCH_StewardDomain,
-                    SCH_RetentionArea = o.SCH_RetentionArea,
-                    SCH_RetentionSubArea = o.SCH_RetentionSubArea,
-                    SCH_RetentionAreaDescription = o.SCH_RetentionAreaDescription,
-                    SCH_Type = o.SCH_Type,
-                    SCH_Coordinator = o.SCH_Coordinator,
-                    SCH_RecordSeries = o.SCH_RecordSeries,
-                    SCH_RecordSeriesCode = o.SCH_RecordSeriesCode,
-                    SCH_Description = o.SCH_Description,
-                    SCH_Active = (o.SCH_Active!= null)? (bool)o.SCH_Active: false,
-                    SCH_Vital = (o.SCH_Vital != null) ? (bool)o.SCH_Vital : false,
-                    SCH_Reason = o.SCH_Reason,
-                    SCH_RquiresCertDestruction = o.SCH_RquiresCertDestruction,
-                    SCH_CreationDate = o.SCH_CreationDate
-                }).FirstOrDefault();
+            ScheduleViewModel model = context.Schedules
+                .Where(o => o.SCH_ID.ToString() == id)
+                .Select(GetModelFunc)
+                .FirstOrDefault();
+            if (model != null)
+            {
+                model.AreaScopes = mainRepository.GetAllAreaScopesDDL();
+                model.DispositionOptions = mainRepository.GetAllDispositionOptionsDDL();
+                model.GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL();
+                model.GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL();
+                model.GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL();
+                model.OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL();
+                model.OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL();
+                model.Retainers = mainRepository.GetAllRetainersDDL();
+                model.Retentions = mainRepository.GetAllRetentionsDDL();
+            }
+
+            return model;
         }
 
-        public void Insert(ScheduleViewModel schedule)
+        public void Insert(ScheduleViewModel svm)
         {
-            Schedule s = new Schedule
-            {
-                SCH_ID = schedule.SCH_ID,
-                SCH_StewardDomain = schedule.SCH_StewardDomain,
-                SCH_RetentionArea = schedule.SCH_RetentionArea,
-                SCH_RetentionSubArea = schedule.SCH_RetentionSubArea,
-                SCH_RetentionAreaDescription = schedule.SCH_RetentionAreaDescription,
-                SCH_Type = schedule.SCH_Type,
-                SCH_Coordinator = schedule.SCH_Coordinator,
-                SCH_RecordSeries = schedule.SCH_RecordSeries,
-                SCH_RecordSeriesCode = schedule.SCH_RecordSeriesCode,
-                SCH_Description = schedule.SCH_Description,
-                SCH_Active = schedule.SCH_Active,
-                SCH_Vital = schedule.SCH_Vital,
-                SCH_Reason = schedule.SCH_Reason,
-                SCH_RquiresCertDestruction = schedule.SCH_RquiresCertDestruction,
-                SCH_CreationDate = schedule.SCH_CreationDate
-            };
-            context.Schedules.Add(s);
+            Schedule schedule = ModelToEntity(svm);
+            schedule.SCH_ID = Guid.NewGuid();
+            schedule.SCH_CreationDate = DateTime.Now;
+            context.Schedules.Add(schedule);
             context.SaveChanges();
         }
 
-        public void Delete(ScheduleViewModel schedule)
+        public void Delete(ScheduleViewModel svm)
         {
-            Schedule s = new Schedule
-            {
-                SCH_ID = schedule.SCH_ID,
-                SCH_StewardDomain = schedule.SCH_StewardDomain,
-                SCH_RetentionArea = schedule.SCH_RetentionArea,
-                SCH_RetentionSubArea = schedule.SCH_RetentionSubArea,
-                SCH_RetentionAreaDescription = schedule.SCH_RetentionAreaDescription,
-                SCH_Type = schedule.SCH_Type,
-                SCH_Coordinator = schedule.SCH_Coordinator,
-                SCH_RecordSeries = schedule.SCH_RecordSeries,
-                SCH_RecordSeriesCode = schedule.SCH_RecordSeriesCode,
-                SCH_Description = schedule.SCH_Description,
-                SCH_Active = schedule.SCH_Active,
-                SCH_Vital = schedule.SCH_Vital,
-                SCH_Reason = schedule.SCH_Reason,
-                SCH_RquiresCertDestruction = schedule.SCH_RquiresCertDestruction,
-                SCH_CreationDate = schedule.SCH_CreationDate
-            };
-            context.Schedules.Attach(s);
-            context.Schedules.Remove(s);
+            Schedule schedule = ModelToEntity(svm);
+            context.Schedules.Attach(schedule);
+            context.Schedules.Remove(schedule);
             context.SaveChanges();
         }
 
-        public void Update(ScheduleViewModel schedule)
+        public void Update(ScheduleViewModel svm)
         {
-            Schedule s = new Schedule
-            {
-                SCH_ID = schedule.SCH_ID,
-                SCH_StewardDomain = schedule.SCH_StewardDomain,
-                SCH_RetentionArea = schedule.SCH_RetentionArea,
-                SCH_RetentionSubArea = schedule.SCH_RetentionSubArea,
-                SCH_RetentionAreaDescription = schedule.SCH_RetentionAreaDescription,
-                SCH_Type = schedule.SCH_Type,
-                SCH_Coordinator = schedule.SCH_Coordinator,
-                SCH_RecordSeries = schedule.SCH_RecordSeries,
-                SCH_RecordSeriesCode = schedule.SCH_RecordSeriesCode,
-                SCH_Description = schedule.SCH_Description,
-                SCH_Active = schedule.SCH_Active,
-                SCH_Vital = schedule.SCH_Vital,
-                SCH_Reason = schedule.SCH_Reason,
-                SCH_RquiresCertDestruction = schedule.SCH_RquiresCertDestruction,
-                SCH_CreationDate = schedule.SCH_CreationDate
-            };
-            context.Schedules.Attach(s);
-            context.Entry(s).State = EntityState.Modified;
+            Schedule schedule = ModelToEntity(svm);
+            context.Schedules.Attach(schedule);
+            context.Entry(schedule).State = EntityState.Modified;
             context.SaveChanges();
+        }
+
+        private static ScheduleViewModel EntityToModel(Schedule s)
+        {
+            return new ScheduleViewModel
+            {
+                SCH_ID = s.SCH_ID,
+                SCH_StewardDomain = s.SCH_StewardDomain,
+                SCH_RetentionArea = s.SCH_RetentionArea,
+                SCH_RetentionSubArea = s.SCH_RetentionSubArea,
+                SCH_AreaScopeId = s.SCH_AreaScopeId,
+                SCH_RetentionAreaDescription = s.SCH_RetentionAreaDescription,
+                SCH_Type = s.SCH_Type,
+                SCH_OfficeId = s.SCH_OfficeId,
+                SCH_Coordinator = s.SCH_Coordinator,
+                SCH_RecordSeries = s.SCH_RecordSeries,
+                SCH_RecordSeriesCode = s.SCH_RecordSeriesCode,
+                SCH_Description = s.SCH_Description,
+                SCH_RetentionId = s.SCH_RetentionId,
+                SCH_Active = s.SCH_Active,
+                SCH_Vital = s.SCH_Vital,
+                SCH_GoverningStatutesId = s.SCH_GoverningStatutesId,
+                SCH_GoverningRegulationsId = s.SCH_GoverningRegulationsId,
+                SCH_GoverningPoliciesId = s.SCH_GoverningPoliciesId,
+                SCH_Reason = s.SCH_Reason,
+                SCH_RecordMedium = s.SCH_RecordMedium,
+                SCH_RetainerId = s.SCH_RetainerId,
+                SCH_DispositionId = s.SCH_DispositionId,
+                SCH_RquiresCertDestruction = s.SCH_RquiresCertDestruction,
+                SCH_CreationDate = s.SCH_CreationDate
+            };
+        }
+
+        private static Schedule ModelToEntity(ScheduleViewModel svm)
+        {
+            return new Schedule
+            {
+                SCH_ID = svm.SCH_ID,
+                SCH_StewardDomain = svm.SCH_StewardDomain,
+                SCH_RetentionArea = svm.SCH_RetentionArea,
+                SCH_RetentionSubArea = svm.SCH_RetentionSubArea,
+                SCH_AreaScopeId = svm.SCH_AreaScopeId,
+                SCH_RetentionAreaDescription = svm.SCH_RetentionAreaDescription,
+                SCH_Type = svm.SCH_Type,
+                SCH_OfficeId = svm.SCH_OfficeId,
+                SCH_Coordinator = svm.SCH_Coordinator,
+                SCH_RecordSeries = svm.SCH_RecordSeries,
+                SCH_RecordSeriesCode = svm.SCH_RecordSeriesCode,
+                SCH_Description = svm.SCH_Description,
+                SCH_RetentionId = svm.SCH_RetentionId,
+                SCH_Active = svm.SCH_Active,
+                SCH_Vital = svm.SCH_Vital,
+                SCH_GoverningStatutesId = svm.SCH_GoverningStatutesId,
+                SCH_GoverningRegulationsId = svm.SCH_GoverningRegulationsId,
+                SCH_GoverningPoliciesId = svm.SCH_GoverningPoliciesId,
+                SCH_Reason = svm.SCH_Reason,
+                SCH_RecordMedium = svm.SCH_RecordMedium,
+                SCH_RetainerId = svm.SCH_RetainerId,
+                SCH_DispositionId = svm.SCH_DispositionId,
+                SCH_RquiresCertDestruction = svm.SCH_RquiresCertDestruction,
+                SCH_CreationDate = svm.SCH_CreationDate
+            };
+        }
+
+        private static bool CompareById(Schedule s,string id)
+        {
+            if (s.SCH_ID.ToString() == id)
+                return true;
+            else return false;
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
         }
     }
 }

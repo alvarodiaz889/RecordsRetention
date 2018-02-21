@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace IUERM_RRS.Repositories
 {
@@ -11,6 +12,7 @@ namespace IUERM_RRS.Repositories
     {
         //Area Scope
         List<AreaScopeViewModel> GetAllAreaScopes();
+        IEnumerable<SelectListItem> GetAllAreaScopesDDL();
         AreaScopeViewModel GetAreaScopeById(int id);
         void InsertAreaScope(AreaScopeViewModel areaScope);
         void DeleteAreaScope(AreaScopeViewModel areaScope);
@@ -18,6 +20,7 @@ namespace IUERM_RRS.Repositories
 
         //DispositionOptions
         List<DispositionOptionViewModel> GetAllDispositionOptions();
+        IEnumerable<SelectListItem> GetAllDispositionOptionsDDL();
         DispositionOptionViewModel GetDispositionOptionsById(int id);
         void InsertDispositionOption(DispositionOptionViewModel dispositionOption);
         void DeleteDispositionOption(DispositionOptionViewModel dispositionOption);
@@ -25,6 +28,7 @@ namespace IUERM_RRS.Repositories
 
         //EventCodes
         List<EventCodeViewModel> GetAllEventCodes();
+        IEnumerable<SelectListItem> GetAllEventCodesDDL();
         EventCodeViewModel GetEventCodesByCode(string code);
         void InsertEventCodes(EventCodeViewModel eventCode);
         void DeleteEventCodes(EventCodeViewModel eventCode);
@@ -32,6 +36,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningPolicies
         List<IdNameViewModel> GetAllGoverningPolicies();
+        IEnumerable<SelectListItem> GetAllGoverningPoliciesDDL();
         IdNameViewModel GetGoverningPolicyById(int id);
         void InsertGoverningPolicy(IdNameViewModel governingPolicy);
         void DeleteGoverningPolicy(IdNameViewModel governingPolicy);
@@ -39,6 +44,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningRegulations
         List<IdNameViewModel> GetAllGoverningRegulations();
+        IEnumerable<SelectListItem> GetAllGoverningRegulationsDDL();
         IdNameViewModel GetGoverningRegulationById(int id);
         void InsertGoverningRegulation(IdNameViewModel governingRegulation);
         void DeleteGoverningRegulation(IdNameViewModel governingRegulation);
@@ -46,6 +52,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningStatutes
         List<IdNameViewModel> GetAllGoverningStatutes();
+        IEnumerable<SelectListItem> GetAllGoverningStatutesDDL();
         IdNameViewModel GetGoverningStatuteById(int id);
         void InsertGoverningStatutes(IdNameViewModel governingStatute);
         void DeleteGoverningStatutes(IdNameViewModel governingStatute);
@@ -53,6 +60,7 @@ namespace IUERM_RRS.Repositories
 
         //OfficeOfRecords
         List<OfficeOfRecordViewModel> GetAllOfficeOfRecords();
+        IEnumerable<SelectListItem> GetAllOfficeOfRecordsDDL();
         OfficeOfRecordViewModel GetOfficeOfRecordById(int id);
         void InsertOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
         void DeleteOfficeOfRecord(OfficeOfRecordViewModel officeOfRecord);
@@ -60,6 +68,7 @@ namespace IUERM_RRS.Repositories
 
         //OfficialRecordMedium
         List<OfficialRecordMediumVM> GetAllOfficialRecordMediums();
+        IEnumerable<SelectListItem> GetAllOfficialRecordMediumsDDL();
         OfficialRecordMediumVM GetOfficialRecordMediumById(int id);
         void InsertOfficialRecordMedium(OfficialRecordMediumVM officialRecordMedium);
         void DeleteOfficialRecordMedium(OfficialRecordMediumVM officialRecordMedium);
@@ -67,6 +76,7 @@ namespace IUERM_RRS.Repositories
 
         //Retainer
         List<IdNameViewModel> GetAllRetainers();
+        IEnumerable<SelectListItem> GetAllRetainersDDL();
         IdNameViewModel GetRetainerById(int id);
         void InsertRetainer(IdNameViewModel retainer);
         void DeleteRetainer(IdNameViewModel retainer);
@@ -74,6 +84,7 @@ namespace IUERM_RRS.Repositories
 
         //Retention
         List<RetentionViewModel> GetAllRetentions();
+        IEnumerable<SelectListItem> GetAllRetentionsDDL();
         RetentionViewModel GetRetentionById(int id);
         void InsertRetention(RetentionViewModel retention);
         void DeleteRetention(RetentionViewModel retention);

@@ -83,5 +83,13 @@ namespace IUERM_RRS.ViewModels
 
         [Display(Name = "Period")]
         public string Period { get; set; }
+
+        [Display(Name = "Period")]
+        public string Name { get
+            {
+                return BasedOnCode + "-" + BaseOnDescription;
+            }
+            set { }
+        }
     }
 }

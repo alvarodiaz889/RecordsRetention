@@ -1,5 +1,5 @@
 ﻿<div style="width: 90%; margin: 100px auto 100px; min-height:600px;">
-    <h3 class="section-title capitalize">SCHEDULE</h3>
+    <h3 class="section-title capitalize">RECORDS RETENTION SCHEDULE</h3>
 
 
     @Html.ActionLink("Add Record", "Create", "Schedule", routeValues: null, htmlAttributes : new { @class = "button" })
@@ -21,7 +21,7 @@
             columns.Bound(c => c.SCH_Active);
             columns.Bound(c => c.SCH_Vital);
             columns.Bound(c => c.SCH_Reason);
-            columns.Command(command => { command.Edit(); command.Destroy(); }).Width(180);
+            columns.Bound(c => c.SCH_ID).ClientTemplate(@Html.ActionLink("Edit", "Edit", "Schedule", routeValues: new { Id = "#=SCH_ID#" }, htmlAttributes: new { @class = "button" }).ToHtmlString());
         })
         .ToolBar(toolbar =>
         {

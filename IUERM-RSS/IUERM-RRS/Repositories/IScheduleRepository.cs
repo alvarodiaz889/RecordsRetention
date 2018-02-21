@@ -14,5 +14,6 @@ namespace IUERM_RRS.Repositories
         void Insert(ScheduleViewModel schedule);
         void Delete(ScheduleViewModel schedule);
         void Update(ScheduleViewModel schedule);
+        void Dispose();
     }
 }

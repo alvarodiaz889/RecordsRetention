@@ -30,17 +30,17 @@ namespace IUERM_RRS.Repositories
             List<UserViewModel> users = context.Users
                 .Where(isNotSuperAdmin)
                 .Select(u => new UserViewModel()
-            {
-                UserName = u.US_Username,
-                FirstName = u.US_FirstName,
-                MiddleName = u.US_MiddleName,
-                LastName = u.US_LastName,
-                Email = u.US_Email,
-            }).ToList();
-            users.ForEach(u => {
-                u.Roles = roleRepository.GetRolesByUsername(u.UserName).ToList();
-                u.UserRoles = string.Join(",",u.Roles.Select(c => c.Role));
-            });
+                {
+                    UserName = u.US_Username,
+                    FirstName = u.US_FirstName,
+                    MiddleName = u.US_MiddleName,
+                    LastName = u.US_LastName,
+                    Email = u.US_Email,
+                }).ToList();
+                users.ForEach(u => {
+                    u.Roles = roleRepository.GetRolesByUsername(u.UserName).ToList();
+                    u.UserRoles = string.Join(",",u.Roles.Select(c => c.Role));
+                });
 
             return users;
         }

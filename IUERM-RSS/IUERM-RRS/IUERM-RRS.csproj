@@ -2869,7 +2869,7 @@
     <Content Include="Views\Shared\_Retainer.cshtml" />
     <Content Include="Views\Home\LoginError.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Office.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Active.cshtml" />
+    <Content Include="Views\Schedule\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

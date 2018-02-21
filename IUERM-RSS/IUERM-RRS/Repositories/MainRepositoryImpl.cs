@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace IUERM_RRS.Repositories
 {
@@ -14,11 +15,23 @@ namespace IUERM_RRS.Repositories
         #region AreaScope
         public List<AreaScopeViewModel> GetAllAreaScopes()
         {
-            return context.AreaScopes
+            List<AreaScopeViewModel> list = context.AreaScopes
                 .Select(o => new AreaScopeViewModel { Id = o.AS_Id, Name = o.AS_Scope })
                 .OrderBy(o => o.Name)
                 .ToList();
+            return list;
         }
+
+        public IEnumerable<SelectListItem> GetAllAreaScopesDDL()
+        {
+            List<SelectListItem> list = context.AreaScopes
+                .Select(o => new SelectListItem { Value = o.AS_Id.ToString(), Text = o.AS_Scope })
+                .OrderBy(o => o.Text)
+                .ToList();
+
+            return list;
+        }
+
         public AreaScopeViewModel GetAreaScopeById(int id)
         {
             return context.AreaScopes.Where(o => o.AS_Id == id)
@@ -64,6 +77,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllDispositionOptionsDDL()
+        {
+            List<SelectListItem> list = context.DispositionOptions
+                .Select(o => new SelectListItem { Value = o.DOP_Id .ToString(), Text = o.DOP_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public DispositionOptionViewModel GetDispositionOptionsById(int id)
         {
             return context.DispositionOptions
@@ -101,6 +125,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Description)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllEventCodesDDL()
+        {
+            List<SelectListItem> list = context.EventCodes
+                .Select(o => new SelectListItem { Value = o.ECD_Code, Text = o.ECD_Description })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public EventCodeViewModel GetEventCodesByCode(string code)
         {
             return context.EventCodes.Where(o => o.ECD_Code == code)
@@ -138,6 +173,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllGoverningPoliciesDDL()
+        {
+            List<SelectListItem> list = context.GoverningPolicies
+                .Select(o => new SelectListItem { Value = o.GPO_Id.ToString(), Text = o.GPO_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public IdNameViewModel GetGoverningPolicyById(int id)
         {
             return context.GoverningPolicies.Where(o => o.GPO_Id == id)
@@ -174,6 +220,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllGoverningRegulationsDDL()
+        {
+            List<SelectListItem> list = context.GoverningRegulations
+                .Select(o => new SelectListItem { Value = o.GRE_Id.ToString(), Text = o.GRE_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public IdNameViewModel GetGoverningRegulationById(int id)
         {
             return context.GoverningRegulations.Where(o => o.GRE_Id == id)
@@ -210,6 +267,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllGoverningStatutesDDL()
+        {
+            List<SelectListItem> list = context.GoverningStatutes
+                .Select(o => new SelectListItem { Value = o.GST_Id.ToString(), Text = o.GST_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public IdNameViewModel GetGoverningStatuteById(int id)
         {
             return context.GoverningStatutes.Where(o => o.GST_Id == id)
@@ -246,6 +314,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Code)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllOfficeOfRecordsDDL()
+        {
+            List<SelectListItem> list = context.OfficeOfRecords
+                .Select(o => new SelectListItem { Value = o.OOR_Id.ToString(), Text = o.OOR_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public OfficeOfRecordViewModel GetOfficeOfRecordById(int id)
         {
             return context.OfficeOfRecords.Where(o => o.OOR_Id == id)
@@ -282,6 +361,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllOfficialRecordMediumsDDL()
+        {
+            List<SelectListItem> list = context.OfficialRecordMediums
+                .Select(o => new SelectListItem { Value = o.ORM_Id.ToString(), Text = o.ORM_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public OfficialRecordMediumVM GetOfficialRecordMediumById(int id)
         {
             return context.OfficialRecordMediums.Where(o => o.ORM_Id == id)
@@ -319,6 +409,17 @@ namespace IUERM_RRS.Repositories
                 .OrderBy(o => o.Name)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllRetainersDDL()
+        {
+            List<SelectListItem> list = context.Retainers
+                .Select(o => new SelectListItem { Value = o.RET_Id.ToString(), Text = o.RET_Name })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }
+
         public IdNameViewModel GetRetainerById(int id)
         {
             return context.Retainers.Where(o => o.RET_Id == id)
@@ -360,6 +461,16 @@ namespace IUERM_RRS.Repositories
                  .OrderBy(o => o.BasedOnCode)
                 .ToList();
         }
+
+        public IEnumerable<SelectListItem> GetAllRetentionsDDL()
+        {
+            List<SelectListItem> list = context.Retentions
+                .Select(o => new SelectListItem { Value = o.RET_Id.ToString(), Text = o.RET_BasedOnCode + "-" + o.RET_BaseOnDescription })
+                .OrderBy(o => o.Text)
+                .ToList();
+            
+            return list;
+        }   
         public RetentionViewModel GetRetentionById(int id)
         {
             return context.Retentions.Where(o => o.RET_Id == id)
@@ -418,8 +529,8 @@ namespace IUERM_RRS.Repositories
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            context.Dispose();
         }
-
+        
     }
 }

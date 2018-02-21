@@ -14,75 +14,81 @@ using Kendo.Mvc.UI;
 
 namespace IUERM_RRS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ScheduleController : Controller
     {
-        private IUERM_RSchedEntities db = new IUERM_RSchedEntities();
         private IScheduleRepository scheduleRepository;
         private IMainRepository mainRepository;
-        public ScheduleController(IScheduleRepository scheduleRepository,IMainRepository mainRepository)
+        public ScheduleController(IScheduleRepository scheduleRepository, IMainRepository mainRepository)
         {
             this.scheduleRepository = scheduleRepository;
             this.mainRepository = mainRepository;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             if (User.IsInRole("SuperAdmin"))
-                return RedirectToAction("Index","User");
+                return RedirectToAction("Index", "User");
             else if (User.IsInRole("Admin"))
                 return View("Grid");
             else
                 return View("GeneralView");
         }
+
         public ActionResult Grid()
         {
-            ViewBag.Offices = mainRepository.GetAllOfficeOfRecords();
             return View();
         }
         public ActionResult GetPartial(string partial)
         {
             return PartialView(partial);
         }
-        // GET: SCH/Create
+        
         public ActionResult Create()
         {
-            ViewBag.SCH_AreaScopeId = new SelectList(db.AreaScopes, "AS_Id", "AS_Scope");
-            ViewBag.SCH_DispositionId = new SelectList(db.DispositionOptions, "DOP_Id", "DOP_Name");
-            ViewBag.SCH_GoverningPoliciesId = new SelectList(db.GoverningPolicies, "GPO_Id", "GPO_Name");
-            ViewBag.SCH_GoverningRegulationsId = new SelectList(db.GoverningRegulations, "GRE_Id", "GRE_Name");
-            ViewBag.SCH_GoverningStatutesId = new SelectList(db.GoverningStatutes, "GST_Id", "GST_Name");
-            ViewBag.SCH_OfficeId = new SelectList(db.OfficeOfRecords, "OOR_Id", "OOR_Name");
-            ViewBag.SCH_RecordMedium = new SelectList(db.OfficialRecordMediums, "ORM_Id", "ORM_Name");
-            ViewBag.SCH_RetainerId = new SelectList(db.Retainers, "RET_Id", "RET_Name");
-            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BaseOnDescription");
-            return View();
+            ScheduleViewModel model = GetModel();
+            return View(model);
         }
 
-        // POST: SCH/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        public ActionResult Edit(string Id)
+        {
+            ScheduleViewModel model = scheduleRepository.GetScheduleById(Id);
+            return View(model);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SCH_ID,SCH_StewardDomain,SCH_RetentionArea,SCH_RetentionSubArea,SCH_AreaScopeId,SCH_RetentionAreaDescription,SCH_Type,SCH_OfficeId,SCH_Coordinator,SCH_RecordSeries,SCH_RecordSeriesCode,SCH_Description,SCH_RetentionId,SCH_Active,SCH_Vital,SCH_GoverningStatutesId,SCH_GoverningRegulationsId,SCH_GoverningPoliciesId,SCH_Reason,SCH_RecordMedium,SCH_RetainerId,SCH_DispositionId,SCH_RquiresCertDestruction,SCH_CreationDate")] Schedule schedule)
+        public ActionResult Create(ScheduleViewModel schedule)
         {
             if (ModelState.IsValid)
             {
-                schedule.SCH_ID = Guid.NewGuid();
-                db.Schedules.Add(schedule);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                scheduleRepository.Insert(schedule);
+                return RedirectToAction("Grid","Schedule");
             }
-
-            ViewBag.SCH_AreaScopeId = new SelectList(db.AreaScopes, "AS_Id", "AS_Scope", schedule.SCH_AreaScopeId);
-            ViewBag.SCH_DispositionId = new SelectList(db.DispositionOptions, "DOP_Id", "DOP_Name", schedule.SCH_DispositionId);
-            ViewBag.SCH_GoverningPoliciesId = new SelectList(db.GoverningPolicies, "GPO_Id", "GPO_Name", schedule.SCH_GoverningPoliciesId);
-            ViewBag.SCH_GoverningRegulationsId = new SelectList(db.GoverningRegulations, "GRE_Id", "GRE_Name", schedule.SCH_GoverningRegulationsId);
-            ViewBag.SCH_GoverningStatutesId = new SelectList(db.GoverningStatutes, "GST_Id", "GST_Name", schedule.SCH_GoverningStatutesId);
-            ViewBag.SCH_OfficeId = new SelectList(db.OfficeOfRecords, "OOR_Id", "OOR_Name", schedule.SCH_OfficeId);
-            ViewBag.SCH_RecordMedium = new SelectList(db.OfficialRecordMediums, "ORM_Id", "ORM_Name", schedule.SCH_RecordMedium);
-            ViewBag.SCH_RetainerId = new SelectList(db.Retainers, "RET_Id", "RET_Name", schedule.SCH_RetainerId);
-            ViewBag.SCH_RetentionId = new SelectList(db.Retentions, "RET_Id", "RET_BaseOnDescription", schedule.SCH_RetentionId);
+            schedule = GetModel();
             return View(schedule);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ScheduleViewModel schedule)
+        {
+            if (ModelState.IsValid)
+            {
+                scheduleRepository.Update(schedule);
+                return RedirectToAction("Grid", "Schedule");
+            }
+            schedule = GetModel();
+            return View(schedule);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(ScheduleViewModel schedule)
+        {
+            scheduleRepository.Delete(schedule);
+            return RedirectToAction("Grid", "Schedule");
         }
 
         public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
@@ -90,17 +96,6 @@ namespace IUERM_RRS.Controllers
             List<ScheduleViewModel> users = scheduleRepository.GetAllRecords();
             DataSourceResult result = users.AsQueryable().ToDataSourceResult(request);
             return Json(result);
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Schedules_Create([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
-        {
-            if (ModelState.IsValid)
-            {
-                scheduleRepository.Insert(schedule);
-            }
-
-            return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
@@ -144,9 +139,28 @@ namespace IUERM_RRS.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                scheduleRepository.Dispose();
+                mainRepository.Dispose();
             }
             base.Dispose(disposing);
         }
+
+        private ScheduleViewModel GetModel()
+        {
+            ScheduleViewModel model = new ScheduleViewModel
+            {
+                AreaScopes = mainRepository.GetAllAreaScopesDDL(),
+                DispositionOptions = mainRepository.GetAllDispositionOptionsDDL(),
+                GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL(),
+                GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL(),
+                GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL(),
+                OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL(),
+                OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL(),
+                Retainers = mainRepository.GetAllRetainersDDL(),
+                Retentions = mainRepository.GetAllRetentionsDDL()
+            };
+            return model;
+        }
+
     }
 }
