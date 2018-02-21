@@ -1,0 +1,6 @@
+﻿@using System.Collections
+@(Html.Kendo().DropDownListFor(m => m)
+        .BindTo((IEnumerable<OfficeOfRecordViewModel>)ViewBag.Offices)
+        .DataValueField("Id")
+        .DataTextField("Name")
+)

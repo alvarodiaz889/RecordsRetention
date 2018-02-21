@@ -17,10 +17,12 @@ namespace IUERM_RRS.Controllers
     public class ScheduleController : Controller
     {
         private IUERM_RSchedEntities db = new IUERM_RSchedEntities();
-        private IScheduleRepository scheduleRepository; 
-        public ScheduleController(IScheduleRepository scheduleRepository)
+        private IScheduleRepository scheduleRepository;
+        private IMainRepository mainRepository;
+        public ScheduleController(IScheduleRepository scheduleRepository,IMainRepository mainRepository)
         {
             this.scheduleRepository = scheduleRepository;
+            this.mainRepository = mainRepository;
         }
 
         public ActionResult Index()
@@ -34,6 +36,7 @@ namespace IUERM_RRS.Controllers
         }
         public ActionResult Grid()
         {
+            ViewBag.Offices = mainRepository.GetAllOfficeOfRecords();
             return View();
         }
         public ActionResult GetPartial(string partial)
@@ -90,33 +93,33 @@ namespace IUERM_RRS.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Schedules_Create([DataSourceRequest]DataSourceRequest request, Schedule schedule)
+        public ActionResult Schedules_Create([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
         {
             if (ModelState.IsValid)
             {
-                
+                scheduleRepository.Insert(schedule);
             }
 
             return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Schedules_Update([DataSourceRequest]DataSourceRequest request, Schedule schedule)
+        public ActionResult Schedules_Update([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
         {
             if (ModelState.IsValid)
             {
-
+                scheduleRepository.Update(schedule);
             }
 
             return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Schedules_Destroy([DataSourceRequest]DataSourceRequest request, Schedule schedule)
+        public ActionResult Schedules_Destroy([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
         {
             if (ModelState.IsValid)
             {
-
+                scheduleRepository.Delete(schedule);
             }
 
             return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));

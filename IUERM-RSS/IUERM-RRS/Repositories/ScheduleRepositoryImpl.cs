@@ -13,7 +13,7 @@ namespace IUERM_RRS.Repositories
 
         public List<ScheduleViewModel> GetAllRecords()
         {
-            return context.Schedules
+            List<ScheduleViewModel> response = context.Schedules
                 .Select(o => new ScheduleViewModel
                 {
                     SCH_ID = o.SCH_ID,
@@ -26,12 +26,13 @@ namespace IUERM_RRS.Repositories
                     SCH_RecordSeries = o.SCH_RecordSeries,
                     SCH_RecordSeriesCode = o.SCH_RecordSeriesCode,
                     SCH_Description = o.SCH_Description,
-                    SCH_Active = o.SCH_Active,
-                    SCH_Vital = o.SCH_Vital,
+                    SCH_Active = (o.SCH_Active != null) ? (bool)o.SCH_Active : false,
+                    SCH_Vital = (o.SCH_Vital != null) ? (bool)o.SCH_Vital : false,
                     SCH_Reason = o.SCH_Reason,
                     SCH_RquiresCertDestruction = o.SCH_RquiresCertDestruction,
-                    SCH_CreationDate = o.SCH_CreationDate
+                    SCH_CreationDate = o.SCH_CreationDate,
                 }).ToList();
+            return response;
         }
 
         public ScheduleViewModel GetScheduleById(string id)
@@ -50,8 +51,8 @@ namespace IUERM_RRS.Repositories
                     SCH_RecordSeries = o.SCH_RecordSeries,
                     SCH_RecordSeriesCode = o.SCH_RecordSeriesCode,
                     SCH_Description = o.SCH_Description,
-                    SCH_Active = o.SCH_Active,
-                    SCH_Vital = o.SCH_Vital,
+                    SCH_Active = (o.SCH_Active!= null)? (bool)o.SCH_Active: false,
+                    SCH_Vital = (o.SCH_Vital != null) ? (bool)o.SCH_Vital : false,
                     SCH_Reason = o.SCH_Reason,
                     SCH_RquiresCertDestruction = o.SCH_RquiresCertDestruction,
                     SCH_CreationDate = o.SCH_CreationDate

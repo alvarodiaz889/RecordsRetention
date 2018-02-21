@@ -12,5 +12,10 @@ namespace IUERM_RRS.Controllers
         {
             return View();
         }
+
+        public ActionResult LoginError()
+        {
+            return View();
+        }
     }
 }

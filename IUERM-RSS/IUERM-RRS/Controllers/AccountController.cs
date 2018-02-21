@@ -119,9 +119,10 @@ namespace IUERM_RRS.Controllers
             if (user != null)
             {
                 SignInManager.SignIn(user, true, true);
+                return RedirectToAction("Index", "Schedule");
             }
+            return RedirectToAction("LoginError","Home");
 
-            return RedirectToAction("Index", "Schedule");
         }
         //
         // POST: /Account/ExternalLoginConfirmation

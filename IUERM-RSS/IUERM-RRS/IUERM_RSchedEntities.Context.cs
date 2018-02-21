@@ -36,8 +36,8 @@ namespace IUERM_RRS
         public virtual DbSet<OfficialRecordMedium> OfficialRecordMediums { get; set; }
         public virtual DbSet<Retainer> Retainers { get; set; }
         public virtual DbSet<Retention> Retentions { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<DispositionOption> DispositionOptions { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }

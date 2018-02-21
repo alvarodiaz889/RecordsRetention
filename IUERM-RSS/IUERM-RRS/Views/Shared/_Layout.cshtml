@@ -73,37 +73,13 @@ else // home page
 </div>
 <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
     <div class="off-canvas-content" data-off-canvas-content="">
-        @*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/site-title.html")))*@
-        @{
-            string navMenu = "";
-            if (User.Identity.IsAuthenticated)
-            {
-                HttpCookie navCookie = Request.Cookies["navCookie"];
-
-                if (navCookie == null)
-                {
-                    navCookie = NavigationHandler.CreateNavCookie(navCookie, false);
-                }
-                string navMenuInHex = navCookie.Value;
-                string navMenuBack = navMenuInHex.Replace("-", "");
-                byte[] ba = new byte[navMenuBack.Length / 2];  //One byte for each two chars in zHex
-                for (int ZZ = 0; ZZ < ba.Length; ZZ++)
-                {
-                    ba[ZZ] = Convert.ToByte(navMenuBack.Substring(ZZ * 2, 2), 16);
-                }
-                navMenu = Encoding.ASCII.GetString(ba);
-            }
-
-            @Html.Raw(navMenu)
-
-        }
+        
         <div class="nav-secondary show-for-large">
             <div class="row pad">
                 <ul class="inline separators" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">@Html.Partial("_LoginPartial")</ul>
             </div>
         </div>
         @RenderBody()
-        @*@Html.Raw(File.ReadAllText(Server.MapPath("~/_includes/belt.html")))*@
         <footer id="footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/CollegeOrUniversity">
             <div class="row pad">
                 <p class="tagline">Fulfilling <span>the</span> Promise</p>

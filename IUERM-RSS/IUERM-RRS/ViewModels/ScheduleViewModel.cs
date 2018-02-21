@@ -8,7 +8,7 @@ namespace IUERM_RRS.ViewModels
 {
     public class ScheduleViewModel
     {
-        public System.Guid SCH_ID { get; set; }
+        public Guid SCH_ID { get; set; }
 
         [Display(Name = "Steward Domain")]
         public string SCH_StewardDomain { get; set; }
@@ -20,7 +20,7 @@ namespace IUERM_RRS.ViewModels
         public string SCH_RetentionSubArea { get; set; }
 
         [Display(Name = "Area Scope")]
-        public Nullable<int> SCH_AreaScopeId { get; set; }
+        public int SCH_AreaScopeId { get; set; }
 
         [Display(Name = "Ret. Area Description")]
         public string SCH_RetentionAreaDescription { get; set; }
@@ -29,7 +29,7 @@ namespace IUERM_RRS.ViewModels
         public string SCH_Type { get; set; }
 
         [Display(Name = "Office")]
-        public Nullable<int> SCH_OfficeId { get; set; }
+        public int OfficeId { get; set; }
 
         [Display(Name = "Coordinator")]
         public string SCH_Coordinator { get; set; }
@@ -44,36 +44,38 @@ namespace IUERM_RRS.ViewModels
         public string SCH_Description { get; set; }
 
         [Display(Name = "Retention")]
-        public Nullable<int> SCH_RetentionId { get; set; }
+        public int SCH_RetentionId { get; set; }
 
         [Display(Name = "Active")]
-        public string SCH_Active { get; set; }
+        [UIHint("Active")]
+        public bool SCH_Active { get; set; }
 
         [Display(Name = "Vital")]
-        public string SCH_Vital { get; set; }
+        [UIHint("Vital")]
+        public bool SCH_Vital { get; set; }
 
         [Display(Name = "Governing Statutes")]
-        public Nullable<int> SCH_GoverningStatutesId { get; set; }
+        public int SCH_GoverningStatutesId { get; set; }
 
         [Display(Name = "Governing Regulations")]
-        public Nullable<int> SCH_GoverningRegulationsId { get; set; }
+        public int SCH_GoverningRegulationsId { get; set; }
 
         [Display(Name = "Governing Policies")]
-        public Nullable<int> SCH_GoverningPoliciesId { get; set; }
+        public int SCH_GoverningPoliciesId { get; set; }
 
         [Display(Name = "Reason")]
         public string SCH_Reason { get; set; }
 
         [Display(Name = "Record Medium")]
-        public Nullable<int> SCH_RecordMedium { get; set; }
+        public int SCH_RecordMedium { get; set; }
 
         [Display(Name = "People who retains")]
-        public Nullable<int> SCH_RetainerId { get; set; }
+        public int SCH_RetainerId { get; set; }
 
         [Display(Name = "Disposition")]
-        public Nullable<int> SCH_DispositionId { get; set; }
-        public Nullable<bool> SCH_RquiresCertDestruction { get; set; }
-        public Nullable<System.DateTime> SCH_CreationDate { get; set; }
+        public int SCH_DispositionId { get; set; }
+        public bool SCH_RquiresCertDestruction { get; set; }
+        public DateTime SCH_CreationDate { get; set; }
 
     }
 }

@@ -128,8 +128,8 @@
           <Property Name="SCH_RecordSeriesCode" Type="nvarchar" MaxLength="50" />
           <Property Name="SCH_Description" Type="nvarchar(max)" />
           <Property Name="SCH_RetentionId" Type="int" />
-          <Property Name="SCH_Active" Type="nvarchar" MaxLength="10" />
-          <Property Name="SCH_Vital" Type="nvarchar" MaxLength="10" />
+          <Property Name="SCH_Active" Type="bit" />
+          <Property Name="SCH_Vital" Type="bit" />
           <Property Name="SCH_GoverningStatutesId" Type="int" />
           <Property Name="SCH_GoverningRegulationsId" Type="int" />
           <Property Name="SCH_GoverningPoliciesId" Type="int" />
@@ -375,7 +375,7 @@
           </Key>
           <Property Name="AS_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AS_Scope" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_AREA_SCOPE" FromRole="AreaScope" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" FromRole="AreaScope" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
@@ -417,7 +417,7 @@
           </Key>
           <Property Name="GPO_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GPO_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="GoverningPolicies" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="GoverningPolicy" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="GoverningRegulation">
           <Key>
@@ -425,7 +425,7 @@
           </Key>
           <Property Name="GRE_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GRE_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="GoverningRegulations" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="GoverningRegulation" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="GoverningStatute">
           <Key>
@@ -433,7 +433,7 @@
           </Key>
           <Property Name="GST_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GST_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="GoverningStatutes" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="GoverningStatute" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="OfficeOfRecord">
           <Key>
@@ -442,7 +442,7 @@
           <Property Name="OOR_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OOR_Name" Type="String" MaxLength="255" FixedLength="true" Unicode="true" />
           <Property Name="OOR_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_OFFICE_OF_RECORDS" FromRole="OfficeOfRecords" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" FromRole="OfficeOfRecord" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="OfficialRecordMedium">
           <Key>
@@ -450,7 +450,7 @@
           </Key>
           <Property Name="ORM_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ORM_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="OfficialRecordMedium" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="OfficialRecordMedium" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Retainer">
           <Key>
@@ -458,7 +458,7 @@
           </Key>
           <Property Name="RET_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RET_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_RETAINER" FromRole="Retainer" ToRole="Schedule" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" FromRole="Retainer" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Retention">
           <Key>
@@ -470,45 +470,7 @@
           <Property Name="RET_EventCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="RET_Period" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="EventCode" Relationship="Self.FK_RETENTION_EVENT_CODES" FromRole="Retention" ToRole="EventCodes" />
-          <NavigationProperty Name="Schedules" Relationship="Self.FK_SCHEDULE_RETENTION" FromRole="Retention" ToRole="Schedule" />
-        </EntityType>
-        <EntityType Name="Schedule">
-          <Key>
-            <PropertyRef Name="SCH_ID" />
-          </Key>
-          <Property Name="SCH_ID" Type="Guid" Nullable="false" />
-          <Property Name="SCH_StewardDomain" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RetentionArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RetentionSubArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_AreaScopeId" Type="Int32" />
-          <Property Name="SCH_RetentionAreaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_OfficeId" Type="Int32" />
-          <Property Name="SCH_Coordinator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RecordSeries" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RecordSeriesCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RetentionId" Type="Int32" />
-          <Property Name="SCH_Active" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_Vital" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_GoverningStatutesId" Type="Int32" />
-          <Property Name="SCH_GoverningRegulationsId" Type="Int32" />
-          <Property Name="SCH_GoverningPoliciesId" Type="Int32" />
-          <Property Name="SCH_Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RecordMedium" Type="Int32" />
-          <Property Name="SCH_RetainerId" Type="Int32" />
-          <Property Name="SCH_DispositionId" Type="Int32" />
-          <Property Name="SCH_RquiresCertDestruction" Type="Boolean" />
-          <Property Name="SCH_CreationDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="AreaScope" Relationship="Self.FK_SCHEDULE_AREA_SCOPE" FromRole="Schedule" ToRole="AreaScope" />
-          <NavigationProperty Name="GoverningPolicy" Relationship="Self.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="Schedule" ToRole="GoverningPolicies" />
-          <NavigationProperty Name="GoverningRegulation" Relationship="Self.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="Schedule" ToRole="GoverningRegulations" />
-          <NavigationProperty Name="GoverningStatute" Relationship="Self.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="Schedule" ToRole="GoverningStatutes" />
-          <NavigationProperty Name="OfficeOfRecord" Relationship="Self.FK_SCHEDULE_OFFICE_OF_RECORDS" FromRole="Schedule" ToRole="OfficeOfRecords" />
-          <NavigationProperty Name="OfficialRecordMedium" Relationship="Self.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="Schedule" ToRole="OfficialRecordMedium" />
-          <NavigationProperty Name="Retainer" Relationship="Self.FK_SCHEDULE_RETAINER" FromRole="Schedule" ToRole="Retainer" />
-          <NavigationProperty Name="Retention" Relationship="Self.FK_SCHEDULE_RETENTION" FromRole="Schedule" ToRole="Retention" />
-          <NavigationProperty Name="DispositionOption" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="Schedule" ToRole="DispositionOption" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Retention" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -522,18 +484,6 @@
           <Property Name="US_Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="US_IsSuperAdmin" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_SCHEDULE_AREA_SCOPE">
-          <End Role="AreaScope" Type="Self.AreaScope" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AreaScope">
-              <PropertyRef Name="AS_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_AreaScopeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_RETENTION_EVENT_CODES">
           <End Role="EventCodes" Type="Self.EventCode" Multiplicity="0..1" />
           <End Role="Retention" Type="Self.Retention" Multiplicity="*" />
@@ -543,90 +493,6 @@
             </Principal>
             <Dependent Role="Retention">
               <PropertyRef Name="RET_EventCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_POLICIES">
-          <End Role="GoverningPolicies" Type="Self.GoverningPolicy" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningPolicies">
-              <PropertyRef Name="GPO_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningPoliciesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING__REGULATIONS">
-          <End Role="GoverningRegulations" Type="Self.GoverningRegulation" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningRegulations">
-              <PropertyRef Name="GRE_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningRegulationsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_STATUTES">
-          <End Role="GoverningStatutes" Type="Self.GoverningStatute" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningStatutes">
-              <PropertyRef Name="GST_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningStatutesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_OFFICE_OF_RECORDS">
-          <End Role="OfficeOfRecords" Type="Self.OfficeOfRecord" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OfficeOfRecords">
-              <PropertyRef Name="OOR_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_OfficeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM">
-          <End Role="OfficialRecordMedium" Type="Self.OfficialRecordMedium" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="OfficialRecordMedium">
-              <PropertyRef Name="ORM_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_RecordMedium" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_RETAINER">
-          <End Role="Retainer" Type="Self.Retainer" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Retainer">
-              <PropertyRef Name="RET_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_RetainerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_RETENTION">
-          <End Role="Retention" Type="Self.Retention" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Retention">
-              <PropertyRef Name="RET_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_RetentionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -646,51 +512,51 @@
           <EntitySet Name="OfficialRecordMediums" EntityType="Self.OfficialRecordMedium" />
           <EntitySet Name="Retainers" EntityType="Self.Retainer" />
           <EntitySet Name="Retentions" EntityType="Self.Retention" />
-          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_SCHEDULE_AREA_SCOPE" Association="Self.FK_SCHEDULE_AREA_SCOPE">
-            <End Role="AreaScope" EntitySet="AreaScopes" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
           <AssociationSet Name="FK_RETENTION_EVENT_CODES" Association="Self.FK_RETENTION_EVENT_CODES">
             <End Role="EventCodes" EntitySet="EventCodes" />
             <End Role="Retention" EntitySet="Retentions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_POLICIES" Association="Self.FK_SCHEDULE_GOVERNING_POLICIES">
-            <End Role="GoverningPolicies" EntitySet="GoverningPolicies" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING__REGULATIONS" Association="Self.FK_SCHEDULE_GOVERNING__REGULATIONS">
-            <End Role="GoverningRegulations" EntitySet="GoverningRegulations" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_STATUTES" Association="Self.FK_SCHEDULE_GOVERNING_STATUTES">
-            <End Role="GoverningStatutes" EntitySet="GoverningStatutes" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_OFFICE_OF_RECORDS" Association="Self.FK_SCHEDULE_OFFICE_OF_RECORDS">
-            <End Role="OfficeOfRecords" EntitySet="OfficeOfRecords" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" Association="Self.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM">
-            <End Role="OfficialRecordMedium" EntitySet="OfficialRecordMediums" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_RETAINER" Association="Self.FK_SCHEDULE_RETAINER">
-            <End Role="Retainer" EntitySet="Retainers" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_RETENTION" Association="Self.FK_SCHEDULE_RETENTION">
-            <End Role="Retention" EntitySet="Retentions" />
-            <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="DispositionOptions" EntityType="IUERM_RSchedModel.DispositionOption" />
+          <EntitySet Name="Schedules" EntityType="IUERM_RSchedModel.Schedule" />
+          <AssociationSet Name="FK_SCHEDULE_AREA_SCOPE" Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE">
+            <End Role="AreaScope" EntitySet="AreaScopes" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
           <AssociationSet Name="FK_SCHEDULE_DISPOSITION_OPTIONS" Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS">
             <End Role="DispositionOption" EntitySet="DispositionOptions" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_GOVERNING_POLICIES" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES">
+            <End Role="GoverningPolicy" EntitySet="GoverningPolicies" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_GOVERNING__REGULATIONS" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS">
+            <End Role="GoverningRegulation" EntitySet="GoverningRegulations" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_GOVERNING_STATUTES" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES">
+            <End Role="GoverningStatute" EntitySet="GoverningStatutes" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_OFFICE_OF_RECORDS" Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS">
+            <End Role="OfficeOfRecord" EntitySet="OfficeOfRecords" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM">
+            <End Role="OfficialRecordMedium" EntitySet="OfficialRecordMediums" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_RETAINER" Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER">
+            <End Role="Retainer" EntitySet="Retainers" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SCHEDULE_RETENTION" Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION">
+            <End Role="Retention" EntitySet="Retentions" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
         </EntityContainer>
@@ -702,6 +568,56 @@
           <Property Name="DOP_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="DispositionOption" ToRole="Schedule" />
         </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="SCH_ID" />
+          </Key>
+          <Property Name="SCH_ID" Type="Guid" Nullable="false" />
+          <Property Name="SCH_StewardDomain" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RetentionArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RetentionSubArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_AreaScopeId" Type="Int32" />
+          <Property Name="SCH_RetentionAreaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_OfficeId" Type="Int32" />
+          <Property Name="SCH_Coordinator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RecordSeries" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RecordSeriesCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RetentionId" Type="Int32" />
+          <Property Name="SCH_Active" Type="Boolean" />
+          <Property Name="SCH_Vital" Type="Boolean" />
+          <Property Name="SCH_GoverningStatutesId" Type="Int32" />
+          <Property Name="SCH_GoverningRegulationsId" Type="Int32" />
+          <Property Name="SCH_GoverningPoliciesId" Type="Int32" />
+          <Property Name="SCH_Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_RecordMedium" Type="Int32" />
+          <Property Name="SCH_RetainerId" Type="Int32" />
+          <Property Name="SCH_DispositionId" Type="Int32" />
+          <Property Name="SCH_RquiresCertDestruction" Type="Boolean" />
+          <Property Name="SCH_CreationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AreaScope" Relationship="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" FromRole="Schedule" ToRole="AreaScope" />
+          <NavigationProperty Name="DispositionOption" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="Schedule" ToRole="DispositionOption" />
+          <NavigationProperty Name="GoverningPolicy" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="Schedule" ToRole="GoverningPolicy" />
+          <NavigationProperty Name="GoverningRegulation" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="Schedule" ToRole="GoverningRegulation" />
+          <NavigationProperty Name="GoverningStatute" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="Schedule" ToRole="GoverningStatute" />
+          <NavigationProperty Name="OfficeOfRecord" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" FromRole="Schedule" ToRole="OfficeOfRecord" />
+          <NavigationProperty Name="OfficialRecordMedium" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="Schedule" ToRole="OfficialRecordMedium" />
+          <NavigationProperty Name="Retainer" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" FromRole="Schedule" ToRole="Retainer" />
+          <NavigationProperty Name="Retention" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Schedule" ToRole="Retention" />
+        </EntityType>
+        <Association Name="FK_SCHEDULE_AREA_SCOPE">
+          <End Type="IUERM_RSchedModel.AreaScope" Role="AreaScope" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AreaScope">
+              <PropertyRef Name="AS_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_AreaScopeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SCHEDULE_DISPOSITION_OPTIONS">
           <End Type="IUERM_RSchedModel.DispositionOption" Role="DispositionOption" Multiplicity="0..1" />
           <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
@@ -711,6 +627,90 @@
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="SCH_DispositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_GOVERNING_POLICIES">
+          <End Type="IUERM_RSchedModel.GoverningPolicy" Role="GoverningPolicy" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningPolicy">
+              <PropertyRef Name="GPO_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_GoverningPoliciesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_GOVERNING__REGULATIONS">
+          <End Type="IUERM_RSchedModel.GoverningRegulation" Role="GoverningRegulation" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningRegulation">
+              <PropertyRef Name="GRE_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_GoverningRegulationsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_GOVERNING_STATUTES">
+          <End Type="IUERM_RSchedModel.GoverningStatute" Role="GoverningStatute" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningStatute">
+              <PropertyRef Name="GST_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_GoverningStatutesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_OFFICE_OF_RECORDS">
+          <End Type="IUERM_RSchedModel.OfficeOfRecord" Role="OfficeOfRecord" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficeOfRecord">
+              <PropertyRef Name="OOR_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_OfficeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM">
+          <End Type="IUERM_RSchedModel.OfficialRecordMedium" Role="OfficialRecordMedium" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfficialRecordMedium">
+              <PropertyRef Name="ORM_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_RecordMedium" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_RETAINER">
+          <End Type="IUERM_RSchedModel.Retainer" Role="Retainer" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retainer">
+              <PropertyRef Name="RET_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_RetainerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SCHEDULE_RETENTION">
+          <End Type="IUERM_RSchedModel.Retention" Role="Retention" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retention">
+              <PropertyRef Name="RET_Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SCH_RetentionId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -822,36 +822,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Schedules">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.Schedule">
-              <MappingFragment StoreEntitySet="Schedule">
-                <ScalarProperty Name="SCH_ID" ColumnName="SCH_ID" />
-                <ScalarProperty Name="SCH_StewardDomain" ColumnName="SCH_StewardDomain" />
-                <ScalarProperty Name="SCH_RetentionArea" ColumnName="SCH_RetentionArea" />
-                <ScalarProperty Name="SCH_RetentionSubArea" ColumnName="SCH_RetentionSubArea" />
-                <ScalarProperty Name="SCH_AreaScopeId" ColumnName="SCH_AreaScopeId" />
-                <ScalarProperty Name="SCH_RetentionAreaDescription" ColumnName="SCH_RetentionAreaDescription" />
-                <ScalarProperty Name="SCH_Type" ColumnName="SCH_Type" />
-                <ScalarProperty Name="SCH_OfficeId" ColumnName="SCH_OfficeId" />
-                <ScalarProperty Name="SCH_Coordinator" ColumnName="SCH_Coordinator" />
-                <ScalarProperty Name="SCH_RecordSeries" ColumnName="SCH_RecordSeries" />
-                <ScalarProperty Name="SCH_RecordSeriesCode" ColumnName="SCH_RecordSeriesCode" />
-                <ScalarProperty Name="SCH_Description" ColumnName="SCH_Description" />
-                <ScalarProperty Name="SCH_RetentionId" ColumnName="SCH_RetentionId" />
-                <ScalarProperty Name="SCH_Active" ColumnName="SCH_Active" />
-                <ScalarProperty Name="SCH_Vital" ColumnName="SCH_Vital" />
-                <ScalarProperty Name="SCH_GoverningStatutesId" ColumnName="SCH_GoverningStatutesId" />
-                <ScalarProperty Name="SCH_GoverningRegulationsId" ColumnName="SCH_GoverningRegulationsId" />
-                <ScalarProperty Name="SCH_GoverningPoliciesId" ColumnName="SCH_GoverningPoliciesId" />
-                <ScalarProperty Name="SCH_Reason" ColumnName="SCH_Reason" />
-                <ScalarProperty Name="SCH_RecordMedium" ColumnName="SCH_RecordMedium" />
-                <ScalarProperty Name="SCH_RetainerId" ColumnName="SCH_RetainerId" />
-                <ScalarProperty Name="SCH_DispositionId" ColumnName="SCH_DispositionId" />
-                <ScalarProperty Name="SCH_RquiresCertDestruction" ColumnName="SCH_RquiresCertDestruction" />
-                <ScalarProperty Name="SCH_CreationDate" ColumnName="SCH_CreationDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="IUERM_RSchedModel.User">
               <MappingFragment StoreEntitySet="Users">
@@ -878,6 +848,36 @@
               <MappingFragment StoreEntitySet="DispositionOptions">
                 <ScalarProperty Name="DOP_Name" ColumnName="DOP_Name" />
                 <ScalarProperty Name="DOP_Id" ColumnName="DOP_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="SCH_CreationDate" ColumnName="SCH_CreationDate" />
+                <ScalarProperty Name="SCH_RquiresCertDestruction" ColumnName="SCH_RquiresCertDestruction" />
+                <ScalarProperty Name="SCH_DispositionId" ColumnName="SCH_DispositionId" />
+                <ScalarProperty Name="SCH_RetainerId" ColumnName="SCH_RetainerId" />
+                <ScalarProperty Name="SCH_RecordMedium" ColumnName="SCH_RecordMedium" />
+                <ScalarProperty Name="SCH_Reason" ColumnName="SCH_Reason" />
+                <ScalarProperty Name="SCH_GoverningPoliciesId" ColumnName="SCH_GoverningPoliciesId" />
+                <ScalarProperty Name="SCH_GoverningRegulationsId" ColumnName="SCH_GoverningRegulationsId" />
+                <ScalarProperty Name="SCH_GoverningStatutesId" ColumnName="SCH_GoverningStatutesId" />
+                <ScalarProperty Name="SCH_Vital" ColumnName="SCH_Vital" />
+                <ScalarProperty Name="SCH_Active" ColumnName="SCH_Active" />
+                <ScalarProperty Name="SCH_RetentionId" ColumnName="SCH_RetentionId" />
+                <ScalarProperty Name="SCH_Description" ColumnName="SCH_Description" />
+                <ScalarProperty Name="SCH_RecordSeriesCode" ColumnName="SCH_RecordSeriesCode" />
+                <ScalarProperty Name="SCH_RecordSeries" ColumnName="SCH_RecordSeries" />
+                <ScalarProperty Name="SCH_Coordinator" ColumnName="SCH_Coordinator" />
+                <ScalarProperty Name="SCH_OfficeId" ColumnName="SCH_OfficeId" />
+                <ScalarProperty Name="SCH_Type" ColumnName="SCH_Type" />
+                <ScalarProperty Name="SCH_RetentionAreaDescription" ColumnName="SCH_RetentionAreaDescription" />
+                <ScalarProperty Name="SCH_AreaScopeId" ColumnName="SCH_AreaScopeId" />
+                <ScalarProperty Name="SCH_RetentionSubArea" ColumnName="SCH_RetentionSubArea" />
+                <ScalarProperty Name="SCH_RetentionArea" ColumnName="SCH_RetentionArea" />
+                <ScalarProperty Name="SCH_StewardDomain" ColumnName="SCH_StewardDomain" />
+                <ScalarProperty Name="SCH_ID" ColumnName="SCH_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
