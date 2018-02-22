@@ -317,6 +317,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\delete.png" />
     <Content Include="Content\kendo\Black\editor.png" />
     <Content Include="Content\kendo\Black\imagebrowser.png" />
     <Content Include="Content\kendo\Black\indeterminate.gif" />
@@ -2870,6 +2871,8 @@
     <Content Include="Views\Home\LoginError.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Office.cshtml" />
     <Content Include="Views\Schedule\Edit.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EventCode.cshtml" />
+    <Content Include="Views\Shared\_RetentionEventCode.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

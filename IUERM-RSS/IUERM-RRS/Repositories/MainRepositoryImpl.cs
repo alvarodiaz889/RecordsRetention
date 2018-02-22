@@ -121,7 +121,11 @@ namespace IUERM_RRS.Repositories
         public List<EventCodeViewModel> GetAllEventCodes()
         {
             return context.EventCodes
-                .Select(o => new EventCodeViewModel { Code = o.ECD_Code , Description = o.ECD_Description })
+                .Select(o => new EventCodeViewModel
+                    {
+                        Code = o.ECD_Code ?? string.Empty,
+                        Description = o.ECD_Description ?? string.Empty
+                    })
                 .OrderBy(o => o.Description)
                 .ToList();
         }
@@ -129,7 +133,11 @@ namespace IUERM_RRS.Repositories
         public IEnumerable<SelectListItem> GetAllEventCodesDDL()
         {
             List<SelectListItem> list = context.EventCodes
-                .Select(o => new SelectListItem { Value = o.ECD_Code, Text = o.ECD_Description })
+                .Select(o => new SelectListItem
+                    {
+                        Value = o.ECD_Code ?? string.Empty,
+                        Text = o.ECD_Description
+                    })
                 .OrderBy(o => o.Text)
                 .ToList();
             
@@ -139,12 +147,16 @@ namespace IUERM_RRS.Repositories
         public EventCodeViewModel GetEventCodesByCode(string code)
         {
             return context.EventCodes.Where(o => o.ECD_Code == code)
-                .Select(o => new EventCodeViewModel { Code = o.ECD_Code, Description = o.ECD_Description })
+                .Select(o => new EventCodeViewModel
+                    {
+                        Code = o.ECD_Code ?? string.Empty,
+                        Description = o.ECD_Description ?? string.Empty
+                    })
                 .FirstOrDefault();
         }
         public void InsertEventCodes(EventCodeViewModel ovm)
         {
-            EventCode newRecord = new EventCode { ECD_Code = ovm.Code.Trim(), ECD_Description = ovm.Description.Trim() };
+            EventCode newRecord = new EventCode { ECD_Code = ovm.Code?.Trim(), ECD_Description = ovm.Description?.Trim() };
             context.EventCodes.Add(newRecord);
             context.SaveChanges();
         }
@@ -454,9 +466,11 @@ namespace IUERM_RRS.Repositories
             return context.Retentions
                 .Select(o => new RetentionViewModel
                     {
-                        Id = o.RET_Id, BasedOnCode = o.RET_BasedOnCode,
-                        BaseOnDescription = o.RET_BaseOnDescription, Period = o.RET_Period,
-                        EventCode = o.RET_EventCode
+                        Id = o.RET_Id,
+                        BasedOnCode = o.RET_BasedOnCode,
+                        BaseOnDescription = o.RET_BaseOnDescription,
+                        Period = o.RET_Period,
+                        EventCode = o.RET_EventCode,
                     })
                  .OrderBy(o => o.BasedOnCode)
                 .ToList();
@@ -527,10 +541,40 @@ namespace IUERM_RRS.Repositories
         }
         #endregion
 
+        #region CustomSelectionLists
+        public IEnumerable<SelectListItem> GetActiveDDL()
+        {
+            return new List<SelectListItem> {
+                new SelectListItem { Value = "true" , Text = "Active" },
+                new SelectListItem { Value = "false" , Text = "Inactive" }
+            };
+        }
+
+        public IEnumerable<SelectListItem> GetVitalDDL()
+        {
+            return new List<SelectListItem> {
+                new SelectListItem { Value = "true" , Text = "Yes" },
+                new SelectListItem { Value = "false" , Text = "No" }
+            };
+        }
+
+        public IEnumerable<SelectListItem> GetTypesDDL()
+        {
+            //Values hardcoded for now, there are just 2 types in the requirements
+            return new List<SelectListItem> {
+                new SelectListItem { Value = "General" , Text = "General" },
+                new SelectListItem { Value = "Unit Specific" , Text = "Unit Specific" }
+            };
+        }
+
+        #endregion
+
+
         public void Dispose()
         {
             context.Dispose();
         }
+
         
     }
 }

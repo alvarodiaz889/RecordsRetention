@@ -1,7 +1,6 @@
 ﻿<div style="width: 50%; margin: 0 auto;">
 
     <div class="modal-header">
-        @*<button type="button"  class="button" data-dismiss="modal" aria-hidden="true">×</button>*@
         <h3 class="section-title capitalize">Office Of Records</h3>
     </div>
 
@@ -32,7 +31,6 @@
                             }}
                         </text>
                                     )))
-                    //.Pageable(pageable => pageable.ButtonCount(5).PageSizes(new[] { 5, 10, 25, 50, 100 }))
                     .Sortable()
                     .Filterable()
                     .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
@@ -45,6 +43,5 @@
         )
     </div>
     <br/>
-    @Html.ActionLink("Go Back", "Create", "Schedule", routeValues: null, htmlAttributes: new { @class = "button"})
 </div>
     

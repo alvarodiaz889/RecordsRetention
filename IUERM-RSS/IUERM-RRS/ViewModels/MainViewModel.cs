@@ -53,6 +53,18 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Description")]
         [MaxLength(255)]
         public string Description { get; set; }
+
+        [Display(Name ="Event Code")]
+        public string EventCode
+        {
+            get
+            {
+                string r = Code ?? string.Empty;
+                r += Description ?? string.Empty;
+                return r;
+            }
+            set { }
+        }
     }
 
     public class OfficeOfRecordViewModel
@@ -78,13 +90,14 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Ret. Description")]
         public string BaseOnDescription { get; set; }
 
+        [UIHint("EventCode")]
         [Display(Name = "Event Code")]
         public string EventCode { get; set; }
 
         [Display(Name = "Period")]
         public string Period { get; set; }
 
-        [Display(Name = "Period")]
+        [Display(Name = "Retention")]
         public string Name { get
             {
                 return BasedOnCode + "-" + BaseOnDescription;

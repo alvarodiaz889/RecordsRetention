@@ -90,6 +90,11 @@ namespace IUERM_RRS.Repositories
         void DeleteRetention(RetentionViewModel retention);
         void UpdateRetention(RetentionViewModel retention);
 
+        //Custom Selection Lists
+        IEnumerable<SelectListItem> GetActiveDDL();
+        IEnumerable<SelectListItem> GetVitalDDL();
+        IEnumerable<SelectListItem> GetTypesDDL();
+
         void Dispose();
     }
 }

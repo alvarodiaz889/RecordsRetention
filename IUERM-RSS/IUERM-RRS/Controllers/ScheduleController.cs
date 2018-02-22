@@ -14,7 +14,7 @@ using Kendo.Mvc.UI;
 
 namespace IUERM_RRS.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class ScheduleController : Controller
     {
         private IScheduleRepository scheduleRepository;
@@ -40,8 +40,10 @@ namespace IUERM_RRS.Controllers
         {
             return View();
         }
+        
         public ActionResult GetPartial(string partial)
         {
+            ViewBag.EventCodes = mainRepository.GetAllEventCodes();
             return PartialView(partial);
         }
         
@@ -147,19 +149,7 @@ namespace IUERM_RRS.Controllers
 
         private ScheduleViewModel GetModel()
         {
-            ScheduleViewModel model = new ScheduleViewModel
-            {
-                AreaScopes = mainRepository.GetAllAreaScopesDDL(),
-                DispositionOptions = mainRepository.GetAllDispositionOptionsDDL(),
-                GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL(),
-                GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL(),
-                GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL(),
-                OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL(),
-                OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL(),
-                Retainers = mainRepository.GetAllRetainersDDL(),
-                Retentions = mainRepository.GetAllRetentionsDDL()
-            };
-            return model;
+            return scheduleRepository.GetDropDownsInfo(null);
         }
 
     }

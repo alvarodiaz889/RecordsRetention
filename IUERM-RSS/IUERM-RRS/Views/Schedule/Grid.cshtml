@@ -1,4 +1,9 @@
-﻿<div style="width: 90%; margin: 100px auto 100px; min-height:600px;">
+﻿<style>
+    .removeIcon {
+        background-image: url('../../Content/Images/delete.png');
+    }
+</style>
+<div style="width: 90%; margin: 100px auto 100px; min-height:600px;">
     <h3 class="section-title capitalize">RECORDS RETENTION SCHEDULE</h3>
 
 
@@ -21,14 +26,14 @@
             columns.Bound(c => c.SCH_Active);
             columns.Bound(c => c.SCH_Vital);
             columns.Bound(c => c.SCH_Reason);
-            columns.Bound(c => c.SCH_ID).ClientTemplate(@Html.ActionLink("Edit", "Edit", "Schedule", routeValues: new { Id = "#=SCH_ID#" }, htmlAttributes: new { @class = "button" }).ToHtmlString());
+            columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); });
+
         })
         .ToolBar(toolbar =>
         {
             toolbar.Excel();
             toolbar.Pdf();
         })
-        .Editable(editable => editable.Mode(GridEditMode.InLine))
         .Pageable()
         .Navigatable()
         .Sortable(sortable =>
@@ -45,6 +50,16 @@
             .Update(update => update.Action("Schedules_Update", "Schedule"))
             .Destroy(destroy => destroy.Action("Schedules_Destroy", "Schedule"))
         )
+        .Events(e => e.BeforeEdit("BeforeEdit"))
     )
 
 </div>
+<script>
+    function BeforeEdit(e) {
+        e.preventDefault();
+        var modelId = e.model.SCH_ID;
+        window.location.href = "/Schedule/Edit/?Id=" + modelId;
+    }
+</script>
+
+

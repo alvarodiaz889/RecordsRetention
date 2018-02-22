@@ -11,7 +11,6 @@ namespace IUERM_RRS.Repositories
     {
         private IUERM_RSchedEntities context = new IUERM_RSchedEntities();
         private static Func<Schedule, ScheduleViewModel> GetModelFunc = EntityToModel;
-        private static Func<Schedule,string, bool> GetByIdFunc = CompareById;
         private IMainRepository mainRepository = new MainRepositoryImpl();
 
         public List<ScheduleViewModel> GetAllRecords()
@@ -30,21 +29,29 @@ namespace IUERM_RRS.Repositories
                 .Select(GetModelFunc)
                 .FirstOrDefault();
             if (model != null)
-            {
-                model.AreaScopes = mainRepository.GetAllAreaScopesDDL();
-                model.DispositionOptions = mainRepository.GetAllDispositionOptionsDDL();
-                model.GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL();
-                model.GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL();
-                model.GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL();
-                model.OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL();
-                model.OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL();
-                model.Retainers = mainRepository.GetAllRetainersDDL();
-                model.Retentions = mainRepository.GetAllRetentionsDDL();
-            }
+                model = GetDropDownsInfo(model);
 
             return model;
         }
 
+        public ScheduleViewModel GetDropDownsInfo(ScheduleViewModel svm)
+        {
+            if (svm == null)
+                svm = new ScheduleViewModel();
+            svm.AreaScopes = mainRepository.GetAllAreaScopesDDL();
+            svm.DispositionOptions = mainRepository.GetAllDispositionOptionsDDL();
+            svm.GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL();
+            svm.GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL();
+            svm.GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL();
+            svm.OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL();
+            svm.OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL();
+            svm.Retainers = mainRepository.GetAllRetainersDDL();
+            svm.Retentions = mainRepository.GetAllRetentionsDDL();
+            svm.ActiveInactive = mainRepository.GetActiveDDL();
+            svm.IsVital = mainRepository.GetVitalDDL();
+            svm.Types = mainRepository.GetTypesDDL();
+            return svm;
+        }
         public void Insert(ScheduleViewModel svm)
         {
             Schedule schedule = ModelToEntity(svm);
@@ -130,13 +137,6 @@ namespace IUERM_RRS.Repositories
                 SCH_RquiresCertDestruction = svm.SCH_RquiresCertDestruction,
                 SCH_CreationDate = svm.SCH_CreationDate
             };
-        }
-
-        private static bool CompareById(Schedule s,string id)
-        {
-            if (s.SCH_ID.ToString() == id)
-                return true;
-            else return false;
         }
 
         public void Dispose()

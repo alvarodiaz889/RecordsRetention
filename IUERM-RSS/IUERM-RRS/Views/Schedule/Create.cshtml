@@ -21,9 +21,10 @@
         width: 50%;
     }
     .form-group {
-        width:50%;
+        margin: 0;
+        width:45%;
         float:left;
-        padding: 1% 2%;
+        padding: 1% 1%;
     }
     .form-group-last {
         clear: both;
@@ -91,7 +92,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SCH_Type, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(o => Model.SCH_Type, Model.Types)
                     @Html.ValidationMessageFor(model => model.SCH_Type, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -142,7 +143,7 @@
             <div class="form-group">
                 <div style="display:inline;">
                     @Html.LabelFor(model => model.SCH_RetentionId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_Retention"> (Edit)</a>
+                    <a href="javascript:void(0);" class="edit-data" data-id="_RetentionEventCode"> (Edit)</a>
                 </div>
                 <div class="col-md-10">
                     @Html.DropDownListFor(o => Model.SCH_RetentionId, Model.Retentions, "-- Select Option --")
@@ -151,20 +152,23 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                </div>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Active)
+                    @Html.DropDownListFor(o => Model.SCH_Active, Model.ActiveInactive, "-- Select Option --")
                     @Html.ValidationMessageFor(model => model.SCH_Active, "", new { @class = "text-danger" })
                 </div>
             </div>
 
+
             <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                </div>
                 <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.SCH_Vital)
-                        @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.DropDownListFor(o => Model.SCH_Vital, Model.IsVital, "-- Select Option --")
+                    @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -260,7 +264,12 @@
 <div id='myModal' class='modal' style="display:none">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div id='myModalContent'></div>
+            <div id='myModalContent'>
+
+            </div>
+            <div style="width:50%; margin:10px auto">
+                <button class="button closebtn">Go back</button>
+            </div>
         </div>
     </div>
 
@@ -283,7 +292,6 @@
                 data: { "partial": partial },
                 datatype: "json",
                 success: function (data) {
-                    console.log(data)
                     $('#myModalContent').html(data);
                     $('#myModal').modal(options);
                     $('#myModal').modal('show');
@@ -295,9 +303,14 @@
             });
         });
 
-        $("#closbtn").click(function () {
+        $(".closebtn").click(function () {
             $('#myModal').modal('hide');
         });
+
+        function CloseModal()
+        {
+            $('#myModal').modal('hide');
+        }
     });
 
 </script>

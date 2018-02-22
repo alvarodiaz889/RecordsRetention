@@ -49,6 +49,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             @Html.HiddenFor(model => model.SCH_ID)
+            @Html.HiddenFor(model => model.SCH_CreationDate)
             <div class="form-group">
                 @Html.LabelFor(model => model.SCH_StewardDomain, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -96,7 +97,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SCH_Type, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Type, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(o => Model.SCH_Type, Model.Types)
                     @Html.ValidationMessageFor(model => model.SCH_Type, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -156,20 +157,23 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                </div>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Active)
+                    @Html.DropDownListFor(o => Model.SCH_Active, Model.ActiveInactive, "-- Select Option --")
                     @Html.ValidationMessageFor(model => model.SCH_Active, "", new { @class = "text-danger" })
                 </div>
             </div>
 
+
             <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                </div>
                 <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.SCH_Vital)
-                        @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.DropDownListFor(o => Model.SCH_Vital, Model.IsVital, "-- Select Option --")
+                    @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -254,17 +258,7 @@
             </div>
         </div>
     }
-    @using (Html.BeginForm("Delete","Schedule"))
-    {
-        @Html.AntiForgeryToken()
-
-        @Html.HiddenFor(model => model.SCH_ID)
-        <div class="form-group-last">
-            <div>
-                <input type="submit" value="Delete" class="button" />
-            </div>
-        </div>
-    }
+   
     <br />
     <hr />
     <br />
@@ -276,7 +270,12 @@
 <div id='myModal' class='modal' style="display:none">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div id='myModalContent'></div>
+            <div id='myModalContent'>
+
+            </div>
+            <div style="width:50%; margin:10px auto">
+                <button class="button closebtn">Go back</button>
+            </div>
         </div>
     </div>
 

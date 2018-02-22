@@ -31,7 +31,6 @@
                             }}
                         </text>
                                     )))
-                    //.Pageable(pageable => pageable.ButtonCount(5).PageSizes(new[] { 5, 10, 25, 50, 100 }))
                     .Sortable()
                     .Filterable()
                     .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
@@ -44,7 +43,6 @@
         )
     </div>
     <br/>
-    @Html.ActionLink("Go Back", "Create", "Schedule", routeValues: null, htmlAttributes: new { @class = "button"})
 </div>
     
 

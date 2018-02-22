@@ -1,0 +1,31 @@
+﻿<div style="width: 50%; margin: 0 auto;">
+    <hr />
+    <div id="retentionContainer">
+        
+    </div>
+    
+    <br/>
+    <button id="btnRetention" class="button" partial="_EventCode" onclick="switchContainers()" >Event Codes</button>
+    <br/>
+    <hr/>
+</div>
+<script>
+    function switchContainers()
+    {
+        var attr = $("#btnRetention").attr("partial");
+        var url = "/Schedule/GetPartial/?partial=" + attr;
+        $.get(url, function (data) {
+            $("#btnRetention").html(data);
+            if (attr == "_EventCode") {
+                $("#btnRetention").html("Event Codes");
+                $("#btnRetention").attr("partial", "_Retention");
+            }
+            else {
+                $("#btnRetention").html("Event Codes");
+                $("#btnRetention").attr("partial", "_EventCode");
+            }
+        });
+    }
+    
+</script>
+    

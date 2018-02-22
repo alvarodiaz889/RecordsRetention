@@ -89,6 +89,8 @@ namespace IUERM_RRS.ViewModels
         public IEnumerable<SelectListItem> OfficialRecordMediums { get; set; }
         public IEnumerable<SelectListItem> Retainers { get; set; }
         public IEnumerable<SelectListItem> Retentions { get; set; }
+        public IEnumerable<SelectListItem> ActiveInactive { get; set; }
+        public IEnumerable<SelectListItem> IsVital { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
 
     }
