@@ -59,6 +59,9 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Owin.Security.CAS, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.Security.CAS.1.0.1\lib\net45\Owin.Security.CAS.dll</HintPath>
     </Reference>
@@ -151,9 +154,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -235,6 +235,9 @@
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AspNetUser.cs">
+      <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ColumnManager.cs">
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
@@ -1828,7 +1831,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
@@ -2856,7 +2858,7 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Views\Shared\EditorTemplates\Roles.cshtml" />
     <Content Include="Views\Schedule\Create.cshtml" />
-    <Content Include="Views\Schedule\GeneralView.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Schedule\Grid.cshtml" />
     <Content Include="Views\Shared\_AreaScope.cshtml" />
     <Content Include="Views\Shared\_DispositionOption.cshtml" />

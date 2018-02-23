@@ -246,6 +246,16 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <div style="display:inline;">
+                    @Html.LabelFor(model => model.SCH_RequiresCertDestruction, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                </div>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(o => Model.SCH_RequiresCertDestruction, Model.RequireDestructionOpt)
+                    @Html.ValidationMessageFor(model => model.SCH_Active, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
             <div class="form-group-last">
                 <div>
                     <input type="submit" value="Create" class="button" />

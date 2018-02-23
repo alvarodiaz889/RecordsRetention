@@ -44,6 +44,16 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ColumnManager">
+          <Key>
+            <PropertyRef Name="ColumnName" />
+          </Key>
+          <Property Name="ColumnName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Required" Type="bit" />
+          <Property Name="Hidden" Type="bit" />
+        </EntityType>
         <EntityType Name="DispositionOptions">
           <Key>
             <PropertyRef Name="DOP_Id" />
@@ -121,7 +131,7 @@
           <Property Name="SCH_RetentionSubArea" Type="nvarchar" MaxLength="255" />
           <Property Name="SCH_AreaScopeId" Type="int" />
           <Property Name="SCH_RetentionAreaDescription" Type="nvarchar(max)" />
-          <Property Name="SCH_Type" Type="nvarchar" MaxLength="10" />
+          <Property Name="SCH_Type" Type="nvarchar" MaxLength="50" />
           <Property Name="SCH_OfficeId" Type="int" />
           <Property Name="SCH_Coordinator" Type="nvarchar" MaxLength="50" />
           <Property Name="SCH_RecordSeries" Type="nvarchar" MaxLength="255" />
@@ -316,6 +326,13 @@
           <EntitySet Name="Retention" EntityType="Self.Retention" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ColumnManager" EntityType="Self.ColumnManager" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ColumnManager].[ColumnName] AS [ColumnName], 
+    [ColumnManager].[Required] AS [Required], 
+    [ColumnManager].[Hidden] AS [Hidden]
+    FROM [dbo].[ColumnManager] AS [ColumnManager]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
@@ -559,6 +576,7 @@
             <End Role="Retention" EntitySet="Retentions" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
+          <EntitySet Name="ColumnManagers" EntityType="IUERM_RSchedModel.ColumnManager" />
         </EntityContainer>
         <EntityType Name="DispositionOption">
           <Key>
@@ -578,7 +596,7 @@
           <Property Name="SCH_RetentionSubArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="SCH_AreaScopeId" Type="Int32" />
           <Property Name="SCH_RetentionAreaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SCH_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SCH_OfficeId" Type="Int32" />
           <Property Name="SCH_Coordinator" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SCH_RecordSeries" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -714,6 +732,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ColumnManager">
+          <Key>
+            <PropertyRef Name="ColumnName" />
+          </Key>
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Required" Type="Boolean" />
+          <Property Name="Hidden" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -878,6 +904,15 @@
                 <ScalarProperty Name="SCH_RetentionArea" ColumnName="SCH_RetentionArea" />
                 <ScalarProperty Name="SCH_StewardDomain" ColumnName="SCH_StewardDomain" />
                 <ScalarProperty Name="SCH_ID" ColumnName="SCH_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ColumnManagers">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.ColumnManager">
+              <MappingFragment StoreEntitySet="ColumnManager">
+                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="Required" ColumnName="Required" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

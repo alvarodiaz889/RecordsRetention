@@ -16,6 +16,15 @@ namespace IUERM_RRS.Repositories
         public List<ScheduleViewModel> GetAllRecords()
         {
             List<ScheduleViewModel> response = context.Schedules
+                .Include(a => a.AreaScope)
+                .Include(a => a.DispositionOption)
+                .Include(a => a.GoverningPolicy)
+                .Include(a => a.GoverningRegulation)
+                .Include(a => a.GoverningStatute)
+                .Include(a => a.OfficeOfRecord)
+                .Include(a => a.OfficialRecordMedium)
+                .Include(a => a.Retainer)
+                .Include(a => a.Retention)
                 .OrderByDescending(o => o.SCH_CreationDate)
                 .Select(GetModelFunc)
                 .ToList();
@@ -48,8 +57,9 @@ namespace IUERM_RRS.Repositories
             svm.Retainers = mainRepository.GetAllRetainersDDL();
             svm.Retentions = mainRepository.GetAllRetentionsDDL();
             svm.ActiveInactive = mainRepository.GetActiveDDL();
-            svm.IsVital = mainRepository.GetVitalDDL();
+            svm.IsVital = mainRepository.GetYesNoDDL();
             svm.Types = mainRepository.GetTypesDDL();
+            svm.RequireDestructionOpt = mainRepository.GetYesNoDDL();
             return svm;
         }
         public void Insert(ScheduleViewModel svm)
@@ -103,8 +113,18 @@ namespace IUERM_RRS.Repositories
                 SCH_RecordMedium = s.SCH_RecordMedium,
                 SCH_RetainerId = s.SCH_RetainerId,
                 SCH_DispositionId = s.SCH_DispositionId,
-                SCH_RquiresCertDestruction = s.SCH_RquiresCertDestruction,
-                SCH_CreationDate = s.SCH_CreationDate
+                SCH_RequiresCertDestruction = s.SCH_RquiresCertDestruction,
+                SCH_CreationDate = s.SCH_CreationDate,
+
+                AreaScopeObject =  new AreaScopeViewModel { Id = s.AreaScope.AS_Id, Name = s.AreaScope.AS_Scope },
+                DispositionOptionObject = new DispositionOptionViewModel { Id = s.DispositionOption.DOP_Id, Name = s.DispositionOption.DOP_Name },
+                GoverningPolicyObject = new IdNameViewModel { Id = s.GoverningPolicy.GPO_Id, Name = s.GoverningPolicy.GPO_Name },
+                GoverningRegulationObject = new IdNameViewModel { Id = s.GoverningRegulation.GRE_Id, Name = s.GoverningRegulation.GRE_Name },
+                GoverningStatuteObject = new IdNameViewModel { Id = s.GoverningStatute.GST_Id, Name = s.GoverningStatute.GST_Name },
+                OfficeOfRecordObject = new OfficeOfRecordViewModel { Id = s.OfficeOfRecord.OOR_Id, Name = s.OfficeOfRecord.OOR_Name, Code = s.OfficeOfRecord.OOR_Code },
+                OfficialRecordMediumObject = new OfficialRecordMediumVM { Id = s.OfficialRecordMedium.ORM_Id, Name = s.OfficialRecordMedium.ORM_Name },
+                RetainerObject = new IdNameViewModel { Id = s.Retainer.RET_Id, Name = s.Retainer.RET_Name },
+                RetentionObject = new RetentionViewModel { Id = s.Retention.RET_Id, BasedOnCode = s.Retention.RET_BasedOnCode, BaseOnDescription = s.Retention.RET_BaseOnDescription }
             };
         }
 
@@ -134,7 +154,7 @@ namespace IUERM_RRS.Repositories
                 SCH_RecordMedium = svm.SCH_RecordMedium,
                 SCH_RetainerId = svm.SCH_RetainerId,
                 SCH_DispositionId = svm.SCH_DispositionId,
-                SCH_RquiresCertDestruction = svm.SCH_RquiresCertDestruction,
+                SCH_RquiresCertDestruction = svm.SCH_RequiresCertDestruction,
                 SCH_CreationDate = svm.SCH_CreationDate
             };
         }

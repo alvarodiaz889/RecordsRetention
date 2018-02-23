@@ -550,7 +550,7 @@ namespace IUERM_RRS.Repositories
             };
         }
 
-        public IEnumerable<SelectListItem> GetVitalDDL()
+        public IEnumerable<SelectListItem> GetYesNoDDL()
         {
             return new List<SelectListItem> {
                 new SelectListItem { Value = "true" , Text = "Yes" },
@@ -607,7 +607,6 @@ namespace IUERM_RRS.Repositories
             }
             return list;
         }
-        
 
         #endregion
 

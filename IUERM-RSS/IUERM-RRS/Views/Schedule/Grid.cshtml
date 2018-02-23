@@ -45,7 +45,7 @@
         .DataSource(dataSource => dataSource
             .Ajax()
             .Model(model => model.Id(p => p.SCH_ID))
-            .Read(read => read.Action("Schedules_Read", "Schedule"))
+            .Read(read => read.Action("Schedules_Read2", "Schedule"))
             .Create(create => create.Action("Schedules_Create", "Schedule"))
             .Update(update => update.Action("Schedules_Update", "Schedule"))
             .Destroy(destroy => destroy.Action("Schedules_Destroy", "Schedule"))

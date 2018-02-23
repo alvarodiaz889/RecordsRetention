@@ -11,6 +11,7 @@ using IUERM_RRS.Repositories;
 using IUERM_RRS.ViewModels;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Newtonsoft.Json;
 
 namespace IUERM_RRS.Controllers
 {
@@ -33,7 +34,7 @@ namespace IUERM_RRS.Controllers
             else if (User.IsInRole("Admin"))
                 return View("Grid");
             else
-                return View("GeneralView");
+                return View("Index","Home");
         }
 
         public ActionResult Grid()
@@ -102,20 +103,17 @@ namespace IUERM_RRS.Controllers
 
         public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
         {
-            List<ScheduleViewModel> users = scheduleRepository.GetAllRecords();
-            DataSourceResult result = users.AsQueryable().ToDataSourceResult(request);
-            return Json(result);
+            List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
+            DataSourceResult result = schedules.AsQueryable().ToDataSourceResult(request);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Schedules_Update([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
+        public ActionResult Schedules_Read2([DataSourceRequest]DataSourceRequest request)
         {
-            if (ModelState.IsValid)
-            {
-                scheduleRepository.Update(schedule);
-            }
-
-            return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
+            List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            var converted = JsonConvert.SerializeObject(schedules, null, jsSettings);
+            return Content(converted, "application/json");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

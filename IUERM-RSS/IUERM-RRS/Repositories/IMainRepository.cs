@@ -92,7 +92,7 @@ namespace IUERM_RRS.Repositories
 
         //Custom Selection Lists
         IEnumerable<SelectListItem> GetActiveDDL();
-        IEnumerable<SelectListItem> GetVitalDDL();
+        IEnumerable<SelectListItem> GetYesNoDDL();
         IEnumerable<SelectListItem> GetTypesDDL();
         IEnumerable<SelectListItem> GetDDLbyName(string name);
 
