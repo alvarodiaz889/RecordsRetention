@@ -43,222 +43,221 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h3>Edit Schedule Record </h3>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            @Html.HiddenFor(model => model.SCH_ID)
-            @Html.HiddenFor(model => model.SCH_CreationDate)
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_StewardDomain, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_StewardDomain, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_StewardDomain, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_RetentionArea, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_RetentionArea, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_RetentionArea, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_RetentionSubArea, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_RetentionSubArea, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_RetentionSubArea, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_AreaScopeId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_AreaScope"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_AreaScopeId, Model.AreaScopes, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_AreaScopeId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_RetentionAreaDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_RetentionAreaDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_RetentionAreaDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Type, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_Type, Model.Types)
-                    @Html.ValidationMessageFor(model => model.SCH_Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_OfficeId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_OfficeOfRecord"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_OfficeId, Model.OfficeOfRecords, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_OfficeId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Coordinator, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Coordinator, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_Coordinator, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_RecordSeries, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_RecordSeries, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_RecordSeries, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_RecordSeriesCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_RecordSeriesCode, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_RecordSeriesCode, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_Description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_RetentionId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_Retention"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_RetentionId, Model.Retentions, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_RetentionId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_Active, Model.ActiveInactive, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_Active, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_Vital, Model.IsVital, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_GoverningStatutesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_GoverningStatute"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_GoverningStatutesId, Model.GoverningStatutes, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_GoverningStatutesId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_GoverningRegulationsId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_GoverningRegulation"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_GoverningRegulationsId, Model.GoverningRegulations, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_GoverningRegulationsId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_GoverningPoliciesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_GoverningPolicy"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_GoverningPoliciesId, Model.GoverningPolicies, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_GoverningPoliciesId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.SCH_Reason, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.SCH_Reason, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.SCH_Reason, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_RecordMedium, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_OfficialRecordMedium"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_RecordMedium, Model.OfficialRecordMediums, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_RecordMedium, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_RetainerId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_Retainer"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_RetainerId, Model.Retainers, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_RetainerId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div style="display:inline;">
-                    @Html.LabelFor(model => model.SCH_DispositionId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                    <a href="javascript:void(0);" class="edit-data" data-id="_DispositionOption"> (Edit)</a>
-                </div>
-                <div class="col-md-10">
-                    @Html.DropDownListFor(o => Model.SCH_DispositionId, Model.DispositionOptions, "-- Select Option --")
-                    @Html.ValidationMessageFor(model => model.SCH_DispositionId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group-last">
-                <div>
-                    <input type="submit" value="Update" class="button" />
-                </div>
+    <div class="form-horizontal">
+        <h3>Edit Schedule Record </h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SCH_ID)
+        @Html.HiddenFor(model => model.SCH_CreationDate)
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_StewardDomain, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_StewardDomain, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_StewardDomain, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_RetentionArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_RetentionArea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_RetentionArea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_RetentionSubArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_RetentionSubArea, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_RetentionSubArea, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_AreaScopeId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_AreaScope"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_AreaScopeId, Model.AreaScopes, "-- Select Option --", htmlAttributes: new { @id = "_AreaScope" })
+                @Html.ValidationMessageFor(model => model.SCH_AreaScopeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_RetentionAreaDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_RetentionAreaDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_RetentionAreaDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_Type, Model.Types)
+                @Html.ValidationMessageFor(model => model.SCH_Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_OfficeId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_OfficeOfRecord"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_OfficeId, Model.OfficeOfRecords, "-- Select Option --", htmlAttributes: new { @id = "_OfficeOfRecord" })
+                @Html.ValidationMessageFor(model => model.SCH_OfficeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_Coordinator, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_Coordinator, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_Coordinator, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_RecordSeries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_RecordSeries, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_RecordSeries, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_RecordSeriesCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_RecordSeriesCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_RecordSeriesCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_RetentionId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_RetentionEventCode"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_RetentionId, Model.Retentions, "-- Select Option --", htmlAttributes: new { @id = "_RetentionEventCode" })
+                @Html.ValidationMessageFor(model => model.SCH_RetentionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_Active, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_Active, Model.ActiveInactive, "-- Select Option --")
+                @Html.ValidationMessageFor(model => model.SCH_Active, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_Vital, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_Vital, Model.IsVital, "-- Select Option --")
+                @Html.ValidationMessageFor(model => model.SCH_Vital, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_GoverningStatutesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningStatute"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_GoverningStatutesId, Model.GoverningStatutes, "-- Select Option --", htmlAttributes: new { @id = "_GoverningStatute" })
+                @Html.ValidationMessageFor(model => model.SCH_GoverningStatutesId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_GoverningRegulationsId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningRegulation"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_GoverningRegulationsId, Model.GoverningRegulations, "-- Select Option --", htmlAttributes: new { @id = "_GoverningRegulation" })
+                @Html.ValidationMessageFor(model => model.SCH_GoverningRegulationsId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_GoverningPoliciesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningPolicy"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_GoverningPoliciesId, Model.GoverningPolicies, "-- Select Option --", htmlAttributes: new { @id = "_GoverningPolicy" })
+                @Html.ValidationMessageFor(model => model.SCH_GoverningPoliciesId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SCH_Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SCH_Reason, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SCH_Reason, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_RecordMedium, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_OfficialRecordMedium"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_RecordMedium, Model.OfficialRecordMediums, "-- Select Option --", htmlAttributes: new { @id = "_OfficialRecordMedium" })
+                @Html.ValidationMessageFor(model => model.SCH_RecordMedium, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_RetainerId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_Retainer"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_RetainerId, Model.Retainers, "-- Select Option --", htmlAttributes: new { @id = "_Retainer" })
+                @Html.ValidationMessageFor(model => model.SCH_RetainerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.SCH_DispositionId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_DispositionOption"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(o => Model.SCH_DispositionId, Model.DispositionOptions, "-- Select Option --", htmlAttributes: new { @id = "_DispositionOption" })
+                @Html.ValidationMessageFor(model => model.SCH_DispositionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group-last">
+            <div>
+                <input type="submit" value="Update" class="button" />
+            </div>
+        </div>
+    </div>
     }
-   
+
     <br />
     <hr />
     <br />
@@ -274,7 +273,7 @@
 
             </div>
             <div style="width:50%; margin:10px auto">
-                <button class="button closebtn">Go back</button>
+                <button class="button closebtn" partialName="">Go back</button>
             </div>
         </div>
     </div>
@@ -291,6 +290,7 @@
             var $buttonClicked = $(this);
             var partial = $buttonClicked.attr('data-id');
             var options = { "backdrop": "static", keyboard: true };
+            $(".closebtn").attr("partialName",partial);
             $.ajax({
                 type: "GET",
                 url: TeamDetailPostBackURL,
@@ -298,7 +298,6 @@
                 data: { "partial": partial },
                 datatype: "json",
                 success: function (data) {
-                    console.log(data)
                     $('#myModalContent').html(data);
                     $('#myModal').modal(options);
                     $('#myModal').modal('show');
@@ -310,13 +309,34 @@
             });
         });
 
-        $("#closbtn").click(function () {
+        $(".closebtn").click(function () {
             $('#myModal').modal('hide');
+            var partialName = $(".closebtn").attr("partialName");
+            UpdateDDL(partialName);
         });
+
     });
 
+    function UpdateDDL(ddlName)
+    {
+        var optionsSelect = $("#"+ ddlName);
+        optionsSelect.empty();
+        $.getJSON('@Url.Action("GetDDLUpdated","Schedule")', { name: ddlName }, function (items) {
+            if (items != null && !jQuery.isEmptyObject(items))
+            {
+                optionsSelect.append($('<option/>', {
+                    value: null,
+                    text: "-- Select Option --"
+                }));
+                $.each(items, function (index, item) {
+                    optionsSelect.append($('<option/>', {
+                        value: item.Value,
+                        text: item.Text
+                    }));
+                });
+            };
+        });
+    }
+
 </script>
-
-
-
 

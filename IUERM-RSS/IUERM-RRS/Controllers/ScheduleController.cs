@@ -44,9 +44,16 @@ namespace IUERM_RRS.Controllers
         public ActionResult GetPartial(string partial)
         {
             ViewBag.EventCodes = mainRepository.GetAllEventCodes();
+            ViewBag.Partial = partial;
             return PartialView(partial);
         }
-        
+
+        public ActionResult GetDDLUpdated(string name)
+        {
+            var items = mainRepository.GetDDLbyName(name);
+            return Json(items, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Create()
         {
             ScheduleViewModel model = GetModel();

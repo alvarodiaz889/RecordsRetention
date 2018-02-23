@@ -567,6 +567,48 @@ namespace IUERM_RRS.Repositories
             };
         }
 
+        public IEnumerable<SelectListItem> GetDDLbyName(string name)
+        {
+            IEnumerable<SelectListItem> list = null;
+            switch (name)
+            {
+                case "_AreaScope":
+                    list = GetAllAreaScopesDDL();
+                    break;
+                case "_DispositionOption":
+                    list = GetAllDispositionOptionsDDL();
+                    break;
+                case "_EventCode":
+                    list = GetAllEventCodesDDL();
+                    break;
+                case "_GoverningPolicy":
+                    list = GetAllGoverningPoliciesDDL();
+                    break;
+                case "_GoverningRegulation":
+                    list = GetAllGoverningRegulationsDDL();
+                    break;
+                case "_GoverningStatute":
+                    list = GetAllGoverningStatutesDDL();
+                    break;
+                case "_OfficeOfRecord":
+                    list = GetAllOfficeOfRecordsDDL();
+                    break;
+                case "_OfficialRecordMedium":
+                    list = GetAllOfficialRecordMediumsDDL();
+                    break;
+                case "_Retainer":
+                    list = GetAllRetainersDDL();
+                    break;
+                case "_Retention":
+                case "_RetentionEventCode":
+                    list = GetAllRetentionsDDL();
+                    break;
+                    
+            }
+            return list;
+        }
+        
+
         #endregion
 
 

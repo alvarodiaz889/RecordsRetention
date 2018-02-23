@@ -1,44 +1,45 @@
-﻿<div style="width: 50%; margin: 0 auto;">
-    <hr />
+﻿<div style="width: 100%; margin: 0 auto;">
     <div id="retentionContainer">
         <div class="modal-header">
-        <h3 class="section-title capitalize">Retentions</h3>
-    </div>
+            <h3 class="section-title capitalize">Retentions</h3>
+        </div>
+        <hr />
+
         @(Html.Kendo().Grid<IUERM_RRS.ViewModels.RetentionViewModel>()
-            .Name("RetentionGrid")
-            .Columns(columns =>
-            {
-                columns.Bound(o => o.Id).Visible(false);
-                columns.Bound(o => o.BasedOnCode).Width(150).Locked(true).Lockable(false); ;
-                columns.Bound(o => o.BaseOnDescription).Width(200);
-                columns.Bound(o => o.EventCode).ClientTemplate("#=EventCode#").Width(150);
-                columns.Bound(o => o.Period).Width(150);
-                columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(200);
-            })
-            .Scrollable()
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .ServerOperation(true)
-                .Model(model => model.Id(o => o.Id))
-                .Read(read => read.Action("ReadRetentions", "Main"))
-                .Destroy(destroy => destroy.Action("DestroyRetention", "Main"))
-                .Update(update => update.Action("UpdateRetention", "Main"))
-                .Create(create => create.Action("CreateRetention", "Main"))
-                .Events(events => events.RequestEnd(
-                        @<text> function(e){if (e.type == "update" || e.type == "create" || e.type == "remove") {
-                            $("#RetentionGrid").data("kendoGrid").dataSource.read();
-                            }}
-                        </text>))
-                )
-            .Sortable()
-            .Filterable()
-            .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
-            .Editable(editable => editable.Mode(GridEditMode.InLine))
-            .NoRecords("No Records.")
-            .Excel(excel => excel
-                .FileName("Retentions.xlsx")
-                .Filterable(true)
-                .AllPages(true))
+                .Name("RetentionGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(o => o.Id).Visible(false);
+                    columns.Bound(o => o.BasedOnCode).Width(150).Locked(true).Lockable(false); ;
+                    columns.Bound(o => o.BaseOnDescription).Width(200);
+                    columns.Bound(o => o.EventCode).ClientTemplate("#=EventCode#").Width(150);
+                    columns.Bound(o => o.Period).Width(150);
+                    columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(200);
+                })
+                .Scrollable()
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .ServerOperation(true)
+                    .Model(model => model.Id(o => o.Id))
+                    .Read(read => read.Action("ReadRetentions", "Main"))
+                    .Destroy(destroy => destroy.Action("DestroyRetention", "Main"))
+                    .Update(update => update.Action("UpdateRetention", "Main"))
+                    .Create(create => create.Action("CreateRetention", "Main"))
+                    .Events(events => events.RequestEnd(
+                            @<text> function(e){if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                                $("#RetentionGrid").data("kendoGrid").dataSource.read();
+                                }}
+                            </text>))
+                    )
+                .Sortable()
+                .Filterable()
+                .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .NoRecords("No Records.")
+                .Excel(excel => excel
+                    .FileName("Retentions.xlsx")
+                    .Filterable(true)
+                    .AllPages(true))
         )
     </div>
     <br/>

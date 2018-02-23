@@ -1,23 +1,23 @@
 ﻿<div style="width: 50%; margin: 0 auto;">
-    <hr />
-    <div id="retentionContainer">
+    <div id="retentionContainer" onload="switchContainers()">
         
     </div>
     
     <br/>
-    <button id="btnRetention" class="button" partial="_EventCode" onclick="switchContainers()" >Event Codes</button>
+    <button id="btnRetention" class="button" partial="_Retention" onclick="switchContainers()" >Event Codes</button>
     <br/>
     <hr/>
 </div>
 <script>
+    switchContainers();
     function switchContainers()
     {
         var attr = $("#btnRetention").attr("partial");
         var url = "/Schedule/GetPartial/?partial=" + attr;
         $.get(url, function (data) {
-            $("#btnRetention").html(data);
+            $("#retentionContainer").html(data);
             if (attr == "_EventCode") {
-                $("#btnRetention").html("Event Codes");
+                $("#btnRetention").html("Retention");
                 $("#btnRetention").attr("partial", "_Retention");
             }
             else {

@@ -94,6 +94,7 @@ namespace IUERM_RRS.Repositories
         IEnumerable<SelectListItem> GetActiveDDL();
         IEnumerable<SelectListItem> GetVitalDDL();
         IEnumerable<SelectListItem> GetTypesDDL();
+        IEnumerable<SelectListItem> GetDDLbyName(string name);
 
         void Dispose();
     }
