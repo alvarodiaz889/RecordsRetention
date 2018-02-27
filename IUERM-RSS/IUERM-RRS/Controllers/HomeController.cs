@@ -21,19 +21,21 @@ namespace IUERM_RRS.Controllers
         {
             ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             ScheduleViewModel.Checked = false;
-            ViewBag.Checked = false;
             return View();
         }
-
+        [Authorize]
         public ActionResult AdvancedView(string check)
         {
             ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             ScheduleViewModel.Checked = Convert.ToBoolean(check);
-            ViewBag.Checked = Convert.ToBoolean(check);
             return View("Index");
         }
 
         public ActionResult LoginError()
+        {
+            return View();
+        }
+        public ActionResult Error()
         {
             return View();
         }

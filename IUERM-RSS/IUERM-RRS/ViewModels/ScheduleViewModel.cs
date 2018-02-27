@@ -16,14 +16,12 @@ namespace IUERM_RRS.ViewModels
         public string SCH_StewardDomain { get; set; }
 
         [Display(Name = "Retention Area")]
-        [Required]
         public string SCH_RetentionArea { get; set; }
 
         [Display(Name = "Retention Sub Area")]
         public string SCH_RetentionSubArea { get; set; }
 
         [Display(Name = "Area Scope")]
-        [Required]
         public int? SCH_AreaScopeId { get; set; }
         [Display(Name = "Area Scope")]
         public string SCH_AreaScope { get;set; }
@@ -128,6 +126,7 @@ namespace IUERM_RRS.ViewModels
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<SelectListItem> RequireDestructionOpt { get; set; }
 
+        //Grid Column visibility for the grid located in Home/Index
         private static List<ColumnManager> columnManager;
         public static bool Checked = false;
         public static void SetColumns(List<ColumnManager> columns)
@@ -137,8 +136,9 @@ namespace IUERM_RRS.ViewModels
 
         public static bool IsColumnVisible(string columnName)
         {
+            //If the checkbox is checked, it will omit the configuration
             if (Checked)
-                return Checked;
+                return true;
             var column = columnManager.Where(c => c.ColumnName == columnName).FirstOrDefault();
             return column?.Visible ?? false;
         }

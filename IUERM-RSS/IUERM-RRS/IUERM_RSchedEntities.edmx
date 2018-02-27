@@ -144,7 +144,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="SCH_GoverningRegulationsId" Type="int" />
           <Property Name="SCH_GoverningPoliciesId" Type="int" />
           <Property Name="SCH_Reason" Type="nvarchar(max)" />
-          <Property Name="SCH_RecordMedium" Type="int" />
+          <Property Name="SCH_RecordMediumId" Type="int" />
           <Property Name="SCH_RetainerId" Type="int" />
           <Property Name="SCH_DispositionId" Type="int" />
           <Property Name="SCH_RquiresCertDestruction" Type="bit" />
@@ -282,7 +282,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               <PropertyRef Name="ORM_Id" />
             </Principal>
             <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_RecordMedium" />
+              <PropertyRef Name="SCH_RecordMediumId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -539,6 +539,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="DispositionOptions" EntityType="IUERM_RSchedModel.DispositionOption" />
+          <EntitySet Name="ColumnManagers" EntityType="IUERM_RSchedModel.ColumnManager" />
           <EntitySet Name="Schedules" EntityType="IUERM_RSchedModel.Schedule" />
           <AssociationSet Name="FK_SCHEDULE_AREA_SCOPE" Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE">
             <End Role="AreaScope" EntitySet="AreaScopes" />
@@ -576,7 +577,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <End Role="Retention" EntitySet="Retentions" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-          <EntitySet Name="ColumnManagers" EntityType="IUERM_RSchedModel.ColumnManager" />
         </EntityContainer>
         <EntityType Name="DispositionOption">
           <Key>
@@ -585,6 +585,14 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="DOP_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DOP_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="DispositionOption" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="ColumnManager">
+          <Key>
+            <PropertyRef Name="ColumnName" />
+          </Key>
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Required" Type="Boolean" />
+          <Property Name="Visible" Type="Boolean" />
         </EntityType>
         <EntityType Name="Schedule">
           <Key>
@@ -609,7 +617,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="SCH_GoverningRegulationsId" Type="Int32" />
           <Property Name="SCH_GoverningPoliciesId" Type="Int32" />
           <Property Name="SCH_Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SCH_RecordMedium" Type="Int32" />
+          <Property Name="SCH_RecordMediumId" Type="Int32" />
           <Property Name="SCH_RetainerId" Type="Int32" />
           <Property Name="SCH_DispositionId" Type="Int32" />
           <Property Name="SCH_RquiresCertDestruction" Type="Boolean" />
@@ -704,7 +712,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               <PropertyRef Name="ORM_Id" />
             </Principal>
             <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_RecordMedium" />
+              <PropertyRef Name="SCH_RecordMediumId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -732,14 +740,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ColumnManager">
-          <Key>
-            <PropertyRef Name="ColumnName" />
-          </Key>
-          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Required" Type="Boolean" />
-          <Property Name="Visible" Type="Boolean" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -877,6 +877,15 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ColumnManagers">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.ColumnManager">
+              <MappingFragment StoreEntitySet="ColumnManager">
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Required" ColumnName="Required" />
+                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="IUERM_RSchedModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
@@ -884,7 +893,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
                 <ScalarProperty Name="SCH_RquiresCertDestruction" ColumnName="SCH_RquiresCertDestruction" />
                 <ScalarProperty Name="SCH_DispositionId" ColumnName="SCH_DispositionId" />
                 <ScalarProperty Name="SCH_RetainerId" ColumnName="SCH_RetainerId" />
-                <ScalarProperty Name="SCH_RecordMedium" ColumnName="SCH_RecordMedium" />
+                <ScalarProperty Name="SCH_RecordMediumId" ColumnName="SCH_RecordMediumId" />
                 <ScalarProperty Name="SCH_Reason" ColumnName="SCH_Reason" />
                 <ScalarProperty Name="SCH_GoverningPoliciesId" ColumnName="SCH_GoverningPoliciesId" />
                 <ScalarProperty Name="SCH_GoverningRegulationsId" ColumnName="SCH_GoverningRegulationsId" />
@@ -904,15 +913,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
                 <ScalarProperty Name="SCH_RetentionArea" ColumnName="SCH_RetentionArea" />
                 <ScalarProperty Name="SCH_StewardDomain" ColumnName="SCH_StewardDomain" />
                 <ScalarProperty Name="SCH_ID" ColumnName="SCH_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ColumnManagers">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.ColumnManager">
-              <MappingFragment StoreEntitySet="ColumnManager">
-                <ScalarProperty Name="Visible" ColumnName="Visible" />
-                <ScalarProperty Name="Required" ColumnName="Required" />
-                <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

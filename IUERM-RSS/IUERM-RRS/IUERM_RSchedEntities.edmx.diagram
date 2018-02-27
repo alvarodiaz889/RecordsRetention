@@ -20,7 +20,8 @@
         <AssociationConnector Association="IUERM_RSchedModel.FK_RETENTION_EVENT_CODES" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.75" PointY="0.875" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="1.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="2.5" PointX="5.25" PointY="9.5" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" />
@@ -30,7 +31,6 @@
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

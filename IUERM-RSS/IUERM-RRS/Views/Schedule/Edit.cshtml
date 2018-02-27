@@ -219,12 +219,12 @@
 
         <div class="form-group">
             <div style="display:inline;">
-                @Html.LabelFor(model => model.SCH_RecordMedium, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                @Html.LabelFor(model => model.SCH_RecordMediumId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
                 <a href="javascript:void(0);" class="edit-data" data-id="_OfficialRecordMedium"> (Edit)</a>
             </div>
             <div class="col-md-10">
-                @Html.DropDownListFor(o => Model.SCH_RecordMedium, Model.OfficialRecordMediums, "-- Select Option --", htmlAttributes: new { @id = "_OfficialRecordMedium" })
-                @Html.ValidationMessageFor(model => model.SCH_RecordMedium, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(o => Model.SCH_RecordMediumId, Model.OfficialRecordMediums, "-- Select Option --", htmlAttributes: new { @id = "_OfficialRecordMedium" })
+                @Html.ValidationMessageFor(model => model.SCH_RecordMediumId, "", new { @class = "text-danger" })
             </div>
         </div>
 

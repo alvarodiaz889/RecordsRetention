@@ -33,7 +33,7 @@ namespace IUERM_RRS
         public Nullable<int> SCH_GoverningRegulationsId { get; set; }
         public Nullable<int> SCH_GoverningPoliciesId { get; set; }
         public string SCH_Reason { get; set; }
-        public Nullable<int> SCH_RecordMedium { get; set; }
+        public Nullable<int> SCH_RecordMediumId { get; set; }
         public Nullable<int> SCH_RetainerId { get; set; }
         public Nullable<int> SCH_DispositionId { get; set; }
         public Nullable<bool> SCH_RquiresCertDestruction { get; set; }
