@@ -608,7 +608,13 @@ namespace IUERM_RRS.Repositories
             return list;
         }
 
+        public List<ColumnManager> GetColumnsConfig()
+        {
+            return context.ColumnManager.ToList();
+        }
+
         #endregion
+
 
 
         public void Dispose()

@@ -52,7 +52,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           </Key>
           <Property Name="ColumnName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Required" Type="bit" />
-          <Property Name="Hidden" Type="bit" />
+          <Property Name="Visible" Type="bit" />
         </EntityType>
         <EntityType Name="DispositionOptions">
           <Key>
@@ -330,7 +330,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <DefiningQuery>SELECT 
     [ColumnManager].[ColumnName] AS [ColumnName], 
     [ColumnManager].[Required] AS [Required], 
-    [ColumnManager].[Hidden] AS [Hidden]
+    [ColumnManager].[Visible] AS [Visible]
     FROM [dbo].[ColumnManager] AS [ColumnManager]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
@@ -738,7 +738,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           </Key>
           <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Required" Type="Boolean" />
-          <Property Name="Hidden" Type="Boolean" />
+          <Property Name="Visible" Type="Boolean" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -910,7 +910,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <EntitySetMapping Name="ColumnManagers">
             <EntityTypeMapping TypeName="IUERM_RSchedModel.ColumnManager">
               <MappingFragment StoreEntitySet="ColumnManager">
-                <ScalarProperty Name="Hidden" ColumnName="Hidden" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
                 <ScalarProperty Name="Required" ColumnName="Required" />
                 <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
               </MappingFragment>

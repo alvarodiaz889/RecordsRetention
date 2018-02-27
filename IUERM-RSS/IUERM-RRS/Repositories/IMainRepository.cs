@@ -96,6 +96,9 @@ namespace IUERM_RRS.Repositories
         IEnumerable<SelectListItem> GetTypesDDL();
         IEnumerable<SelectListItem> GetDDLbyName(string name);
 
+        //Columns Configuration
+        List<ColumnManager> GetColumnsConfig();
+
         void Dispose();
     }
 }

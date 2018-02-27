@@ -16,6 +16,6 @@ namespace IUERM_RRS
     {
         public string ColumnName { get; set; }
         public Nullable<bool> Required { get; set; }
-        public Nullable<bool> Hidden { get; set; }
+        public Nullable<bool> Visible { get; set; }
     }
 }

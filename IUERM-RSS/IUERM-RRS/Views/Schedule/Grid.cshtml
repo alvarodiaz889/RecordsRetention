@@ -3,30 +3,66 @@
         background-image: url('../../Content/Images/delete.png');
     }
 </style>
-<div style="width: 90%; margin: 100px auto 100px; min-height:600px;">
+<div style="width: 60%; margin: 100px auto 100px; min-height:600px;">
     <h3 class="section-title capitalize">RECORDS RETENTION SCHEDULE</h3>
 
 
-    @Html.ActionLink("Add Record", "Create", "Schedule", routeValues: null, htmlAttributes : new { @class = "button" })
+    @Html.ActionLink("Add Record", "Create", "Schedule", routeValues: null, htmlAttributes: new { @class = "button" })
     <br/>
 
-    @(Html.Kendo().Grid<IUERM_RRS.ViewModels.ScheduleViewModel>()
+    @(Html.Kendo().Grid<ScheduleViewModel>()
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.SCH_StewardDomain);
-            columns.Bound(c => c.SCH_RetentionArea);
-            columns.Bound(c => c.SCH_RetentionSubArea);
-            columns.Bound(c => c.SCH_RetentionAreaDescription);
-            columns.Bound(c => c.SCH_Type);
-            columns.Bound(c => c.SCH_Coordinator);
-            columns.Bound(c => c.SCH_RecordSeries);
-            columns.Bound(c => c.SCH_RecordSeriesCode);
-            columns.Bound(c => c.SCH_Description);
-            columns.Bound(c => c.SCH_Active);
-            columns.Bound(c => c.SCH_Vital);
-            columns.Bound(c => c.SCH_Reason);
-            columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); });
+            columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })
+                .Width(160).Title("Edit / Remove").Locked(true).Lockable(false);
+            columns.Bound(c => c.SCH_StewardDomain).Width(200)
+                .Locked(true).Lockable(false).HtmlAttributes(new { @style = "text-align:center" }); ;
+            columns.Bound(c => c.SCH_RetentionArea).Width(200)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RetentionSubArea).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_AreaScope).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Type).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Office).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Coordinator).Width(200)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RecordSeries).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Description).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Retention).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_IsActive).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_IsVital).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_GoverningStatute).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_GoverningRegulation).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_GoverningPolicy).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Reason).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RecordMedium).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Retainer).Width(300)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_Disposition).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_RequiresDestruction).Width(150)
+                .HtmlAttributes(new { @style = "text-align:center" });
+            columns.Bound(c => c.SCH_CreationDate2).Width(250)
+                .HtmlAttributes(new { @style = "text-align:center" });
+
 
         })
         .ToolBar(toolbar =>
@@ -45,20 +81,27 @@
         .DataSource(dataSource => dataSource
             .Ajax()
             .Model(model => model.Id(p => p.SCH_ID))
-            .Read(read => read.Action("Schedules_Read2", "Schedule"))
+            .Read(read => read.Action("Schedules_Read", "Schedule"))
             .Create(create => create.Action("Schedules_Create", "Schedule"))
             .Update(update => update.Action("Schedules_Update", "Schedule"))
             .Destroy(destroy => destroy.Action("Schedules_Destroy", "Schedule"))
         )
-        .Events(e => e.BeforeEdit("BeforeEdit"))
+        .Events(e => { e.BeforeEdit("BeforeEdit"); e.DataBound("onDataBound"); })
     )
 
 </div>
-<script>
+<script type="text/javascript">
     function BeforeEdit(e) {
         e.preventDefault();
         var modelId = e.model.SCH_ID;
         window.location.href = "/Schedule/Edit/?Id=" + modelId;
+    }
+
+    function onDataBound() {
+        var grid = $("#grid").data("kendoGrid");
+        for (var i = 0; i < grid.columns.length; i++) {
+            grid.autoFitColumn(i);
+        }
     }
 </script>
 

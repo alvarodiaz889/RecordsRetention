@@ -30,7 +30,7 @@
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.375" PointY="5.875" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

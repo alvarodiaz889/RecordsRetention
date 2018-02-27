@@ -39,6 +39,7 @@ namespace IUERM_RRS.Controllers
 
         public ActionResult Grid()
         {
+            ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             return View();
         }
         
@@ -106,14 +107,6 @@ namespace IUERM_RRS.Controllers
             List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
             DataSourceResult result = schedules.AsQueryable().ToDataSourceResult(request);
             return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult Schedules_Read2([DataSourceRequest]DataSourceRequest request)
-        {
-            List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
-            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
-            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            var converted = JsonConvert.SerializeObject(schedules, null, jsSettings);
-            return Content(converted, "application/json");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
