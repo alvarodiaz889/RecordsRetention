@@ -21,6 +21,7 @@ namespace IUERM_RRS.Controllers
         {
             ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             ScheduleViewModel.Checked = false;
+            ViewBag.Checked = false;
             return View();
         }
         [Authorize]
@@ -28,6 +29,7 @@ namespace IUERM_RRS.Controllers
         {
             ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             ScheduleViewModel.Checked = Convert.ToBoolean(check);
+            ViewBag.Checked = Convert.ToBoolean(check);
             return View("Index");
         }
 

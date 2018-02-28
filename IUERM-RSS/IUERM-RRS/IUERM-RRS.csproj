@@ -311,6 +311,7 @@
     <Compile Include="User.cs">
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validations\ValidatorAttribute.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />

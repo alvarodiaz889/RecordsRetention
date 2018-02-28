@@ -94,14 +94,7 @@ namespace IUERM_RRS.Controllers
             return View(schedule);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(ScheduleViewModel schedule)
-        {
-            scheduleRepository.Delete(schedule);
-            return RedirectToAction("Grid", "Schedule");
-        }
-
+        #region KendoGridMethods
         public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
         {
             List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
@@ -135,6 +128,8 @@ namespace IUERM_RRS.Controllers
 
             return File(fileContents, contentType, fileName);
         }
+        #endregion
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
