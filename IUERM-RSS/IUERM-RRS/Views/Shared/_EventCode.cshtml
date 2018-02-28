@@ -4,11 +4,18 @@
         <h3 class="section-title capitalize">Event Code</h3>
     </div>
 
+    <script>
+        function OnRequestEnd(e) {
+            if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                $("#grid").data("kendoGrid").dataSource.read();
+            }
+        }
+    </script>
 
     <hr />
     <div>
         @(Html.Kendo().Grid<IUERM_RRS.ViewModels.EventCodeViewModel>()
-                .Name("EventCodesGrid")
+                .Name("grid")
                 .Columns(columns =>
                 {
                     columns.Bound(o => o.Code).HtmlAttributes(new { @style = "vertical-align: top;" });
@@ -24,21 +31,14 @@
                     .Destroy(destroy => destroy.Action("DestroyEventCode", "Main"))
                     .Update(update => update.Action("UpdateEventCode", "Main"))
                     .Create(create => create.Action("CreateEventCode", "Main"))
-                    .Events(events => events.RequestEnd(
-                        @<text> function(e){if (e.type == "update" || e.type == "create" || e.type == "remove") {
-                            $("#EventCodesGrid").data("kendoGrid").dataSource.read();
-                            }}
-                        </text>
-                                    )))
-                    .Sortable()
-                    .Filterable()
-                    .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
-                    .Editable(editable => editable.Mode(GridEditMode.InLine))
-                    .NoRecords("No Records.")
-                    .Excel(excel => excel
-                        .FileName("EventCodes.xlsx")
-                        .Filterable(true)
-                        .AllPages(true))
+                    .Events(e => e.RequestEnd("OnRequestEnd"))
+                    )
+                .Sortable()
+                .Filterable()
+                .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .NoRecords("No Records.")
+                .Excel(excel => excel.FileName("EventCodes.xlsx").Filterable(true).AllPages(true))
         )
     </div>
     <br/>

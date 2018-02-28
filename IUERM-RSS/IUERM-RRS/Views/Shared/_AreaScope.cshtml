@@ -4,11 +4,18 @@
         <h3 class="section-title capitalize">Area Scopes</h3>
     </div>
 
+    <script>
+        function OnRequestEnd(e) {
+            if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                $("#grid").data("kendoGrid").dataSource.read();
+            }
+        }
+    </script>
 
     <hr />
     <div>
         @(Html.Kendo().Grid<IUERM_RRS.ViewModels.AreaScopeViewModel>()
-                .Name("AreaScopesGrid")
+                .Name("grid")
                 .Columns(columns =>
                 {
                     columns.Bound(o => o.Id).HtmlAttributes(new { @style = "vertical-align: top;" }).Visible(false);
@@ -24,25 +31,21 @@
                     .Destroy(destroy => destroy.Action("DestroyAreaScope", "Main"))
                     .Update(update => update.Action("UpdateAreaScope", "Main"))
                     .Create(create => create.Action("CreateAreaScope", "Main"))
-                    .Events(events => events.RequestEnd(
-                        @<text> function(e){if (e.type == "update" || e.type == "create" || e.type == "remove") {
-                            $("#AreaScopesGrid").data("kendoGrid").dataSource.read();
-                            }}
-                        </text>
-                                    )))
-                    .Sortable()
-                    .Filterable()
-                    .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
-                    .Editable(editable => editable.Mode(GridEditMode.InLine))
-                    .NoRecords("No Records.")
-                    .Excel(excel => excel
-                        .FileName("AreaScopes.xlsx")
-                        .Filterable(true)
-                        .AllPages(true))
+                    .Events(e => e.RequestEnd("OnRequestEnd"))
+                    )
+                .Sortable()
+                .Filterable()
+                .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                .NoRecords("No Records.")
+                .Excel(excel => excel.FileName("AreaScopes.xlsx").Filterable(true).AllPages(true))
         )
     </div>
     <br/>
 </div>
+
+
+
     
 
 
