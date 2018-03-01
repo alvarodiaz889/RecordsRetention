@@ -610,7 +610,7 @@ namespace IUERM_RRS.Repositories
 
         public List<ColumnManager> GetColumnsConfig()
         {
-            return context.ColumnManager.ToList();
+            return context.ColumnManager.AsNoTracking().ToList();
         }
 
         #endregion

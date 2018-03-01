@@ -34,7 +34,7 @@ namespace IUERM_RRS.Controllers
             else if (User.IsInRole("Admin"))
                 return View("Grid");
             else
-                return View("Index","Home");
+                return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Grid()
@@ -42,7 +42,7 @@ namespace IUERM_RRS.Controllers
             ScheduleViewModel.SetColumns(mainRepository.GetColumnsConfig());
             return View();
         }
-        
+
         public ActionResult GetPartial(string partial)
         {
             ViewBag.EventCodes = mainRepository.GetAllEventCodes();
@@ -75,7 +75,7 @@ namespace IUERM_RRS.Controllers
             if (ModelState.IsValid)
             {
                 scheduleRepository.Insert(schedule);
-                return RedirectToAction("Grid","Schedule");
+                return RedirectToAction("Grid", "Schedule");
             }
             schedule = GetModel();
             return View(schedule);
@@ -95,21 +95,12 @@ namespace IUERM_RRS.Controllers
         }
 
         #region KendoGridMethods
-        public ActionResult Schedules_Read([DataSourceRequest]DataSourceRequest request)
-        {
-            List<ScheduleViewModel> schedules = scheduleRepository.GetAllRecords();
-            DataSourceResult result = schedules.AsQueryable().ToDataSourceResult(request);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Schedules_Destroy([DataSourceRequest]DataSourceRequest request, ScheduleViewModel schedule)
         {
-            if (ModelState.IsValid)
-            {
-                scheduleRepository.Delete(schedule);
-            }
-
+            scheduleRepository.Delete(schedule);
             return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 

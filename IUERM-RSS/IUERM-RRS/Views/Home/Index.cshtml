@@ -9,7 +9,6 @@
         .Columns(columns =>
         {
             columns.Bound(c => c.SCH_StewardDomain).Width(200)
-                .Locked(true).Lockable(false)
                 .Visible(ScheduleViewModel.IsColumnVisible("SCH_StewardDomain")).HtmlAttributes(new { @style = "text-align:center" }); ;
             columns.Bound(c => c.SCH_RetentionArea).Width(200)
                 .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionArea")).HtmlAttributes(new { @style = "text-align:center" });
@@ -69,7 +68,7 @@
         .Scrollable()
         .DataSource(dataSource => dataSource
             .Ajax()
-            .Read(read => read.Action("Schedules_Read", "Schedule"))
+            .Read(read => read.Action("Schedules_Read", "Home"))
         )
         .Events(e => e.DataBound("onDataBound"))
     )
