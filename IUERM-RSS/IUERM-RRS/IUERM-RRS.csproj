@@ -2874,7 +2874,7 @@
     <Content Include="Views\Home\LoginError.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Office.cshtml" />
     <Content Include="Views\Schedule\Edit.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\EventCode.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EventCodeId.cshtml" />
     <Content Include="Views\Shared\_RetentionEventCode.cshtml" />
   </ItemGroup>
   <ItemGroup>

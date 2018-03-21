@@ -18,11 +18,12 @@
                     .Columns(columns =>
                     {
                         columns.Bound(o => o.Id).Visible(false);
-                        columns.Bound(o => o.BasedOnCode).Width(150).Locked(true).Lockable(false);
+                        columns.Bound(o => o.BasedOnCode).Width(150);
                         columns.Bound(o => o.BaseOnDescription).Width(200);
-                        columns.Bound(o => o.EventCode).ClientTemplate("#=EventCode#").Width(150);
+                        columns.Bound(o => o.EventCode).ClientTemplate("#=EventCode2#").Width(150);
                         columns.Bound(o => o.Period).Width(150);
-                        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(200);
+                        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })
+                            .Width(160).Locked(true).Lockable(false); ;
                     })
                     .Scrollable()
                     .DataSource(dataSource => dataSource

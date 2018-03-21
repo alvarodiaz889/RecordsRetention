@@ -32,6 +32,7 @@ namespace IUERM_RRS.ViewModels
 
         [Display(Name = "Ret. Area Description")]
         [Validator()]
+        [DataType(DataType.MultilineText)]
         public string SCH_RetentionAreaDescription { get; set; }
 
         [Display(Name = "Type")]
@@ -58,6 +59,7 @@ namespace IUERM_RRS.ViewModels
 
         [Display(Name = "Description")]
         [Validator()]
+        [DataType(DataType.MultilineText)]
         public string SCH_Description { get; set; }
 
         [Display(Name = "Retention")]
@@ -100,6 +102,7 @@ namespace IUERM_RRS.ViewModels
 
         [Display(Name = "Reason")]
         [Validator()]
+        [DataType(DataType.MultilineText)]
         public string SCH_Reason { get; set; }
 
         [Display(Name = "Record Medium")]
@@ -111,7 +114,7 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "People who retains")]
         [Validator()]
         public int? SCH_RetainerId { get; set; }
-        [Display(Name = "People who retains")]
+        [Display(Name = "Who Can Retain")]
         public string SCH_Retainer { get; set; }
 
         [Display(Name = "Disposition")]

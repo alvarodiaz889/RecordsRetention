@@ -123,10 +123,11 @@ namespace IUERM_RRS.Repositories
             return context.EventCodes
                 .Select(o => new EventCodeViewModel
                     {
+                        Id = o.ECD_Id,
                         Code = o.ECD_Code ?? string.Empty,
                         Description = o.ECD_Description ?? string.Empty
                     })
-                .OrderBy(o => o.Description)
+                .OrderBy(o => o.Code)
                 .ToList();
         }
 
@@ -135,20 +136,21 @@ namespace IUERM_RRS.Repositories
             List<SelectListItem> list = context.EventCodes
                 .Select(o => new SelectListItem
                     {
-                        Value = o.ECD_Code ?? string.Empty,
-                        Text = o.ECD_Description
-                    })
+                        Value = o.ECD_Id.ToString() ,
+                        Text = o.ECD_Code ?? string.Empty,
+                })
                 .OrderBy(o => o.Text)
                 .ToList();
             
             return list;
         }
 
-        public EventCodeViewModel GetEventCodesByCode(string code)
+        public EventCodeViewModel GetEventCodesById(int id)
         {
-            return context.EventCodes.Where(o => o.ECD_Code == code)
+            return context.EventCodes.Where(o => o.ECD_Id == id)
                 .Select(o => new EventCodeViewModel
                     {
+                        Id = o.ECD_Id,
                         Code = o.ECD_Code ?? string.Empty,
                         Description = o.ECD_Description ?? string.Empty
                     })
@@ -156,20 +158,34 @@ namespace IUERM_RRS.Repositories
         }
         public void InsertEventCodes(EventCodeViewModel ovm)
         {
-            EventCode newRecord = new EventCode { ECD_Code = ovm.Code?.Trim(), ECD_Description = ovm.Description?.Trim() };
+            EventCode newRecord = new EventCode {
+                ECD_Id = ovm.Id,
+                ECD_Code = ovm.Code?.Trim(),
+                ECD_Description = ovm.Description?.Trim()
+            };
             context.EventCodes.Add(newRecord);
             context.SaveChanges();
         }
         public void DeleteEventCodes(EventCodeViewModel ovm)
         {
-            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            EventCode newRecord = new EventCode
+            {
+                ECD_Id = ovm.Id,
+                ECD_Code = ovm.Code?.Trim(),
+                ECD_Description = ovm.Description?.Trim()
+            };
             context.EventCodes.Attach(newRecord);
             context.EventCodes.Remove(newRecord);
             context.SaveChanges();
         }
         public void UpdateEventCodes(EventCodeViewModel ovm)
         {
-            EventCode newRecord = new EventCode { ECD_Code = ovm.Code, ECD_Description = ovm.Description };
+            EventCode newRecord = new EventCode
+            {
+                ECD_Id = ovm.Id,
+                ECD_Code = ovm.Code?.Trim(),
+                ECD_Description = ovm.Description?.Trim()
+            };
             context.EventCodes.Attach(newRecord);
             context.Entry(newRecord).State = EntityState.Modified;
             context.SaveChanges();
@@ -463,17 +479,7 @@ namespace IUERM_RRS.Repositories
         #region Retention
         public List<RetentionViewModel> GetAllRetentions()
         {
-            return context.Retentions
-                .Select(o => new RetentionViewModel
-                    {
-                        Id = o.RET_Id,
-                        BasedOnCode = o.RET_BasedOnCode,
-                        BaseOnDescription = o.RET_BaseOnDescription,
-                        Period = o.RET_Period,
-                        EventCode = o.RET_EventCode,
-                    })
-                 .OrderBy(o => o.BasedOnCode)
-                .ToList();
+            return context.Database.SqlQuery<RetentionViewModel>("[dbo].[GetAllRetentions]").ToList();
         }
 
         public IEnumerable<SelectListItem> GetAllRetentionsDDL()
@@ -494,7 +500,7 @@ namespace IUERM_RRS.Repositories
                     BasedOnCode = o.RET_BasedOnCode,
                     BaseOnDescription = o.RET_BaseOnDescription,
                     Period = o.RET_Period,
-                    EventCode = o.RET_EventCode
+                    EventCodeId = o.RET_EventCodeId
                 })
                 .FirstOrDefault();
         }
@@ -505,7 +511,7 @@ namespace IUERM_RRS.Repositories
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
                 RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCode = ovm.EventCode,
+                RET_EventCodeId = ovm.EventCode?.Id,
                 RET_Period = ovm.Period
             };
             context.Retentions.Add(newRecord);
@@ -518,7 +524,7 @@ namespace IUERM_RRS.Repositories
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
                 RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCode = ovm.EventCode,
+                RET_EventCodeId = ovm.EventCode?.Id,
                 RET_Period = ovm.Period
             };
             context.Retentions.Attach(newRecord);
@@ -532,7 +538,7 @@ namespace IUERM_RRS.Repositories
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
                 RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCode = ovm.EventCode,
+                RET_EventCodeId = ovm.EventCode?.Id,
                 RET_Period = ovm.Period
             };
             context.Retentions.Attach(newRecord);
@@ -610,7 +616,7 @@ namespace IUERM_RRS.Repositories
 
         public List<ColumnManager> GetColumnsConfig()
         {
-            return context.ColumnManager.AsNoTracking().ToList();
+            return context.ColumnManagers.AsNoTracking().ToList();
         }
 
         #endregion

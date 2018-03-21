@@ -4,20 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="877c71373fd74ecba2df4257a06af5b8" Name="Diagram1" ZoomLevel="71">
+      <Diagram DiagramId="877c71373fd74ecba2df4257a06af5b8" Name="Diagram1" ZoomLevel="91">
         <EntityTypeShape EntityType="IUERM_RSchedModel.AreaScope" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetUser" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningPolicy" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningRegulation" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningStatute" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.OfficeOfRecord" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.OfficialRecordMedium" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.Retainer" Width="1.5" PointX="3" PointY="23.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.User" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_RETENTION_EVENT_CODES" ManuallyRouted="false" />
         <AssociationConnector Association="IUERM_RSchedModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.75" PointY="0.875" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
@@ -30,8 +27,11 @@
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="3" PointY="4" />
+        <AssociationConnector Association="IUERM_RSchedModel.FK_Retention_EventCodes" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

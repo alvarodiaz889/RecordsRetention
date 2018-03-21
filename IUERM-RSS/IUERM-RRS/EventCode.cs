@@ -20,6 +20,7 @@ namespace IUERM_RRS
             this.Retentions = new HashSet<Retention>();
         }
     
+        public int ECD_Id { get; set; }
         public string ECD_Code { get; set; }
         public string ECD_Description { get; set; }
     

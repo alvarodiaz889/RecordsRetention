@@ -18,6 +18,7 @@
                 .Name("grid")
                 .Columns(columns =>
                 {
+                    columns.Bound(o => o.Id).HtmlAttributes(new { @style = "vertical-align: top;" }).Visible(false);
                     columns.Bound(o => o.Code).HtmlAttributes(new { @style = "vertical-align: top;" });
                     columns.Bound(o => o.Description).HtmlAttributes(new { @style = "vertical-align: top;" });
                     columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(100);
@@ -26,7 +27,7 @@
                 .DataSource(dataSource => dataSource
                     .Ajax()
                     .ServerOperation(true)
-                    .Model(model => model.Id(o => o.Code))
+                    .Model(model => model.Id(o => o.Id))    
                     .Read(read => read.Action("ReadEventCodes", "Main"))
                     .Destroy(destroy => destroy.Action("DestroyEventCode", "Main"))
                     .Update(update => update.Action("UpdateEventCode", "Main"))

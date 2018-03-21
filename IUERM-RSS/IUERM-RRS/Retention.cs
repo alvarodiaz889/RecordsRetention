@@ -23,7 +23,7 @@ namespace IUERM_RRS
         public int RET_Id { get; set; }
         public string RET_BasedOnCode { get; set; }
         public string RET_BaseOnDescription { get; set; }
-        public string RET_EventCode { get; set; }
+        public Nullable<int> RET_EventCodeId { get; set; }
         public string RET_Period { get; set; }
     
         public virtual EventCode EventCode { get; set; }

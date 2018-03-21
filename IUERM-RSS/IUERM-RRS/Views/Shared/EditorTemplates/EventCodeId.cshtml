@@ -2,7 +2,6 @@
 @model IEnumerable<EventCodeViewModel>
 @(Html.Kendo().DropDownListFor(m => m)
         .BindTo((IEnumerable<EventCodeViewModel>)ViewBag.EventCodes)
-        .DataValueField("Code")
-        .DataTextField("Description")
-        .AutoBind(true)
+        .DataValueField("Id")
+        .DataTextField("Code")
 )

@@ -63,8 +63,9 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
         </EntityType>
         <EntityType Name="EventCodes">
           <Key>
-            <PropertyRef Name="ECD_Code" />
+            <PropertyRef Name="ECD_Id" />
           </Key>
+          <Property Name="ECD_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ECD_Code" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="ECD_Description" Type="nvarchar" MaxLength="255" />
         </EntityType>
@@ -118,7 +119,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="RET_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RET_BasedOnCode" Type="nchar" MaxLength="2" />
           <Property Name="RET_BaseOnDescription" Type="nvarchar" MaxLength="50" />
-          <Property Name="RET_EventCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="RET_EventCodeId" Type="int" />
           <Property Name="RET_Period" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Schedule">
@@ -190,15 +191,15 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_RETENTION_EVENT_CODES">
+        <Association Name="FK_Retention_EventCodes">
           <End Role="EventCodes" Type="Self.EventCodes" Multiplicity="0..1" />
           <End Role="Retention" Type="Self.Retention" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EventCodes">
-              <PropertyRef Name="ECD_Code" />
+              <PropertyRef Name="ECD_Id" />
             </Principal>
             <Dependent Role="Retention">
-              <PropertyRef Name="RET_EventCode" />
+              <PropertyRef Name="RET_EventCodeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -341,7 +342,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
-          <AssociationSet Name="FK_RETENTION_EVENT_CODES" Association="Self.FK_RETENTION_EVENT_CODES">
+          <AssociationSet Name="FK_Retention_EventCodes" Association="Self.FK_Retention_EventCodes">
             <End Role="EventCodes" EntitySet="EventCodes" />
             <End Role="Retention" EntitySet="Retention" />
           </AssociationSet>
@@ -420,14 +421,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
-        <EntityType Name="EventCode">
-          <Key>
-            <PropertyRef Name="ECD_Code" />
-          </Key>
-          <Property Name="ECD_Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ECD_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Retentions" Relationship="Self.FK_RETENTION_EVENT_CODES" FromRole="EventCodes" ToRole="Retention" />
-        </EntityType>
         <EntityType Name="GoverningPolicy">
           <Key>
             <PropertyRef Name="GPO_Id" />
@@ -477,18 +470,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="RET_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" FromRole="Retainer" ToRole="Schedule" />
         </EntityType>
-        <EntityType Name="Retention">
-          <Key>
-            <PropertyRef Name="RET_Id" />
-          </Key>
-          <Property Name="RET_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="RET_BasedOnCode" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
-          <Property Name="RET_BaseOnDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RET_EventCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="RET_Period" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="EventCode" Relationship="Self.FK_RETENTION_EVENT_CODES" FromRole="Retention" ToRole="EventCodes" />
-          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Retention" ToRole="Schedule" />
-        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="US_Id" />
@@ -501,18 +482,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="US_Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="US_IsSuperAdmin" Type="Boolean" />
         </EntityType>
-        <Association Name="FK_RETENTION_EVENT_CODES">
-          <End Role="EventCodes" Type="Self.EventCode" Multiplicity="0..1" />
-          <End Role="Retention" Type="Self.Retention" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EventCodes">
-              <PropertyRef Name="ECD_Code" />
-            </Principal>
-            <Dependent Role="Retention">
-              <PropertyRef Name="RET_EventCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -521,19 +490,13 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <EntitySet Name="AreaScopes" EntityType="Self.AreaScope" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="EventCodes" EntityType="Self.EventCode" />
           <EntitySet Name="GoverningPolicies" EntityType="Self.GoverningPolicy" />
           <EntitySet Name="GoverningRegulations" EntityType="Self.GoverningRegulation" />
           <EntitySet Name="GoverningStatutes" EntityType="Self.GoverningStatute" />
           <EntitySet Name="OfficeOfRecords" EntityType="Self.OfficeOfRecord" />
           <EntitySet Name="OfficialRecordMediums" EntityType="Self.OfficialRecordMedium" />
           <EntitySet Name="Retainers" EntityType="Self.Retainer" />
-          <EntitySet Name="Retentions" EntityType="Self.Retention" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_RETENTION_EVENT_CODES" Association="Self.FK_RETENTION_EVENT_CODES">
-            <End Role="EventCodes" EntitySet="EventCodes" />
-            <End Role="Retention" EntitySet="Retentions" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -573,11 +536,17 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <End Role="Retainer" EntitySet="Retainers" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
+          <EntitySet Name="EventCodes" EntityType="IUERM_RSchedModel.EventCode" />
+          <EntitySet Name="Retentions" EntityType="IUERM_RSchedModel.Retention" />
+          <AssociationSet Name="FK_Retention_EventCodes" Association="IUERM_RSchedModel.FK_Retention_EventCodes">
+            <End Role="EventCode" EntitySet="EventCodes" />
+            <End Role="Retention" EntitySet="Retentions" />
+          </AssociationSet>
           <AssociationSet Name="FK_SCHEDULE_RETENTION" Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION">
             <End Role="Retention" EntitySet="Retentions" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="DispositionOption">
           <Key>
             <PropertyRef Name="DOP_Id" />
@@ -728,6 +697,39 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EventCode">
+          <Key>
+            <PropertyRef Name="ECD_Id" />
+          </Key>
+          <Property Name="ECD_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ECD_Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ECD_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Retentions" Relationship="IUERM_RSchedModel.FK_Retention_EventCodes" FromRole="EventCode" ToRole="Retention" />
+        </EntityType>
+        <EntityType Name="Retention">
+          <Key>
+            <PropertyRef Name="RET_Id" />
+          </Key>
+          <Property Name="RET_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RET_BasedOnCode" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="RET_BaseOnDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RET_EventCodeId" Type="Int32" />
+          <Property Name="RET_Period" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="EventCode" Relationship="IUERM_RSchedModel.FK_Retention_EventCodes" FromRole="Retention" ToRole="EventCode" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Retention" ToRole="Schedule" />
+        </EntityType>
+        <Association Name="FK_Retention_EventCodes">
+          <End Type="IUERM_RSchedModel.EventCode" Role="EventCode" Multiplicity="0..1" />
+          <End Type="IUERM_RSchedModel.Retention" Role="Retention" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventCode">
+              <PropertyRef Name="ECD_Id" />
+            </Principal>
+            <Dependent Role="Retention">
+              <PropertyRef Name="RET_EventCodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SCHEDULE_RETENTION">
           <End Type="IUERM_RSchedModel.Retention" Role="Retention" Multiplicity="0..1" />
           <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
@@ -740,7 +742,7 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -777,14 +779,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EventCodes">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.EventCode">
-              <MappingFragment StoreEntitySet="EventCodes">
-                <ScalarProperty Name="ECD_Code" ColumnName="ECD_Code" />
-                <ScalarProperty Name="ECD_Description" ColumnName="ECD_Description" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -834,17 +828,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               <MappingFragment StoreEntitySet="Retainer">
                 <ScalarProperty Name="RET_Id" ColumnName="RET_Id" />
                 <ScalarProperty Name="RET_Name" ColumnName="RET_Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Retentions">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.Retention">
-              <MappingFragment StoreEntitySet="Retention">
-                <ScalarProperty Name="RET_Id" ColumnName="RET_Id" />
-                <ScalarProperty Name="RET_BasedOnCode" ColumnName="RET_BasedOnCode" />
-                <ScalarProperty Name="RET_BaseOnDescription" ColumnName="RET_BaseOnDescription" />
-                <ScalarProperty Name="RET_EventCode" ColumnName="RET_EventCode" />
-                <ScalarProperty Name="RET_Period" ColumnName="RET_Period" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -916,7 +899,27 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="EventCodes">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.EventCode">
+              <MappingFragment StoreEntitySet="EventCodes">
+                <ScalarProperty Name="ECD_Description" ColumnName="ECD_Description" />
+                <ScalarProperty Name="ECD_Code" ColumnName="ECD_Code" />
+                <ScalarProperty Name="ECD_Id" ColumnName="ECD_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retentions">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.Retention">
+              <MappingFragment StoreEntitySet="Retention">
+                <ScalarProperty Name="RET_Period" ColumnName="RET_Period" />
+                <ScalarProperty Name="RET_EventCodeId" ColumnName="RET_EventCodeId" />
+                <ScalarProperty Name="RET_BaseOnDescription" ColumnName="RET_BaseOnDescription" />
+                <ScalarProperty Name="RET_BasedOnCode" ColumnName="RET_BasedOnCode" />
+                <ScalarProperty Name="RET_Id" ColumnName="RET_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

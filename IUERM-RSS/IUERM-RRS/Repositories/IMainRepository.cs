@@ -29,7 +29,7 @@ namespace IUERM_RRS.Repositories
         //EventCodes
         List<EventCodeViewModel> GetAllEventCodes();
         IEnumerable<SelectListItem> GetAllEventCodesDDL();
-        EventCodeViewModel GetEventCodesByCode(string code);
+        EventCodeViewModel GetEventCodesById(int id);
         void InsertEventCodes(EventCodeViewModel eventCode);
         void DeleteEventCodes(EventCodeViewModel eventCode);
         void UpdateEventCodes(EventCodeViewModel eventCode);
