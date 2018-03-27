@@ -10,68 +10,62 @@
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })
-                .Width(160).Title("Edit / Remove").Locked(true).Lockable(false);
-            columns.Bound(c => c.SCH_StewardDomain).Width(200)
-                .HtmlAttributes(new { @style = "text-align:center" }); ;
-            columns.Bound(c => c.SCH_RetentionArea).Width(200)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RetentionSubArea).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_AreaScope).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Type).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Office).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Coordinator).Width(200)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RecordSeries).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Description).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Retention).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_IsActive).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_IsVital).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_GoverningStatute).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_GoverningRegulation).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_GoverningPolicy).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Reason).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RecordMedium).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Retainer).Width(300)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_Disposition).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_RequiresDestruction).Width(150)
-                .HtmlAttributes(new { @style = "text-align:center" });
-            columns.Bound(c => c.SCH_CreationDate2).Width(250)
-                .HtmlAttributes(new { @style = "text-align:center" });
-
-
-        })
+        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })
+            .Width(160).Title("Edit / Remove").Locked(true).Lockable(false);
+        columns.Bound(c => c.SCH_StewardDomain).Width(200)
+            .HtmlAttributes(new { @style = "text-align:center" }); ;
+        columns.Bound(c => c.SCH_RetentionArea).Width(200)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RetentionSubArea).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_AreaScope).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RetentionAreaDescription).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Type).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Office).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Coordinator).Width(200)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RecordSeries).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Description).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Retention).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_IsActive).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_IsVital).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_GoverningStatute).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_GoverningRegulation).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_GoverningPolicy).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Reason).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RecordMedium).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_Retainer).Width(300)
+            .HtmlAttributes(new { @style = "text-align:center" }).Sortable(false).Filterable(false);
+        columns.Bound(c => c.SCH_Disposition).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_RequiresDestruction).Width(150)
+            .HtmlAttributes(new { @style = "text-align:center" });
+        columns.Bound(c => c.SCH_CreationDate2).Width(250)
+            .HtmlAttributes(new { @style = "text-align:center" }); })
         .ToolBar(toolbar =>
-        {
-            toolbar.Excel();
-            toolbar.Pdf();
-        })
+            {
+                toolbar.Excel();
+                toolbar.Pdf();
+            })
         .Pageable()
         .Navigatable()
-        .Sortable(sortable =>
-        {
-            sortable.SortMode(GridSortMode.SingleColumn);
-        })
+        .Sortable(sortable => {sortable.SortMode(GridSortMode.SingleColumn);})
         .Filterable()
         .Scrollable()
         .DataSource(dataSource => dataSource

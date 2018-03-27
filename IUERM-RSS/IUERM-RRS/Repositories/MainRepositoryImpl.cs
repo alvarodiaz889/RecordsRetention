@@ -299,7 +299,9 @@ namespace IUERM_RRS.Repositories
         public IEnumerable<SelectListItem> GetAllGoverningStatutesDDL()
         {
             List<SelectListItem> list = context.GoverningStatutes
-                .Select(o => new SelectListItem { Value = o.GST_Id.ToString(), Text = o.GST_Name })
+                .Select(o => new SelectListItem {
+                    Value = o.GST_Id.ToString(),
+                    Text = o.GST_Name.Length > 50 ? o.GST_Name.Substring(0, 50) + " ..." : o.GST_Name })
                 .OrderBy(o => o.Text)
                 .ToList();
             
