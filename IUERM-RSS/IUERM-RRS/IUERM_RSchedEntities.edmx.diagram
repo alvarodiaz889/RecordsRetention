@@ -16,20 +16,20 @@
         <EntityTypeShape EntityType="IUERM_RSchedModel.Retainer" Width="1.5" PointX="3" PointY="23.875" IsExpanded="true" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.User" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="IUERM_RSchedModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.625" PointY="6.625" />
         <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="2.5" PointX="5.25" PointY="9.5" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="5.375" PointY="10.25" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="5.375" PointY="13.25" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="1.5" PointX="7.625" PointY="9.25" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" />
+        <AssociationConnector Association="IUERM_RSchedModel.FK_Schedule_EventCodes" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="0.75" PointY="4.25" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="3" PointY="4" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_Retention_EventCodes" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" />
         </Diagram>
     </edmx:Diagrams>

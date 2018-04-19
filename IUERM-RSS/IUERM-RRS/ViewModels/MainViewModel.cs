@@ -91,16 +91,6 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Ret. Description")]
         public string BaseOnDescription { get; set; }
 
-        [Display(Name = "EventCodeId")]
-        public int? EventCodeId { get; set; }
-        [Display(Name = "EventCodeId")]
-        public string EventCode2 { get; set; }
-        [UIHint("EventCodeId")]
-        public EventCodeViewModel EventCode { get; set; }
-
-        [Display(Name = "Period")]
-        public string Period { get; set; }
-
         [Display(Name = "Retention")]
         public string Name { get
             {

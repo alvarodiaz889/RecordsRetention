@@ -17,7 +17,7 @@ namespace IUERM_RRS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EventCode()
         {
-            this.Retentions = new HashSet<Retention>();
+            this.Schedules = new HashSet<Schedule>();
         }
     
         public int ECD_Id { get; set; }
@@ -25,6 +25,6 @@ namespace IUERM_RRS
         public string ECD_Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retention> Retentions { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

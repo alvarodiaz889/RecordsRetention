@@ -37,8 +37,8 @@ namespace IUERM_RRS
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<DispositionOption> DispositionOptions { get; set; }
         public virtual DbSet<ColumnManager> ColumnManagers { get; set; }
-        public virtual DbSet<Schedule> Schedules { get; set; }
         public virtual DbSet<EventCode> EventCodes { get; set; }
         public virtual DbSet<Retention> Retentions { get; set; }
+        public virtual DbSet<Schedule> Schedules { get; set; }
     }
 }

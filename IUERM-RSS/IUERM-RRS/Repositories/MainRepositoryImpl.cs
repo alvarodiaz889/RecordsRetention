@@ -481,7 +481,10 @@ namespace IUERM_RRS.Repositories
         #region Retention
         public List<RetentionViewModel> GetAllRetentions()
         {
-            return context.Database.SqlQuery<RetentionViewModel>("[dbo].[GetAllRetentions]").ToList();
+            return context.Retentions
+                .Select(o => new RetentionViewModel { Id = o.RET_Id, BasedOnCode = o.RET_BasedOnCode, BaseOnDescription = o.RET_BaseOnDescription })
+                .OrderBy(o => o.BasedOnCode)
+                .ToList();
         }
 
         public IEnumerable<SelectListItem> GetAllRetentionsDDL()
@@ -500,9 +503,7 @@ namespace IUERM_RRS.Repositories
                 {
                     Id = o.RET_Id,
                     BasedOnCode = o.RET_BasedOnCode,
-                    BaseOnDescription = o.RET_BaseOnDescription,
-                    Period = o.RET_Period,
-                    EventCodeId = o.RET_EventCodeId
+                    BaseOnDescription = o.RET_BaseOnDescription
                 })
                 .FirstOrDefault();
         }
@@ -512,9 +513,7 @@ namespace IUERM_RRS.Repositories
             {
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
-                RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCodeId = ovm.EventCode?.Id,
-                RET_Period = ovm.Period
+                RET_BaseOnDescription = ovm.BaseOnDescription
             };
             context.Retentions.Add(newRecord);
             context.SaveChanges();
@@ -525,9 +524,7 @@ namespace IUERM_RRS.Repositories
             {
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
-                RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCodeId = ovm.EventCode?.Id,
-                RET_Period = ovm.Period
+                RET_BaseOnDescription = ovm.BaseOnDescription
             };
             context.Retentions.Attach(newRecord);
             context.Retentions.Remove(newRecord);
@@ -539,9 +536,7 @@ namespace IUERM_RRS.Repositories
             {
                 RET_Id = ovm.Id,
                 RET_BasedOnCode = ovm.BasedOnCode,
-                RET_BaseOnDescription = ovm.BaseOnDescription,
-                RET_EventCodeId = ovm.EventCode?.Id,
-                RET_Period = ovm.Period
+                RET_BaseOnDescription = ovm.BaseOnDescription
             };
             context.Retentions.Attach(newRecord);
             context.Entry(newRecord).State = EntityState.Modified;

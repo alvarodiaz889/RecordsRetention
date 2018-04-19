@@ -50,6 +50,7 @@ namespace IUERM_RRS.Repositories
             svm.IsVital = mainRepository.GetYesNoDDL();
             svm.Types = mainRepository.GetTypesDDL();
             svm.RequireDestructionOpt = mainRepository.GetYesNoDDL();
+            svm.EventCodes = mainRepository.GetAllEventCodesDDL();
             return svm;
         }
         public void Insert(ScheduleViewModel svm)
@@ -105,6 +106,8 @@ namespace IUERM_RRS.Repositories
                 SCH_DispositionId = s.SCH_DispositionId,
                 SCH_RequiresCertDestruction = s.SCH_RquiresCertDestruction,
                 SCH_CreationDate = s.SCH_CreationDate,
+                SCH_EventCodeId = s.SCH_EventCodeId,
+                SCH_Years = s.SCH_Years
             };
         }
 
@@ -135,7 +138,9 @@ namespace IUERM_RRS.Repositories
                 SCH_RetainerId = svm.SCH_RetainerId,
                 SCH_DispositionId = svm.SCH_DispositionId,
                 SCH_RquiresCertDestruction = svm.SCH_RequiresCertDestruction,
-                SCH_CreationDate = svm.SCH_CreationDate
+                SCH_CreationDate = svm.SCH_CreationDate,
+                SCH_EventCodeId = svm.SCH_EventCodeId,
+                SCH_Years = svm.SCH_Years
             };
         }
 

@@ -12,25 +12,25 @@ namespace IUERM_RRS.ViewModels
     {
         public Guid SCH_ID { get; set; }
 
-        [Display(Name = "Steward Domain")]
+        [Display(Name = "Data Steward Domain")]
         [Validator()]
         public string SCH_StewardDomain { get; set; }
 
-        [Display(Name = "Retention Area")]
+        [Display(Name = "Records Retention Area")]
         [Validator()]
         public string SCH_RetentionArea { get; set; }
 
-        [Display(Name = "Retention Sub Area")]
+        [Display(Name = "Records Retention Sub-Area")]
         [Validator()]
         public string SCH_RetentionSubArea { get; set; }
 
-        [Display(Name = "Area Scope")]
+        [Display(Name = "Area/Sub-Area Scope")]
         [Validator()]
         public int? SCH_AreaScopeId { get; set; }
-        [Display(Name = "Area Scope")]
+        [Display(Name = "Area/Sub-Area Scope")]
         public string SCH_AreaScope { get;set; }
 
-        [Display(Name = "Ret. Area Description")]
+        [Display(Name = "Area/Sub-Area Description")]
         [Validator()]
         [DataType(DataType.MultilineText)]
         public string SCH_RetentionAreaDescription { get; set; }
@@ -39,13 +39,13 @@ namespace IUERM_RRS.ViewModels
         [Validator()]
         public string SCH_Type { get; set; }
 
-        [Display(Name = "Office")]
+        [Display(Name = "Office of Record")]
         [Validator()]
         public int? SCH_OfficeId { get; set; }
-        [Display(Name = "Office")]
+        [Display(Name = "Office of Record")]
         public string SCH_Office { get; set; }
 
-        [Display(Name = "Coordinator")]
+        [Display(Name = "Records Coordinator")]
         [Validator()]
         public string SCH_Coordinator { get; set; }
 
@@ -53,25 +53,25 @@ namespace IUERM_RRS.ViewModels
         [Validator()]
         public string SCH_RecordSeries { get; set; }
 
-        [Display(Name = "Series Code")]
+        [Display(Name = "Record Series Code")]
         [Validator()]
         public string SCH_RecordSeriesCode { get; set; }
 
-        [Display(Name = "Description")]
+        [Display(Name = "Record Description")]
         [Validator()]
         [DataType(DataType.MultilineText)]
         public string SCH_Description { get; set; }
 
-        [Display(Name = "Retention")]
+        [Display(Name = "Based On")]
         [Validator()]
         public int? SCH_RetentionId { get; set; }
-        [Display(Name = "Retention")]
+        [Display(Name = "Based On")]
         public string SCH_Retention { get; set; }
 
-        [Display(Name = "Active")]
+        [Display(Name = "Active/Inactive")]
         [Validator()]
         public bool? SCH_Active { get; set; }
-        [Display(Name = "Active")]
+        [Display(Name = "Active/Inactive")]
         public string SCH_IsActive { get;set;}
 
         [Display(Name = "Vital")]
@@ -94,21 +94,21 @@ namespace IUERM_RRS.ViewModels
         public string SCH_GoverningRegulation { get; set; }
 
 
-        [Display(Name = "Governing Policies")]
+        [Display(Name = "Governing IU Policies")]
         [Validator()]
         public int? SCH_GoverningPoliciesId { get; set; }
-        [Display(Name = "Governing Policies")]
+        [Display(Name = "Governing IU Policies")]
         public string SCH_GoverningPolicy { get; set; }
 
-        [Display(Name = "Reason")]
+        [Display(Name = "Reason for Retention Period")]
         [Validator()]
         [DataType(DataType.MultilineText)]
         public string SCH_Reason { get; set; }
 
-        [Display(Name = "Record Medium")]
+        [Display(Name = "Official Record Medium")]
         [Validator()]
         public int? SCH_RecordMediumId { get; set; }
-        [Display(Name = "Record Medium")]
+        [Display(Name = "Official Record Medium")]
         public string SCH_RecordMedium { get; set; }
 
         [Display(Name = "People who retains")]
@@ -134,6 +134,16 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Creation Date")]
         public string SCH_CreationDate2 { get; set; }
 
+        [Display(Name = "Event Code")]
+        [Validator()]
+        public int? SCH_EventCodeId { get; set; }
+        [Display(Name = "Event Code")]
+        public string SCH_EventCode { get; set; }
+
+        [Display(Name = "Retention Period")]
+        [Validator()]
+        public string SCH_Years { get; set; }
+
 
         // Variables for the drop down lists in the create and edit views
         public IEnumerable<SelectListItem> AreaScopes { get; set; }
@@ -149,6 +159,7 @@ namespace IUERM_RRS.ViewModels
         public IEnumerable<SelectListItem> IsVital { get; set; }
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<SelectListItem> RequireDestructionOpt { get; set; }
+        public IEnumerable<SelectListItem> EventCodes { get; set; }
 
         //Grid Column visibility for the grid located in Home/Index
         private static List<ColumnManager> columnManager;
