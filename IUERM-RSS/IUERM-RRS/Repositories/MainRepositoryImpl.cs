@@ -396,7 +396,7 @@ namespace IUERM_RRS.Repositories
         {
             List<SelectListItem> list = context.OfficialRecordMediums
                 .Select(o => new SelectListItem { Value = o.ORM_Id.ToString(), Text = o.ORM_Name })
-                .OrderBy(o => o.Text)
+                .OrderBy(o => o.Value)
                 .ToList();
             
             return list;
@@ -556,8 +556,8 @@ namespace IUERM_RRS.Repositories
         public IEnumerable<SelectListItem> GetYesNoDDL()
         {
             return new List<SelectListItem> {
-                new SelectListItem { Value = "true" , Text = "Yes" },
-                new SelectListItem { Value = "false" , Text = "No" }
+                new SelectListItem { Value = "false" , Text = "No" },
+                new SelectListItem { Value = "true" , Text = "Yes" }
             };
         }
 
@@ -566,7 +566,7 @@ namespace IUERM_RRS.Repositories
             //Values hardcoded for now, there are just 2 types in the requirements
             return new List<SelectListItem> {
                 new SelectListItem { Value = "General" , Text = "General" },
-                new SelectListItem { Value = "Unit Specific" , Text = "Unit Specific" }
+                new SelectListItem { Value = "Unit-Specific" , Text = "Unit-Specific" }
             };
         }
 

@@ -7,9 +7,28 @@
     <script>
         function OnRequestEnd(e) {
             if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                $("#advice").hide();
                 $("#grid").data("kendoGrid").dataSource.read();
             }
         }
+
+        function OnRemove(e) {
+            e.preventDefault();
+            var name = 'governingRegulationsId';
+            var id = e.model.Id;
+            $.post("@Url.Action("RecordExist", "Schedule")", { name: name, id: id }, function (data) {
+                if (data) {
+                    $("#advice").show();
+                    $("#grid").data("kendoGrid").dataSource.read();
+                } else
+                {
+                    $.post("@Url.Action("DestroyGoverningRegulationAsync", "Main")", { id: id }, function (data) { });
+                    $("#advice").hide();
+                    setTimeout(function () { $("#grid").data("kendoGrid").dataSource.read(); }, 3000);
+                }
+            });
+        }
+
     </script>
 
     <hr />
@@ -39,8 +58,10 @@
                 .Editable(editable => editable.Mode(GridEditMode.InLine))
                 .NoRecords("No Records.")
                 .Excel(excel => excel.FileName("GoverningRegulations.xlsx").Filterable(true).AllPages(true))
+                .Events(e => e.Remove("OnRemove"))
         )
     </div>
+    <span id="advice" style="color:red;display:none;"> This value is currently used in one or more Record Retention Schedule(s) and can't be removed.</span>
     <br/>
 </div>
     

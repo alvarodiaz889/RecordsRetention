@@ -136,5 +136,23 @@ namespace IUERM_RRS.Controllers
             return scheduleRepository.GetDropDownsInfo(null);
         }
 
+        [HttpPost]
+        public ActionResult RecordExist(string name,int id)
+        {
+            int? areaScopeId = name == "areaScopeId" ?  (int?)id:null;
+            int? officeId = name == "officeId" ? (int?)id : null;
+            int? retentionId = name == "retentionId" ? (int?)id : null;
+            int? governingStatutesId = name == "governingStatutesId" ? (int?)id : null;
+            int? governingRegulationsId = name == "governingRegulationsId" ? (int?)id : null;
+            int? governingPoliciesId = name == "governingPoliciesId" ? (int?)id : null;
+            int? recordMediumId = name == "recordMediumId" ? (int?)id : null;
+            int? retainerId = name == "retainerId" ? (int?)id : null;
+            int? dispositionId = name == "dispositionId" ? (int?)id : null;
+            int? eventCodeId = name == "eventCodeId" ? (int?)id : null;
+            bool value = scheduleRepository.RecordExistByForeignIDs(areaScopeId, officeId, retentionId, governingStatutesId,
+                governingRegulationsId, governingPoliciesId, recordMediumId, retainerId, dispositionId, eventCodeId);
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -1,14 +1,32 @@
 ﻿<div style="width: 50%; margin: 0 auto;">
     <div id="retentionContainer">
         <div class="modal-header">
-            <h3 class="section-title capitalize">Retentions</h3>
+            <h3 class="section-title capitalize">Based On</h3>
         </div>
 
         <script>
             function OnRequestEnd(e) {
                 if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                    $("#advice").hide();
                     $("#grid").data("kendoGrid").dataSource.read();
                 }
+            }
+
+            function OnRemove(e) {
+                e.preventDefault();
+                var name = 'retentionId';
+                var id = e.model.Id;
+                $.post("@Url.Action("RecordExist", "Schedule")", { name: name, id: id }, function (data) {
+                    if (data) {
+                        $("#advice").show();
+                        $("#grid").data("kendoGrid").dataSource.read();
+                    } else
+                    {
+                        $.post("@Url.Action("DestroyRetentionAsync", "Main")", { id: id }, function (data) { });
+                        $("#advice").hide();
+                        setTimeout(function () { $("#grid").data("kendoGrid").dataSource.read(); }, 3000);
+                    }
+                });
             }
         </script>
 
@@ -18,9 +36,9 @@
                     .Columns(columns =>
                     {
                         columns.Bound(o => o.Id).Visible(false);
-                        columns.Bound(o => o.BasedOnCode);
-                        columns.Bound(o => o.BaseOnDescription);
-                        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })                            .Width(100);
+                        columns.Bound(o => o.BasedOnCode).Title("Code");
+                        columns.Bound(o => o.BaseOnDescription).Title("Description");
+                        columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(100);
                     })
                     .Scrollable()
                     .DataSource(dataSource => dataSource
@@ -39,9 +57,11 @@
                     .Editable(editable => editable.Mode(GridEditMode.InLine))
                     .NoRecords("No Records.")
                     .Excel(excel => excel.FileName("Retentions.xlsx").Filterable(true).AllPages(true))
+                    .Events(e => e.Remove("OnRemove"))
         )
     </div>
     <br/>
+    <span id="advice" style="color:red;display:none;"> This value is currently used in one or more Record Retention Schedule(s) and can't be removed.</span>
 </div>
 
     

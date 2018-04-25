@@ -148,5 +148,43 @@ namespace IUERM_RRS.Repositories
         {
             context.Dispose();
         }
+
+        public bool RecordExistByForeignIDs(int? areaScopeId, int? officeId, int? retentionId, int? governingStatutesId,
+            int? governingRegulationsId, int? governingPoliciesId, int? recordMediumId, int? retainerId, int? dispositionId,
+            int? eventCodeId)
+        {
+            List<Schedule> records = context.Schedules.ToList();
+            bool value = false;
+            if (areaScopeId.HasValue)
+                value = records.Any(o => o.SCH_AreaScopeId == areaScopeId);
+
+            if (officeId.HasValue)
+                value = records.Any(o => o.SCH_OfficeId == officeId.Value);
+
+            if (retentionId.HasValue)
+                value = records.Any(o => o.SCH_RetentionId == retentionId.Value);
+
+            if (governingStatutesId.HasValue)
+                value = records.Any(o => o.SCH_GoverningStatutesId == governingStatutesId.Value);
+
+            if (governingRegulationsId.HasValue)
+                value = records.Any(o => o.SCH_GoverningRegulationsId == governingRegulationsId.Value);
+
+            if (governingPoliciesId.HasValue)
+                value = records.Any(o => o.SCH_GoverningPoliciesId == governingPoliciesId.Value);
+
+            if (recordMediumId.HasValue)
+                value = records.Any(o => o.SCH_RecordMediumId == recordMediumId.Value);
+
+            if (retainerId.HasValue)
+                value = records.Any(o => o.SCH_RetainerId == retainerId.Value);
+
+            if (dispositionId.HasValue)
+                value = records.Any(o => o.SCH_DispositionId == dispositionId.Value);
+
+            if (eventCodeId.HasValue)
+                value = records.Any(o => o.SCH_EventCodeId == eventCodeId.Value);
+            return value;
+        }
     }
 }

@@ -33,14 +33,12 @@
         columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
             .HtmlAttributes(new { @style = "text-align:left" });
         columns.Bound(c => c.SCH_Description).Width(150)
-            .HtmlAttributes(new { @style = "text-align:left" });
+            .HtmlAttributes(new { @style = "text-align:left;max-width: 450px" });
         columns.Bound(c => c.SCH_Retention).Width(150)
             .HtmlAttributes(new { @style = "text-align:left" });
         columns.Bound(c => c.SCH_EventCode).Width(150)
             .HtmlAttributes(new { @style = "text-align:left" });
         columns.Bound(c => c.SCH_Years).Width(150)
-            .HtmlAttributes(new { @style = "text-align:left" });
-        columns.Bound(c => c.SCH_IsActive).Width(150)
             .HtmlAttributes(new { @style = "text-align:left" });
         columns.Bound(c => c.SCH_IsVital).Width(150)
             .HtmlAttributes(new { @style = "text-align:left" });

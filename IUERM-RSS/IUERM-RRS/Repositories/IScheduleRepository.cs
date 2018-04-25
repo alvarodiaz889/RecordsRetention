@@ -15,6 +15,9 @@ namespace IUERM_RRS.Repositories
         void Delete(ScheduleViewModel schedule);
         void Update(ScheduleViewModel schedule);
         ScheduleViewModel GetDropDownsInfo(ScheduleViewModel svm);
+        bool RecordExistByForeignIDs(int? areaScopeId, int? officeId, int? retentionId,
+            int? governingStatutesId, int? governingRegulationsId, int? governingPoliciesId,
+            int? recordMediumId, int? retainerId, int? dispositionId, int? eventCodeId);
         void Dispose();
     }
 }

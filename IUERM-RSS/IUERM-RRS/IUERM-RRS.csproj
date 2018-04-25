@@ -264,6 +264,7 @@
       <DependentUpon>IUERM_RSchedEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\NavigationHandler.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="IUERM_RSchedEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

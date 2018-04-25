@@ -7,41 +7,62 @@
     <script>
         function OnRequestEnd(e) {
             if (e.type == "update" || e.type == "create" || e.type == "remove") {
+                $("#advice").hide();
                 $("#grid").data("kendoGrid").dataSource.read();
             }
         }
+
+        function OnRemove(e) {
+            e.preventDefault();
+            var name = 'officeId';
+            var id = e.model.Id;
+            $.post("@Url.Action("RecordExist", "Schedule")", { name: name, id: id }, function (data) {
+                if (data) {
+                    $("#advice").show();
+                    $("#grid").data("kendoGrid").dataSource.read();
+                } else
+                {
+                    $.post("@Url.Action("DestroyOfficeOfRecordAsync", "Main")", { id: id }, function (data) { });
+                    $("#advice").hide();
+                    setTimeout(function () { $("#grid").data("kendoGrid").dataSource.read(); }, 3000);
+                }
+            });
+        }
+
     </script>
 
     <hr />
     <div>
         @(Html.Kendo().Grid<IUERM_RRS.ViewModels.OfficeOfRecordViewModel>()
-                .Name("grid")
-                .Columns(columns =>
-                {
-                    columns.Bound(o => o.Id).HtmlAttributes(new { @style = "vertical-align: top;" }).Visible(false);
-                    columns.Bound(o => o.Name).HtmlAttributes(new { @style = "vertical-align: top;" });
-                    columns.Bound(o => o.Code).HtmlAttributes(new { @style = "vertical-align: top;" });
-                    columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(100);
-                })
-                .Scrollable()
-                .DataSource(dataSource => dataSource
-                    .Ajax()
-                    .ServerOperation(true)
-                    .Model(model => model.Id(o => o.Id))
-                    .Read(read => read.Action("ReadOfficeOfRecords", "Main"))
-                    .Destroy(destroy => destroy.Action("DestroyOfficeOfRecord", "Main"))
-                    .Update(update => update.Action("UpdateOfficeOfRecord", "Main"))
-                    .Create(create => create.Action("CreateOfficeOfRecord", "Main"))
-                    .Events(e => e.RequestEnd("OnRequestEnd"))
-                    )
-                .Sortable()
-                .Filterable()
-                .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
-                .Editable(editable => editable.Mode(GridEditMode.InLine))
-                .NoRecords("No Records.")
-                .Excel(excel => excel.FileName("OfficeOfRecords.xlsx").Filterable(true).AllPages(true))
+                        .Name("grid")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.Id).HtmlAttributes(new { @style = "vertical-align: top;" }).Visible(false);
+                            columns.Bound(o => o.Name).HtmlAttributes(new { @style = "vertical-align: top;" });
+                            columns.Bound(o => o.Code).HtmlAttributes(new { @style = "vertical-align: top;" });
+                            columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); }).Width(100);
+                        })
+                        .Scrollable()
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .ServerOperation(true)
+                            .Model(model => model.Id(o => o.Id))
+                            .Read(read => read.Action("ReadOfficeOfRecords", "Main"))
+                            .Destroy(destroy => destroy.Action("DestroyOfficeOfRecord", "Main"))
+                            .Update(update => update.Action("UpdateOfficeOfRecord", "Main"))
+                            .Create(create => create.Action("CreateOfficeOfRecord", "Main"))
+                            .Events(e => e.RequestEnd("OnRequestEnd"))
+                            )
+                        .Sortable()
+                        .Filterable()
+                        .ToolBar(toolbar => { toolbar.Create().Text("Add"); toolbar.Excel().Text("Export"); })
+                        .Editable(editable => editable.Mode(GridEditMode.InLine))
+                        .NoRecords("No Records.")
+                        .Excel(excel => excel.FileName("OfficeOfRecords.xlsx").Filterable(true).AllPages(true))
+                        .Events(e => e.Remove("OnRemove"))
         )
     </div>
-    <br/>
+    <br />
+    <span id="advice" style="color:red;display:none;"> This value is currently used in one or more Record Retention Schedule(s) and can't be removed.</span>
 </div>
     

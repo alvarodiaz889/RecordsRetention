@@ -1,9 +1,9 @@
-﻿using IUERM_RRS.Validations;
+﻿using IUERM_RRS.Helpers;
+using IUERM_RRS.Validations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace IUERM_RRS.ViewModels
@@ -57,10 +57,16 @@ namespace IUERM_RRS.ViewModels
         [Validator()]
         public string SCH_RecordSeriesCode { get; set; }
 
+        private string _SCH_Description;
         [Display(Name = "Record Description")]
         [Validator()]
         [DataType(DataType.MultilineText)]
-        public string SCH_Description { get; set; }
+        public string SCH_Description {
+            get {
+                return _SCH_Description;
+            }
+            set { _SCH_Description = value; }
+        }
 
         [Display(Name = "Based On")]
         [Validator()]
@@ -111,7 +117,7 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Official Record Medium")]
         public string SCH_RecordMedium { get; set; }
 
-        [Display(Name = "People who retains")]
+        [Display(Name = "Who Can Retain")]
         [Validator()]
         public int? SCH_RetainerId { get; set; }
         [Display(Name = "Who Can Retain")]

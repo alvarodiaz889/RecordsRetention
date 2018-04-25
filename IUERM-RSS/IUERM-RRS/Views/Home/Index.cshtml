@@ -36,8 +36,6 @@
                 .Visible(ScheduleViewModel.IsColumnVisible("SCH_EventCodeId")).HtmlAttributes(new { @style = "text-align:left" });
             columns.Bound(c => c.SCH_Years).Width(150)
                 .Visible(ScheduleViewModel.IsColumnVisible("SCH_Years")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_IsActive).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Active")).HtmlAttributes(new { @style = "text-align:left" });
             columns.Bound(c => c.SCH_IsVital).Width(150)
                 .Visible(ScheduleViewModel.IsColumnVisible("SCH_Vital")).HtmlAttributes(new { @style = "text-align:left" });
             columns.Bound(c => c.SCH_GoverningStatute).Width(250)

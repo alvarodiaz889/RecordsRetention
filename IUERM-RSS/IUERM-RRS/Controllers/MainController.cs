@@ -44,6 +44,14 @@ namespace IUERM_RRS.Controllers
         }
 
         [HttpPost]
+        public ActionResult DestroyAreaScopeAsync(int id)
+        {
+            AreaScopeViewModel obj = mainRepository.GetAreaScopeById(id);
+            mainRepository.DeleteAreaScope(obj);
+            return Json("");
+        }
+
+        [HttpPost]
         public ActionResult UpdateAreaScope([DataSourceRequest] DataSourceRequest request, AreaScopeViewModel obj)
         {
             if (ModelState.IsValid)
@@ -78,6 +86,14 @@ namespace IUERM_RRS.Controllers
         {
             mainRepository.DeleteDispositionOption(obj);
             return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult DestroyDispositionOptionAsync(int id)
+        {
+            DispositionOptionViewModel obj = mainRepository.GetDispositionOptionsById(id);
+            mainRepository.DeleteDispositionOption(obj);
+            return Json("");
         }
 
         [HttpPost]
@@ -118,6 +134,14 @@ namespace IUERM_RRS.Controllers
         }
 
         [HttpPost]
+        public ActionResult DestroyEventCodeAsync(int id)
+        {
+            EventCodeViewModel obj = mainRepository.GetEventCodesById(id);
+            mainRepository.DeleteEventCodes(obj);
+            return Json("");
+        }
+
+        [HttpPost]
         public ActionResult UpdateEventCode([DataSourceRequest] DataSourceRequest request, EventCodeViewModel obj)
         {
             if (ModelState.IsValid)
@@ -152,6 +176,14 @@ namespace IUERM_RRS.Controllers
         {
             mainRepository.DeleteGoverningPolicy(obj);
             return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult DestroyGoverningPolicyAsync(int id)
+        {
+            IdNameViewModel obj = mainRepository.GetGoverningPolicyById(id);
+            mainRepository.DeleteGoverningPolicy(obj);
+            return Json("");
         }
 
         [HttpPost]
@@ -192,6 +224,14 @@ namespace IUERM_RRS.Controllers
         }
 
         [HttpPost]
+        public ActionResult DestroyGoverningRegulationAsync(int id)
+        {
+            IdNameViewModel obj = mainRepository.GetGoverningRegulationById(id);
+            mainRepository.DeleteGoverningRegulation(obj);
+            return Json("");
+        }
+
+        [HttpPost]
         public ActionResult UpdateGoverningRegulation([DataSourceRequest] DataSourceRequest request, IdNameViewModel obj)
         {
             if (ModelState.IsValid)
@@ -226,6 +266,14 @@ namespace IUERM_RRS.Controllers
         {
             mainRepository.DeleteGoverningStatutes(obj);
             return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult DestroyGoverningStatuteAsync(int id)
+        {
+            IdNameViewModel obj = mainRepository.GetGoverningStatuteById(id);
+            mainRepository.DeleteGoverningStatutes(obj);
+            return Json("");
         }
 
         [HttpPost]
@@ -266,6 +314,14 @@ namespace IUERM_RRS.Controllers
         }
 
         [HttpPost]
+        public ActionResult DestroyOfficeOfRecordAsync(int id)
+        {
+            OfficeOfRecordViewModel obj = mainRepository.GetOfficeOfRecordById(id);
+            mainRepository.DeleteOfficeOfRecord(obj);
+            return Json("");
+        }
+
+        [HttpPost]
         public ActionResult UpdateOfficeOfRecord([DataSourceRequest] DataSourceRequest request, OfficeOfRecordViewModel obj)
         {
             if (ModelState.IsValid)
@@ -300,6 +356,14 @@ namespace IUERM_RRS.Controllers
         {
             mainRepository.DeleteOfficialRecordMedium(obj);
             return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult DestroyOfficialRecordMediumAsync(int id)
+        {
+            OfficialRecordMediumVM obj = mainRepository.GetOfficialRecordMediumById(id);
+            mainRepository.DeleteOfficialRecordMedium(obj);
+            return Json("");
         }
 
         [HttpPost]
@@ -340,6 +404,14 @@ namespace IUERM_RRS.Controllers
         }
 
         [HttpPost]
+        public ActionResult DestroyRetainerAsync(int id)
+        {
+            IdNameViewModel obj = mainRepository.GetRetainerById(id);
+            mainRepository.DeleteRetainer(obj);
+            return Json("");
+        }
+
+        [HttpPost]
         public ActionResult UpdateRetainer([DataSourceRequest] DataSourceRequest request, IdNameViewModel obj)
         {
             if (ModelState.IsValid)
@@ -374,6 +446,14 @@ namespace IUERM_RRS.Controllers
         {
             mainRepository.DeleteRetention(obj);
             return Json(new[] { obj }.ToDataSourceResult(request, ModelState));
+        }
+
+        [HttpPost]
+        public ActionResult DestroyRetentionAsync(int id)
+        {
+            RetentionViewModel obj = mainRepository.GetRetentionById(id);
+            mainRepository.DeleteRetention(obj);
+            return Json("");
         }
 
         [HttpPost]
