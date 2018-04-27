@@ -13,8 +13,10 @@ namespace IUERM_RRS.Repositories
         ScheduleViewModel GetScheduleById(string id);
         void Insert(ScheduleViewModel schedule);
         void Delete(ScheduleViewModel schedule);
+        void Delete(string id);
         void Update(ScheduleViewModel schedule);
-        ScheduleViewModel GetDropDownsInfo(ScheduleViewModel svm);
+        ScheduleViewModel GetDropDownsInfoCreate();
+        ScheduleViewModel GetDropDownsInfoUpdate(ScheduleViewModel svm,string Id);
         bool RecordExistByForeignIDs(int? areaScopeId, int? officeId, int? retentionId,
             int? governingStatutesId, int? governingRegulationsId, int? governingPoliciesId,
             int? recordMediumId, int? retainerId, int? dispositionId, int? eventCodeId);

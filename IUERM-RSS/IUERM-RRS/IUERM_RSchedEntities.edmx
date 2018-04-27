@@ -139,9 +139,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="SCH_RetentionId" Type="int" />
           <Property Name="SCH_Active" Type="bit" />
           <Property Name="SCH_Vital" Type="bit" />
-          <Property Name="SCH_GoverningStatutesId" Type="int" />
-          <Property Name="SCH_GoverningRegulationsId" Type="int" />
-          <Property Name="SCH_GoverningPoliciesId" Type="int" />
           <Property Name="SCH_Reason" Type="nvarchar(max)" />
           <Property Name="SCH_RecordMediumId" Type="int" />
           <Property Name="SCH_RetainerId" Type="int" />
@@ -150,6 +147,30 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="SCH_CreationDate" Type="datetime" />
           <Property Name="SCH_EventCodeId" Type="int" />
           <Property Name="SCH_Years" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="SchedulePolicies">
+          <Key>
+            <PropertyRef Name="SCP_ScheduleID" />
+            <PropertyRef Name="SCP_PolicyID" />
+          </Key>
+          <Property Name="SCP_ScheduleID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SCP_PolicyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleRegulations">
+          <Key>
+            <PropertyRef Name="SCR_ScheduleID" />
+            <PropertyRef Name="SCR_RegulationID" />
+          </Key>
+          <Property Name="SCR_ScheduleID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SCR_RegulationID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ScheduleStatutes">
+          <Key>
+            <PropertyRef Name="SCS_ScheduleID" />
+            <PropertyRef Name="SCS_StatuteID" />
+          </Key>
+          <Property Name="SCS_ScheduleID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SCS_StatuteID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -227,42 +248,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING _REGULATIONS">
-          <End Role="GoverningRegulations" Type="Self.GoverningRegulations" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningRegulations">
-              <PropertyRef Name="GRE_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningRegulationsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_POLICIES">
-          <End Role="GoverningPolicies" Type="Self.GoverningPolicies" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningPolicies">
-              <PropertyRef Name="GPO_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningPoliciesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_STATUTES">
-          <End Role="GoverningStatutes" Type="Self.GoverningStatutes" Multiplicity="0..1" />
-          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningStatutes">
-              <PropertyRef Name="GST_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningStatutesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SCHEDULE_OFFICE_OF_RECORDS">
           <End Role="OfficeOfRecords" Type="Self.OfficeOfRecords" Multiplicity="0..1" />
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -311,6 +296,78 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SchedulePolicies_GoverningPolicies">
+          <End Role="GoverningPolicies" Type="Self.GoverningPolicies" Multiplicity="1" />
+          <End Role="SchedulePolicies" Type="Self.SchedulePolicies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningPolicies">
+              <PropertyRef Name="GPO_Id" />
+            </Principal>
+            <Dependent Role="SchedulePolicies">
+              <PropertyRef Name="SCP_PolicyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SchedulePolicies_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="SchedulePolicies" Type="Self.SchedulePolicies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="SCH_ID" />
+            </Principal>
+            <Dependent Role="SchedulePolicies">
+              <PropertyRef Name="SCP_ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleRegulations_GoverningRegulations">
+          <End Role="GoverningRegulations" Type="Self.GoverningRegulations" Multiplicity="1" />
+          <End Role="ScheduleRegulations" Type="Self.ScheduleRegulations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningRegulations">
+              <PropertyRef Name="GRE_Id" />
+            </Principal>
+            <Dependent Role="ScheduleRegulations">
+              <PropertyRef Name="SCR_RegulationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleRegulations_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="ScheduleRegulations" Type="Self.ScheduleRegulations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="SCH_ID" />
+            </Principal>
+            <Dependent Role="ScheduleRegulations">
+              <PropertyRef Name="SCR_ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleStatutes_GoverningStatutes">
+          <End Role="GoverningStatutes" Type="Self.GoverningStatutes" Multiplicity="1" />
+          <End Role="ScheduleStatutes" Type="Self.ScheduleStatutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoverningStatutes">
+              <PropertyRef Name="GST_Id" />
+            </Principal>
+            <Dependent Role="ScheduleStatutes">
+              <PropertyRef Name="SCS_StatuteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleStatutes_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="ScheduleStatutes" Type="Self.ScheduleStatutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="SCH_ID" />
+            </Principal>
+            <Dependent Role="ScheduleStatutes">
+              <PropertyRef Name="SCS_ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IUERM_RSchedModelStoreContainer">
           <EntitySet Name="AreaScope" EntityType="Self.AreaScope" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -326,6 +383,9 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <EntitySet Name="Retainer" EntityType="Self.Retainer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Retention" EntityType="Self.Retention" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SchedulePolicies" EntityType="Self.SchedulePolicies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleRegulations" EntityType="Self.ScheduleRegulations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleStatutes" EntityType="Self.ScheduleStatutes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ColumnManager" EntityType="Self.ColumnManager" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -354,18 +414,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             <End Role="EventCodes" EntitySet="EventCodes" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING _REGULATIONS" Association="Self.FK_SCHEDULE_GOVERNING _REGULATIONS">
-            <End Role="GoverningRegulations" EntitySet="GoverningRegulations" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_POLICIES" Association="Self.FK_SCHEDULE_GOVERNING_POLICIES">
-            <End Role="GoverningPolicies" EntitySet="GoverningPolicies" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_STATUTES" Association="Self.FK_SCHEDULE_GOVERNING_STATUTES">
-            <End Role="GoverningStatutes" EntitySet="GoverningStatutes" />
-            <End Role="Schedule" EntitySet="Schedule" />
-          </AssociationSet>
           <AssociationSet Name="FK_SCHEDULE_OFFICE_OF_RECORDS" Association="Self.FK_SCHEDULE_OFFICE_OF_RECORDS">
             <End Role="OfficeOfRecords" EntitySet="OfficeOfRecords" />
             <End Role="Schedule" EntitySet="Schedule" />
@@ -381,6 +429,30 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <AssociationSet Name="FK_SCHEDULE_RETENTION" Association="Self.FK_SCHEDULE_RETENTION">
             <End Role="Retention" EntitySet="Retention" />
             <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchedulePolicies_GoverningPolicies" Association="Self.FK_SchedulePolicies_GoverningPolicies">
+            <End Role="GoverningPolicies" EntitySet="GoverningPolicies" />
+            <End Role="SchedulePolicies" EntitySet="SchedulePolicies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SchedulePolicies_Schedule" Association="Self.FK_SchedulePolicies_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="SchedulePolicies" EntitySet="SchedulePolicies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleRegulations_GoverningRegulations" Association="Self.FK_ScheduleRegulations_GoverningRegulations">
+            <End Role="GoverningRegulations" EntitySet="GoverningRegulations" />
+            <End Role="ScheduleRegulations" EntitySet="ScheduleRegulations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleRegulations_Schedule" Association="Self.FK_ScheduleRegulations_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleRegulations" EntitySet="ScheduleRegulations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleStatutes_GoverningStatutes" Association="Self.FK_ScheduleStatutes_GoverningStatutes">
+            <End Role="GoverningStatutes" EntitySet="GoverningStatutes" />
+            <End Role="ScheduleStatutes" EntitySet="ScheduleStatutes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleStatutes_Schedule" Association="Self.FK_ScheduleStatutes_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleStatutes" EntitySet="ScheduleStatutes" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -420,30 +492,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
-        </EntityType>
-        <EntityType Name="GoverningPolicy">
-          <Key>
-            <PropertyRef Name="GPO_Id" />
-          </Key>
-          <Property Name="GPO_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GPO_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="GoverningPolicy" ToRole="Schedule" />
-        </EntityType>
-        <EntityType Name="GoverningRegulation">
-          <Key>
-            <PropertyRef Name="GRE_Id" />
-          </Key>
-          <Property Name="GRE_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GRE_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="GoverningRegulation" ToRole="Schedule" />
-        </EntityType>
-        <EntityType Name="GoverningStatute">
-          <Key>
-            <PropertyRef Name="GST_Id" />
-          </Key>
-          <Property Name="GST_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GST_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="GoverningStatute" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="OfficeOfRecord">
           <Key>
@@ -490,9 +538,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <EntitySet Name="AreaScopes" EntityType="Self.AreaScope" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="GoverningPolicies" EntityType="Self.GoverningPolicy" />
-          <EntitySet Name="GoverningRegulations" EntityType="Self.GoverningRegulation" />
-          <EntitySet Name="GoverningStatutes" EntityType="Self.GoverningStatute" />
           <EntitySet Name="OfficeOfRecords" EntityType="Self.OfficeOfRecord" />
           <EntitySet Name="OfficialRecordMediums" EntityType="Self.OfficialRecordMedium" />
           <EntitySet Name="Retainers" EntityType="Self.Retainer" />
@@ -505,6 +550,9 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <EntitySet Name="ColumnManagers" EntityType="IUERM_RSchedModel.ColumnManager" />
           <EntitySet Name="EventCodes" EntityType="IUERM_RSchedModel.EventCode" />
           <EntitySet Name="Retentions" EntityType="IUERM_RSchedModel.Retention" />
+          <EntitySet Name="GoverningPolicies" EntityType="IUERM_RSchedModel.GoverningPolicy" />
+          <EntitySet Name="GoverningRegulations" EntityType="IUERM_RSchedModel.GoverningRegulation" />
+          <EntitySet Name="GoverningStatutes" EntityType="IUERM_RSchedModel.GoverningStatute" />
           <EntitySet Name="Schedules" EntityType="IUERM_RSchedModel.Schedule" />
           <AssociationSet Name="FK_SCHEDULE_AREA_SCOPE" Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE">
             <End Role="AreaScope" EntitySet="AreaScopes" />
@@ -516,18 +564,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           </AssociationSet>
           <AssociationSet Name="FK_Schedule_EventCodes" Association="IUERM_RSchedModel.FK_Schedule_EventCodes">
             <End Role="EventCode" EntitySet="EventCodes" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_POLICIES" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES">
-            <End Role="GoverningPolicy" EntitySet="GoverningPolicies" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING__REGULATIONS" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS">
-            <End Role="GoverningRegulation" EntitySet="GoverningRegulations" />
-            <End Role="Schedule" EntitySet="Schedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SCHEDULE_GOVERNING_STATUTES" Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES">
-            <End Role="GoverningStatute" EntitySet="GoverningStatutes" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           <AssociationSet Name="FK_SCHEDULE_OFFICE_OF_RECORDS" Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS">
@@ -544,6 +580,18 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           </AssociationSet>
           <AssociationSet Name="FK_SCHEDULE_RETENTION" Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION">
             <End Role="Retention" EntitySet="Retentions" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="SchedulePolicies" Association="IUERM_RSchedModel.SchedulePolicies">
+            <End Role="GoverningPolicy" EntitySet="GoverningPolicies" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="ScheduleRegulations" Association="IUERM_RSchedModel.ScheduleRegulations">
+            <End Role="GoverningRegulation" EntitySet="GoverningRegulations" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="ScheduleStatutes" Association="IUERM_RSchedModel.ScheduleStatutes">
+            <End Role="GoverningStatute" EntitySet="GoverningStatutes" />
             <End Role="Schedule" EntitySet="Schedules" />
           </AssociationSet>
           </EntityContainer>
@@ -581,6 +629,30 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="RET_BaseOnDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Retention" ToRole="Schedule" />
         </EntityType>
+        <EntityType Name="GoverningPolicy">
+          <Key>
+            <PropertyRef Name="GPO_Id" />
+          </Key>
+          <Property Name="GPO_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GPO_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.SchedulePolicies" FromRole="GoverningPolicy" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="GoverningRegulation">
+          <Key>
+            <PropertyRef Name="GRE_Id" />
+          </Key>
+          <Property Name="GRE_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GRE_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.ScheduleRegulations" FromRole="GoverningRegulation" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="GoverningStatute">
+          <Key>
+            <PropertyRef Name="GST_Id" />
+          </Key>
+          <Property Name="GST_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GST_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="IUERM_RSchedModel.ScheduleStatutes" FromRole="GoverningStatute" ToRole="Schedule" />
+        </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="SCH_ID" />
@@ -600,9 +672,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <Property Name="SCH_RetentionId" Type="Int32" />
           <Property Name="SCH_Active" Type="Boolean" />
           <Property Name="SCH_Vital" Type="Boolean" />
-          <Property Name="SCH_GoverningStatutesId" Type="Int32" />
-          <Property Name="SCH_GoverningRegulationsId" Type="Int32" />
-          <Property Name="SCH_GoverningPoliciesId" Type="Int32" />
           <Property Name="SCH_Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SCH_RecordMediumId" Type="Int32" />
           <Property Name="SCH_RetainerId" Type="Int32" />
@@ -614,13 +683,13 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
           <NavigationProperty Name="AreaScope" Relationship="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" FromRole="Schedule" ToRole="AreaScope" />
           <NavigationProperty Name="DispositionOption" Relationship="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" FromRole="Schedule" ToRole="DispositionOption" />
           <NavigationProperty Name="EventCode" Relationship="IUERM_RSchedModel.FK_Schedule_EventCodes" FromRole="Schedule" ToRole="EventCode" />
-          <NavigationProperty Name="GoverningPolicy" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" FromRole="Schedule" ToRole="GoverningPolicy" />
-          <NavigationProperty Name="GoverningRegulation" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" FromRole="Schedule" ToRole="GoverningRegulation" />
-          <NavigationProperty Name="GoverningStatute" Relationship="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" FromRole="Schedule" ToRole="GoverningStatute" />
           <NavigationProperty Name="OfficeOfRecord" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" FromRole="Schedule" ToRole="OfficeOfRecord" />
           <NavigationProperty Name="OfficialRecordMedium" Relationship="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" FromRole="Schedule" ToRole="OfficialRecordMedium" />
           <NavigationProperty Name="Retainer" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" FromRole="Schedule" ToRole="Retainer" />
           <NavigationProperty Name="Retention" Relationship="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" FromRole="Schedule" ToRole="Retention" />
+          <NavigationProperty Name="GoverningPolicies" Relationship="IUERM_RSchedModel.SchedulePolicies" FromRole="Schedule" ToRole="GoverningPolicy" />
+          <NavigationProperty Name="GoverningRegulations" Relationship="IUERM_RSchedModel.ScheduleRegulations" FromRole="Schedule" ToRole="GoverningRegulation" />
+          <NavigationProperty Name="GoverningStatutes" Relationship="IUERM_RSchedModel.ScheduleStatutes" FromRole="Schedule" ToRole="GoverningStatute" />
         </EntityType>
         <Association Name="FK_SCHEDULE_AREA_SCOPE">
           <End Type="IUERM_RSchedModel.AreaScope" Role="AreaScope" Multiplicity="0..1" />
@@ -655,42 +724,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Principal>
             <Dependent Role="Schedule">
               <PropertyRef Name="SCH_EventCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_POLICIES">
-          <End Type="IUERM_RSchedModel.GoverningPolicy" Role="GoverningPolicy" Multiplicity="0..1" />
-          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningPolicy">
-              <PropertyRef Name="GPO_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningPoliciesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING__REGULATIONS">
-          <End Type="IUERM_RSchedModel.GoverningRegulation" Role="GoverningRegulation" Multiplicity="0..1" />
-          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningRegulation">
-              <PropertyRef Name="GRE_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningRegulationsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SCHEDULE_GOVERNING_STATUTES">
-          <End Type="IUERM_RSchedModel.GoverningStatute" Role="GoverningStatute" Multiplicity="0..1" />
-          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GoverningStatute">
-              <PropertyRef Name="GST_Id" />
-            </Principal>
-            <Dependent Role="Schedule">
-              <PropertyRef Name="SCH_GoverningStatutesId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -742,6 +775,18 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SchedulePolicies">
+          <End Type="IUERM_RSchedModel.GoverningPolicy" Role="GoverningPolicy" Multiplicity="*" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+        </Association>
+        <Association Name="ScheduleRegulations">
+          <End Type="IUERM_RSchedModel.GoverningRegulation" Role="GoverningRegulation" Multiplicity="*" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+        </Association>
+        <Association Name="ScheduleStatutes">
+          <End Type="IUERM_RSchedModel.GoverningStatute" Role="GoverningStatute" Multiplicity="*" />
+          <End Type="IUERM_RSchedModel.Schedule" Role="Schedule" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -779,30 +824,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
                 <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoverningPolicies">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningPolicy">
-              <MappingFragment StoreEntitySet="GoverningPolicies">
-                <ScalarProperty Name="GPO_Id" ColumnName="GPO_Id" />
-                <ScalarProperty Name="GPO_Name" ColumnName="GPO_Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoverningRegulations">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningRegulation">
-              <MappingFragment StoreEntitySet="GoverningRegulations">
-                <ScalarProperty Name="GRE_Id" ColumnName="GRE_Id" />
-                <ScalarProperty Name="GRE_Name" ColumnName="GRE_Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GoverningStatutes">
-            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningStatute">
-              <MappingFragment StoreEntitySet="GoverningStatutes">
-                <ScalarProperty Name="GST_Id" ColumnName="GST_Id" />
-                <ScalarProperty Name="GST_Name" ColumnName="GST_Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -887,6 +908,30 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GoverningPolicies">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningPolicy">
+              <MappingFragment StoreEntitySet="GoverningPolicies">
+                <ScalarProperty Name="GPO_Name" ColumnName="GPO_Name" />
+                <ScalarProperty Name="GPO_Id" ColumnName="GPO_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoverningRegulations">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningRegulation">
+              <MappingFragment StoreEntitySet="GoverningRegulations">
+                <ScalarProperty Name="GRE_Name" ColumnName="GRE_Name" />
+                <ScalarProperty Name="GRE_Id" ColumnName="GRE_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoverningStatutes">
+            <EntityTypeMapping TypeName="IUERM_RSchedModel.GoverningStatute">
+              <MappingFragment StoreEntitySet="GoverningStatutes">
+                <ScalarProperty Name="GST_Name" ColumnName="GST_Name" />
+                <ScalarProperty Name="GST_Id" ColumnName="GST_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Schedules">
             <EntityTypeMapping TypeName="IUERM_RSchedModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
@@ -898,9 +943,6 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
                 <ScalarProperty Name="SCH_RetainerId" ColumnName="SCH_RetainerId" />
                 <ScalarProperty Name="SCH_RecordMediumId" ColumnName="SCH_RecordMediumId" />
                 <ScalarProperty Name="SCH_Reason" ColumnName="SCH_Reason" />
-                <ScalarProperty Name="SCH_GoverningPoliciesId" ColumnName="SCH_GoverningPoliciesId" />
-                <ScalarProperty Name="SCH_GoverningRegulationsId" ColumnName="SCH_GoverningRegulationsId" />
-                <ScalarProperty Name="SCH_GoverningStatutesId" ColumnName="SCH_GoverningStatutesId" />
                 <ScalarProperty Name="SCH_Vital" ColumnName="SCH_Vital" />
                 <ScalarProperty Name="SCH_Active" ColumnName="SCH_Active" />
                 <ScalarProperty Name="SCH_RetentionId" ColumnName="SCH_RetentionId" />
@@ -919,6 +961,30 @@ warning 6002: The table/view 'IUERM_RSched.dbo.ColumnManager' does not have a pr
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="SchedulePolicies" TypeName="IUERM_RSchedModel.SchedulePolicies" StoreEntitySet="SchedulePolicies">
+            <EndProperty Name="Schedule">
+              <ScalarProperty Name="SCH_ID" ColumnName="SCP_ScheduleID" />
+            </EndProperty>
+            <EndProperty Name="GoverningPolicy">
+              <ScalarProperty Name="GPO_Id" ColumnName="SCP_PolicyID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ScheduleRegulations" TypeName="IUERM_RSchedModel.ScheduleRegulations" StoreEntitySet="ScheduleRegulations">
+            <EndProperty Name="Schedule">
+              <ScalarProperty Name="SCH_ID" ColumnName="SCR_ScheduleID" />
+            </EndProperty>
+            <EndProperty Name="GoverningRegulation">
+              <ScalarProperty Name="GRE_Id" ColumnName="SCR_RegulationID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="ScheduleStatutes" TypeName="IUERM_RSchedModel.ScheduleStatutes" StoreEntitySet="ScheduleStatutes">
+            <EndProperty Name="Schedule">
+              <ScalarProperty Name="SCH_ID" ColumnName="SCS_ScheduleID" />
+            </EndProperty>
+            <EndProperty Name="GoverningStatute">
+              <ScalarProperty Name="GST_Id" ColumnName="SCS_StatuteID" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -5,32 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="877c71373fd74ecba2df4257a06af5b8" Name="Diagram1" ZoomLevel="91">
-        <EntityTypeShape EntityType="IUERM_RSchedModel.AreaScope" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetUser" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningPolicy" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningRegulation" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningStatute" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.OfficeOfRecord" Width="1.5" PointX="3" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.OfficialRecordMedium" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Retainer" Width="1.5" PointX="3" PointY="23.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.User" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.AreaScope" Width="1.5" PointX="5.375" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetRole" Width="1.5" PointX="9.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.AspNetUser" Width="1.5" PointX="12.125" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.OfficeOfRecord" Width="1.5" PointX="10.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.OfficialRecordMedium" Width="1.5" PointX="5.375" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Retainer" Width="1.5" PointX="5.375" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.User" Width="1.5" PointX="7.375" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="IUERM_RSchedModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="0.625" PointY="6.625" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="10.125" PointY="5.75" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="5.375" PointY="10.25" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="5.375" PointY="13.25" />
-        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="1.5" PointX="7.625" PointY="9.25" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.DispositionOption" Width="1.5" PointX="10.25" PointY="9.875" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.ColumnManager" Width="1.5" PointX="15" PointY="3.75" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.EventCode" Width="1.5" PointX="5.375" PointY="11.625" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Retention" Width="1.5" PointX="5.375" PointY="13.875" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningPolicy" Width="1.5" PointX="10.875" PointY="15" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningRegulation" Width="1.5" PointX="10.875" PointY="19" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.GoverningStatute" Width="1.5" PointX="10.875" PointY="16.875" />
+        <EntityTypeShape EntityType="IUERM_RSchedModel.Schedule" Width="1.5" PointX="7.625" PointY="12.375" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_AREA_SCOPE" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" />
+        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_DISPOSITION_OPTIONS" ></AssociationConnector>
         <AssociationConnector Association="IUERM_RSchedModel.FK_Schedule_EventCodes" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_POLICIES" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING__REGULATIONS" />
-        <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_GOVERNING_STATUTES" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICE_OF_RECORDS" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_OFFICIAL_RECORD_MEDIUM" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETAINER" />
         <AssociationConnector Association="IUERM_RSchedModel.FK_SCHEDULE_RETENTION" />
+        <AssociationConnector Association="IUERM_RSchedModel.SchedulePolicies" />
+        <AssociationConnector Association="IUERM_RSchedModel.ScheduleRegulations" />
+        <AssociationConnector Association="IUERM_RSchedModel.ScheduleStatutes" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -14,6 +14,14 @@ namespace IUERM_RRS
     
     public partial class Schedule
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Schedule()
+        {
+            this.GoverningPolicies = new HashSet<GoverningPolicy>();
+            this.GoverningRegulations = new HashSet<GoverningRegulation>();
+            this.GoverningStatutes = new HashSet<GoverningStatute>();
+        }
+    
         public System.Guid SCH_ID { get; set; }
         public string SCH_StewardDomain { get; set; }
         public string SCH_RetentionArea { get; set; }
@@ -29,9 +37,6 @@ namespace IUERM_RRS
         public Nullable<int> SCH_RetentionId { get; set; }
         public Nullable<bool> SCH_Active { get; set; }
         public Nullable<bool> SCH_Vital { get; set; }
-        public Nullable<int> SCH_GoverningStatutesId { get; set; }
-        public Nullable<int> SCH_GoverningRegulationsId { get; set; }
-        public Nullable<int> SCH_GoverningPoliciesId { get; set; }
         public string SCH_Reason { get; set; }
         public Nullable<int> SCH_RecordMediumId { get; set; }
         public Nullable<int> SCH_RetainerId { get; set; }
@@ -44,12 +49,15 @@ namespace IUERM_RRS
         public virtual AreaScope AreaScope { get; set; }
         public virtual DispositionOption DispositionOption { get; set; }
         public virtual EventCode EventCode { get; set; }
-        public virtual GoverningPolicy GoverningPolicy { get; set; }
-        public virtual GoverningRegulation GoverningRegulation { get; set; }
-        public virtual GoverningStatute GoverningStatute { get; set; }
         public virtual OfficeOfRecord OfficeOfRecord { get; set; }
         public virtual OfficialRecordMedium OfficialRecordMedium { get; set; }
         public virtual Retainer Retainer { get; set; }
         public virtual Retention Retention { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoverningPolicy> GoverningPolicies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoverningRegulation> GoverningRegulations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoverningStatute> GoverningStatutes { get; set; }
     }
 }

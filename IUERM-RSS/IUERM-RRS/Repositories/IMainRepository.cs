@@ -36,7 +36,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningPolicies
         List<IdNameViewModel> GetAllGoverningPolicies();
-        IEnumerable<SelectListItem> GetAllGoverningPoliciesDDL();
+        MultiSelectList GetAllGoverningPoliciesDDL(string IdSchedule);
         IdNameViewModel GetGoverningPolicyById(int id);
         void InsertGoverningPolicy(IdNameViewModel governingPolicy);
         void DeleteGoverningPolicy(IdNameViewModel governingPolicy);
@@ -44,7 +44,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningRegulations
         List<IdNameViewModel> GetAllGoverningRegulations();
-        IEnumerable<SelectListItem> GetAllGoverningRegulationsDDL();
+        MultiSelectList GetAllGoverningRegulationsDDL(string IdSchedule);
         IdNameViewModel GetGoverningRegulationById(int id);
         void InsertGoverningRegulation(IdNameViewModel governingRegulation);
         void DeleteGoverningRegulation(IdNameViewModel governingRegulation);
@@ -52,7 +52,7 @@ namespace IUERM_RRS.Repositories
 
         //GoverningStatutes
         List<IdNameViewModel> GetAllGoverningStatutes();
-        IEnumerable<SelectListItem> GetAllGoverningStatutesDDL();
+        MultiSelectList GetAllGoverningStatutesDDL(string IdSchedule);
         IdNameViewModel GetGoverningStatuteById(int id);
         void InsertGoverningStatutes(IdNameViewModel governingStatute);
         void DeleteGoverningStatutes(IdNameViewModel governingStatute);
@@ -94,7 +94,7 @@ namespace IUERM_RRS.Repositories
         IEnumerable<SelectListItem> GetActiveDDL();
         IEnumerable<SelectListItem> GetYesNoDDL();
         IEnumerable<SelectListItem> GetTypesDDL();
-        IEnumerable<SelectListItem> GetDDLbyName(string name);
+        IEnumerable<SelectListItem> GetDDLbyName(string name,string scheduleId);
 
         //Columns Configuration
         List<ColumnManager> GetColumnsConfig();

@@ -20,6 +20,7 @@ namespace IUERM_RRS.Controllers
     {
         private IScheduleRepository scheduleRepository;
         private IMainRepository mainRepository;
+
         public ScheduleController(IScheduleRepository scheduleRepository, IMainRepository mainRepository)
         {
             this.scheduleRepository = scheduleRepository;
@@ -50,9 +51,9 @@ namespace IUERM_RRS.Controllers
             return PartialView(partial);
         }
 
-        public ActionResult GetDDLUpdated(string name)
+        public ActionResult GetDDLUpdated(string name,string scheduleId)
         {
-            var items = mainRepository.GetDDLbyName(name);
+            var items = mainRepository.GetDDLbyName(name, scheduleId);
             return Json(items, JsonRequestBehavior.AllowGet);
         }
 
@@ -104,6 +105,13 @@ namespace IUERM_RRS.Controllers
             return Json(new[] { schedule }.ToDataSourceResult(request, ModelState));
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Schedules_Destroy2(string id)
+        {
+            scheduleRepository.Delete(id);
+            return Json("");
+        }
+
         [HttpPost]
         public ActionResult Excel_Export_Save(string contentType, string base64, string fileName)
         {
@@ -133,7 +141,7 @@ namespace IUERM_RRS.Controllers
 
         private ScheduleViewModel GetModel()
         {
-            return scheduleRepository.GetDropDownsInfo(null);
+            return scheduleRepository.GetDropDownsInfoCreate();
         }
 
         [HttpPost]

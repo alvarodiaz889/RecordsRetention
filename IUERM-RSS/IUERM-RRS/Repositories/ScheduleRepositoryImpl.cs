@@ -28,38 +28,61 @@ namespace IUERM_RRS.Repositories
                 .Select(GetModelFunc)
                 .FirstOrDefault();
             if (model != null)
-                model = GetDropDownsInfo(model);
+                model = GetDropDownsInfoUpdate(model,id);
 
             return model;
         }
 
-        public ScheduleViewModel GetDropDownsInfo(ScheduleViewModel svm)
+        public ScheduleViewModel GetDropDownsInfoCreate()
         {
-            if (svm == null)
-                svm = new ScheduleViewModel();
-            svm.AreaScopes = mainRepository.GetAllAreaScopesDDL();
-            svm.DispositionOptions = mainRepository.GetAllDispositionOptionsDDL();
-            svm.GoverningPolicies = mainRepository.GetAllGoverningPoliciesDDL();
-            svm.GoverningRegulations = mainRepository.GetAllGoverningRegulationsDDL();
-            svm.GoverningStatutes = mainRepository.GetAllGoverningStatutesDDL();
-            svm.OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL();
-            svm.OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL();
-            svm.Retainers = mainRepository.GetAllRetainersDDL();
-            svm.Retentions = mainRepository.GetAllRetentionsDDL();
-            svm.ActiveInactive = mainRepository.GetActiveDDL();
-            svm.IsVital = mainRepository.GetYesNoDDL();
-            svm.Types = mainRepository.GetTypesDDL();
-            svm.RequireDestructionOpt = mainRepository.GetYesNoDDL();
-            svm.EventCodes = mainRepository.GetAllEventCodesDDL();
-            return svm;
+            return GetDropDownsInfoUpdate(new ScheduleViewModel(), string.Empty);
         }
         public void Insert(ScheduleViewModel svm)
         {
             Schedule schedule = ModelToEntity(svm);
             schedule.SCH_ID = Guid.NewGuid();
-            schedule.SCH_CreationDate = DateTime.Now;
+            schedule.SCH_CreationDate = svm.SCH_CreationDate ?? DateTime.Now;
+            schedule.GoverningPolicies = GetGoverningPoliciesFromVM(svm);
+            schedule.GoverningRegulations = GetGoverningRegulationsFromVM(svm);
+            schedule.GoverningStatutes = GetGoverningStatutesFromVM(svm);
             context.Schedules.Add(schedule);
             context.SaveChanges();
+        }
+
+        private ICollection<GoverningStatute> GetGoverningStatutesFromVM(ScheduleViewModel svm)
+        {
+            List<GoverningStatute> list = null;
+            if (svm?.GoverningStatuteIds != null)
+            {
+                list = new List<GoverningStatute>();
+                foreach (var id in svm?.GoverningStatuteIds)
+                    list.Add(context.GoverningStatutes.Where(g => g.GST_Id.ToString() == id).FirstOrDefault());
+            }
+            return list;
+        }
+
+        private ICollection<GoverningRegulation> GetGoverningRegulationsFromVM(ScheduleViewModel svm)
+        {
+            List<GoverningRegulation> list = null;
+            if (svm?.GoverningRegulationIds != null)
+            {
+                list = new List<GoverningRegulation>();
+                foreach (var id in svm?.GoverningRegulationIds)
+                    list.Add(context.GoverningRegulations.Where(g => g.GRE_Id.ToString() == id).FirstOrDefault());
+            }
+            return list;
+        }
+
+        private ICollection<GoverningPolicy> GetGoverningPoliciesFromVM(ScheduleViewModel svm)
+        {
+            List<GoverningPolicy> list = null;
+            if (svm?.GoverningPolicyIds != null)
+            {
+                list = new List<GoverningPolicy>();
+                foreach (var id in svm?.GoverningPolicyIds)
+                    list.Add(context.GoverningPolicies.Where(g => g.GPO_Id.ToString() == id).FirstOrDefault());
+            }
+            return list;
         }
 
         public void Delete(ScheduleViewModel svm)
@@ -70,12 +93,20 @@ namespace IUERM_RRS.Repositories
             context.SaveChanges();
         }
 
+        public void Delete(string id)
+        {
+            Schedule schedule = context.Schedules.Where(o => o.SCH_ID.ToString() == id).FirstOrDefault();
+            schedule.GoverningPolicies.Clear();
+            schedule.GoverningRegulations.Clear();
+            schedule.GoverningStatutes.Clear();
+            context.Schedules.Remove(schedule);
+            context.SaveChanges();
+        }
+
         public void Update(ScheduleViewModel svm)
         {
-            Schedule schedule = ModelToEntity(svm);
-            context.Schedules.Attach(schedule);
-            context.Entry(schedule).State = EntityState.Modified;
-            context.SaveChanges();
+            Delete(svm.SCH_ID.ToString());
+            Insert(svm);
         }
 
         private static ScheduleViewModel EntityToModel(Schedule s)
@@ -97,9 +128,6 @@ namespace IUERM_RRS.Repositories
                 SCH_RetentionId = s.SCH_RetentionId,
                 SCH_Active = s.SCH_Active,
                 SCH_Vital = s.SCH_Vital,
-                SCH_GoverningStatutesId = s.SCH_GoverningStatutesId,
-                SCH_GoverningRegulationsId = s.SCH_GoverningRegulationsId,
-                SCH_GoverningPoliciesId = s.SCH_GoverningPoliciesId,
                 SCH_Reason = s.SCH_Reason,
                 SCH_RecordMediumId = s.SCH_RecordMediumId,
                 SCH_RetainerId = s.SCH_RetainerId,
@@ -130,9 +158,6 @@ namespace IUERM_RRS.Repositories
                 SCH_RetentionId = svm.SCH_RetentionId,
                 SCH_Active = svm.SCH_Active,
                 SCH_Vital = svm.SCH_Vital,
-                SCH_GoverningStatutesId = svm.SCH_GoverningStatutesId,
-                SCH_GoverningRegulationsId = svm.SCH_GoverningRegulationsId,
-                SCH_GoverningPoliciesId = svm.SCH_GoverningPoliciesId,
                 SCH_Reason = svm.SCH_Reason,
                 SCH_RecordMediumId = svm.SCH_RecordMediumId,
                 SCH_RetainerId = svm.SCH_RetainerId,
@@ -165,13 +190,13 @@ namespace IUERM_RRS.Repositories
                 value = records.Any(o => o.SCH_RetentionId == retentionId.Value);
 
             if (governingStatutesId.HasValue)
-                value = records.Any(o => o.SCH_GoverningStatutesId == governingStatutesId.Value);
+                value = records.Any(o => o.GoverningStatutes.Any(g => g.GST_Id == governingStatutesId.Value));
 
             if (governingRegulationsId.HasValue)
-                value = records.Any(o => o.SCH_GoverningRegulationsId == governingRegulationsId.Value);
+                value = records.Any(o => o.GoverningRegulations.Any(g => g.GRE_Id == governingRegulationsId.Value));
 
             if (governingPoliciesId.HasValue)
-                value = records.Any(o => o.SCH_GoverningPoliciesId == governingPoliciesId.Value);
+                value = records.Any(o => o.GoverningPolicies.Any(g => g.GPO_Id == governingPoliciesId.Value));
 
             if (recordMediumId.HasValue)
                 value = records.Any(o => o.SCH_RecordMediumId == recordMediumId.Value);
@@ -185,6 +210,25 @@ namespace IUERM_RRS.Repositories
             if (eventCodeId.HasValue)
                 value = records.Any(o => o.SCH_EventCodeId == eventCodeId.Value);
             return value;
+        }
+
+        public ScheduleViewModel GetDropDownsInfoUpdate(ScheduleViewModel svm, string IdSchedule)
+        {
+            svm.AreaScopes = mainRepository.GetAllAreaScopesDDL();
+            svm.DispositionOptions = mainRepository.GetAllDispositionOptionsDDL();
+            svm.GoverningStatutesMultiSelect = mainRepository.GetAllGoverningStatutesDDL(IdSchedule);
+            svm.GoverningRegulationsMultiSelect = mainRepository.GetAllGoverningRegulationsDDL(IdSchedule);
+            svm.GoverningPoliciesMultiSelect = mainRepository.GetAllGoverningPoliciesDDL(IdSchedule);
+            svm.OfficeOfRecords = mainRepository.GetAllOfficeOfRecordsDDL();
+            svm.OfficialRecordMediums = mainRepository.GetAllOfficialRecordMediumsDDL();
+            svm.Retainers = mainRepository.GetAllRetainersDDL();
+            svm.Retentions = mainRepository.GetAllRetentionsDDL();
+            svm.ActiveInactive = mainRepository.GetActiveDDL();
+            svm.IsVital = mainRepository.GetYesNoDDL();
+            svm.Types = mainRepository.GetTypesDDL();
+            svm.RequireDestructionOpt = mainRepository.GetYesNoDDL();
+            svm.EventCodes = mainRepository.GetAllEventCodesDDL();
+            return svm;
         }
     }
 }

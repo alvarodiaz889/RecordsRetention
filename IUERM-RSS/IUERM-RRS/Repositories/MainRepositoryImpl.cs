@@ -202,13 +202,16 @@ namespace IUERM_RRS.Repositories
                 .ToList();
         }
 
-        public IEnumerable<SelectListItem> GetAllGoverningPoliciesDDL()
+        public MultiSelectList GetAllGoverningPoliciesDDL(string IdSchedule)
         {
-            List<SelectListItem> list = context.GoverningPolicies
-                .Select(o => new SelectListItem { Value = o.GPO_Id.ToString(), Text = o.GPO_Name })
-                .OrderBy(o => o.Text)
-                .ToList();
-            
+            List<int> policiyIds = null;
+            if(!string.IsNullOrEmpty(IdSchedule))
+                policiyIds = context.Schedules
+                    .Where(s => s.SCH_ID.ToString() == IdSchedule)
+                    .FirstOrDefault()?.GoverningPolicies
+                    .Select(s => s.GPO_Id).ToList();
+
+            MultiSelectList list = new MultiSelectList(context.GoverningPolicies.ToList().OrderBy(o => o.GPO_Id), "GPO_Id", "GPO_Name",policiyIds);
             return list;
         }
 
@@ -249,13 +252,15 @@ namespace IUERM_RRS.Repositories
                 .ToList();
         }
 
-        public IEnumerable<SelectListItem> GetAllGoverningRegulationsDDL()
+        public MultiSelectList GetAllGoverningRegulationsDDL(string IdSchedule)
         {
-            List<SelectListItem> list = context.GoverningRegulations
-                .Select(o => new SelectListItem { Value = o.GRE_Id.ToString(), Text = o.GRE_Name })
-                .OrderBy(o => o.Text)
-                .ToList();
-            
+            List<int> regulationIds = null;
+            if (!string.IsNullOrEmpty(IdSchedule))
+                regulationIds = context.Schedules
+                    .Where(s => s.SCH_ID.ToString() == IdSchedule)
+                    .FirstOrDefault()?.GoverningRegulations
+                    .Select(s => s.GRE_Id).ToList();
+            MultiSelectList list = new MultiSelectList(context.GoverningRegulations.ToList().OrderBy(o => o.GRE_Id), "GRE_Id", "GRE_Name",regulationIds);
             return list;
         }
 
@@ -296,15 +301,15 @@ namespace IUERM_RRS.Repositories
                 .ToList();
         }
 
-        public IEnumerable<SelectListItem> GetAllGoverningStatutesDDL()
+        public MultiSelectList GetAllGoverningStatutesDDL(string IdSchedule)
         {
-            List<SelectListItem> list = context.GoverningStatutes
-                .Select(o => new SelectListItem {
-                    Value = o.GST_Id.ToString(),
-                    Text = o.GST_Name.Length > 50 ? o.GST_Name.Substring(0, 50) + " ..." : o.GST_Name })
-                .OrderBy(o => o.Text)
-                .ToList();
-            
+            List<int> statutesIds = null;
+            if (!string.IsNullOrEmpty(IdSchedule))
+                statutesIds = context.Schedules
+                    .Where(s => s.SCH_ID.ToString() == IdSchedule)
+                    .FirstOrDefault()?.GoverningStatutes
+                    .Select(s => s.GST_Id).ToList();
+            MultiSelectList list = new MultiSelectList(context.GoverningStatutes.ToList().OrderBy(o => o.GST_Id), "GST_Id", "GST_Name", statutesIds);
             return list;
         }
 
@@ -570,7 +575,7 @@ namespace IUERM_RRS.Repositories
             };
         }
 
-        public IEnumerable<SelectListItem> GetDDLbyName(string name)
+        public IEnumerable<SelectListItem> GetDDLbyName(string name,string scheduleId)
         {
             IEnumerable<SelectListItem> list = null;
             switch (name)
@@ -585,13 +590,13 @@ namespace IUERM_RRS.Repositories
                     list = GetAllEventCodesDDL();
                     break;
                 case "_GoverningPolicy":
-                    list = GetAllGoverningPoliciesDDL();
+                    list = GetAllGoverningPoliciesDDL(scheduleId);
                     break;
                 case "_GoverningRegulation":
-                    list = GetAllGoverningRegulationsDDL();
+                    list = GetAllGoverningRegulationsDDL(scheduleId);
                     break;
                 case "_GoverningStatute":
-                    list = GetAllGoverningStatutesDDL();
+                    list = GetAllGoverningStatutesDDL(scheduleId);
                     break;
                 case "_OfficeOfRecord":
                     list = GetAllOfficeOfRecordsDDL();

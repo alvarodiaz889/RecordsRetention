@@ -149,39 +149,6 @@
         </div>
 
         <div class="form-group">
-            <div style="display:inline;">
-                @Html.LabelFor(model => model.SCH_GoverningStatutesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningStatute"> (Edit)</a>
-            </div>
-            <div class="col-md-10">
-                @Html.DropDownListFor(o => Model.SCH_GoverningStatutesId, Model.GoverningStatutes, "-- Select Option --", htmlAttributes: new { @id = "_GoverningStatute", @style = "margin:0" })
-                @Html.ValidationMessageFor(model => model.SCH_GoverningStatutesId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div style="display:inline;">
-                @Html.LabelFor(model => model.SCH_GoverningRegulationsId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningRegulation"> (Edit)</a>
-            </div>
-            <div class="col-md-10">
-                @Html.DropDownListFor(o => Model.SCH_GoverningRegulationsId, Model.GoverningRegulations, "-- Select Option --", htmlAttributes: new { @id = "_GoverningRegulation", @style = "margin:0" })
-                @Html.ValidationMessageFor(model => model.SCH_GoverningRegulationsId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div style="display:inline;">
-                @Html.LabelFor(model => model.SCH_GoverningPoliciesId, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
-                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningPolicy"> (Edit)</a>
-            </div>
-            <div class="col-md-10">
-                @Html.DropDownListFor(o => Model.SCH_GoverningPoliciesId, Model.GoverningPolicies, "-- Select Option --", htmlAttributes: new { @id = "_GoverningPolicy", @style = "margin:0" })
-                @Html.ValidationMessageFor(model => model.SCH_GoverningPoliciesId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.SCH_Reason, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SCH_Reason, new { htmlAttributes = new { @class = "form-control", @style = "margin:0" } })
@@ -229,6 +196,39 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(o => Model.SCH_RequiresCertDestruction, Model.RequireDestructionOpt, htmlAttributes: new { @style = "margin:0" })
                 @Html.ValidationMessageFor(model => model.SCH_RequiresCertDestruction, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-group-multiselect">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.GoverningStatutesMultiSelect, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningStatute"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.ListBoxFor(o => Model.GoverningStatuteIds, Model.GoverningStatutesMultiSelect, new { @id = "_GoverningStatute", @style = "margin:0" })
+                @Html.ValidationMessageFor(model => model.GoverningStatutesMultiSelect, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-group-multiselect">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.GoverningRegulationsMultiSelect, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningRegulation"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.ListBoxFor(o => Model.GoverningRegulationIds, Model.GoverningRegulationsMultiSelect, new { @id = "_GoverningRegulation", @style = "margin:0" })
+                @Html.ValidationMessageFor(model => model.GoverningRegulationsMultiSelect, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group form-group-multiselect">
+            <div style="display:inline;">
+                @Html.LabelFor(model => model.GoverningPoliciesMultiSelect, htmlAttributes: new { @class = "control-label col-md-2", style = "display:inline" })
+                <a href="javascript:void(0);" class="edit-data" data-id="_GoverningPolicy"> (Edit)</a>
+            </div>
+            <div class="col-md-10">
+                @Html.ListBoxFor(o => Model.GoverningPolicyIds, Model.GoverningPoliciesMultiSelect, new { @id = "_GoverningPolicy", @style = "margin:0" })
+                @Html.ValidationMessageFor(model => model.GoverningPoliciesMultiSelect, "", new { @class = "text-danger" })
             </div>
         </div>
 

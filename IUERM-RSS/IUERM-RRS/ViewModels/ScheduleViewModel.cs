@@ -10,6 +10,7 @@ namespace IUERM_RRS.ViewModels
 {
     public class ScheduleViewModel
     {
+        public ScheduleViewModel() { }
         public Guid SCH_ID { get; set; }
 
         [Display(Name = "Data Steward Domain")]
@@ -86,25 +87,28 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Vital")]
         public string SCH_IsVital { get;set; }
 
-
-        [Display(Name = "Governing Statutes")]
-        [Validator()]
-        public int? SCH_GoverningStatutesId { get; set; }
         [Display(Name = "Governing Statutes")]
         public string SCH_GoverningStatute { get; set; }
+        [Display(Name = "Governing Statutes")]
+        public List<string> GoverningStatuteIds { get; set; }
+        [Display(Name = "Governing Statutes")]
+        public MultiSelectList GoverningStatutesMultiSelect { get; set; }
 
-        [Display(Name = "Governing Regulations")]
-        [Validator()]
-        public int? SCH_GoverningRegulationsId { get; set; }
+        
         [Display(Name = "Governing Regulations")]
         public string SCH_GoverningRegulation { get; set; }
+        [Display(Name = "Governing Regulations")]
+        public List<string> GoverningRegulationIds { get; set; }
+        [Display(Name = "Governing Regulations")]
+        public MultiSelectList GoverningRegulationsMultiSelect { get; set; }
 
 
-        [Display(Name = "Governing IU Policies")]
-        [Validator()]
-        public int? SCH_GoverningPoliciesId { get; set; }
         [Display(Name = "Governing IU Policies")]
         public string SCH_GoverningPolicy { get; set; }
+        [Display(Name = "Governing IU Policies")]
+        public List<string> GoverningPolicyIds { get; set; }
+        [Display(Name = "Governing IU Policies")]
+        public MultiSelectList GoverningPoliciesMultiSelect { get; set; }
 
         [Display(Name = "Reason for Retention Period")]
         [Validator()]
@@ -154,9 +158,6 @@ namespace IUERM_RRS.ViewModels
         // Variables for the drop down lists in the create and edit views
         public IEnumerable<SelectListItem> AreaScopes { get; set; }
         public IEnumerable<SelectListItem> DispositionOptions { get; set; }
-        public IEnumerable<SelectListItem> GoverningPolicies { get; set; }
-        public IEnumerable<SelectListItem> GoverningRegulations { get; set; }
-        public IEnumerable<SelectListItem> GoverningStatutes { get; set; }
         public IEnumerable<SelectListItem> OfficeOfRecords { get; set; }
         public IEnumerable<SelectListItem> OfficialRecordMediums { get; set; }
         public IEnumerable<SelectListItem> Retainers { get; set; }
