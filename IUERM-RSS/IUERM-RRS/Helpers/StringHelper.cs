@@ -22,5 +22,26 @@ namespace IUERM_RRS.Helpers
             }
             return s;
         }
+
+        public static string ReplaceCustom(this string s, string oldVal)
+        {
+            StringBuilder sb = new StringBuilder(s);
+            if (!string.IsNullOrEmpty(s))
+            {
+                sb.Insert(0,"*");
+                sb.Replace(oldVal, "</br>*");
+            }
+            return sb.ToString();
+        }
+
+        public static string ShortTo(this string s, int number)
+        {
+            if (!string.IsNullOrEmpty(s))
+            {
+                if (s.Length > number)
+                    s = s.Substring(0, number) + "...";
+            }
+            return s;
+        }
     }
 }

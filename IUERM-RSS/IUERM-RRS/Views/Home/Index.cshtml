@@ -3,59 +3,63 @@
 
     
     <input type="checkbox" checked="@ViewBag.Checked" onclick="ChangeView(this);" /><label>Advanced View</label>
+    @*<input type="checkbox" onclick="ChangeView2();" />*@
 
     @(Html.Kendo().Grid<IUERM_RRS.ViewModels.ScheduleViewModel>()
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Bound(c => c.SCH_StewardDomain).Width(200)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_StewardDomain")).HtmlAttributes(new { @style = "text-align:left" }); ;
-            columns.Bound(c => c.SCH_RetentionArea).Width(200)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionArea")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RetentionSubArea).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionSubArea")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_AreaScope).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_AreaScopeId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionAreaDescription")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Type).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Type")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Office).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_OfficeId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Coordinator).Width(200)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Coordinator")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RecordSeries).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordSeries")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordSeriesCode")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Description).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Description")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Retention).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_EventCode).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_EventCodeId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Years).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Years")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_IsVital).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Vital")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningStatute).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningStatutesId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningRegulation).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningRegulationsId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningPolicy).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningPoliciesId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Reason).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Reason")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RecordMedium).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordMediumId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Retainer).Width(300)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetainerId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Disposition).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_DispositionId")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RequiresDestruction).Width(150)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RquiresCertDestruction")).HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_CreationDate2).Width(250)
-                .Visible(ScheduleViewModel.IsColumnVisible("SCH_CreationDate")).HtmlAttributes(new { @style = "text-align:left" });
+            columns.Bound(c => c.SCH_StewardDomain).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_StewardDomain")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionArea).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionArea")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionSubArea).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionSubArea")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_AreaScope).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_AreaScopeId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionAreaDescription")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Type).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Type")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Office).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_OfficeId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Coordinator).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Coordinator")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RecordSeries).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordSeries")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RecordSeriesCode).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordSeriesCode")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Description).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Description")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Retention).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetentionId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_EventCode).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_EventCodeId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Years).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Years")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_IsVital).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Vital")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningStatute)
+                .ClientTemplate("#=SCH_GoverningStatute#").Width(200).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningStatutesId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningRegulation)
+                .ClientTemplate("#=SCH_GoverningRegulation#").Width(200).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningRegulationsId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningPolicy)
+                .ClientTemplate("#=SCH_GoverningPolicy#").Width(200).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_GoverningPoliciesId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Reason).Width(200).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_Reason")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RecordMedium).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RecordMediumId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Retainer).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RetainerId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Disposition).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_DispositionId")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RequiresDestruction).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_RquiresCertDestruction")).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_CreationDate2).Width(150).HeaderHtmlAttributes(new { @class = "grid-header" })
+                .Visible(ScheduleViewModel.IsColumnVisible("SCH_CreationDate")).HtmlAttributes(new { @class = "grid-column" });
         })
         .ToolBar(toolbar =>
         {
@@ -73,8 +77,12 @@
             .Ajax()
             .Read(read => read.Action("Schedules_Read", "Home"))
         )
-        .Events(e => e.DataBound("onDataBound"))
         .HtmlAttributes(new { @style = "height: 600px;" })
+        .Excel(excel => excel
+            .FileName("Schedule.xlsx")
+            .Filterable(true)
+            .ProxyURL(Url.Action("Excel_Export_Save", "Home")))
+        .Events(e => e.ExcelExport("OnExcelExport"))
     )
 </div>
 <script type="text/javascript">
@@ -83,11 +91,25 @@
         var checked = e.checked;
         window.location.href = "/Home/AdvancedView/?check=" + checked;
     }
+    //function ChangeView(e) {
+    //    var checked = e.checked;
+    //    window.location.href = "/Schedule/FileDemo"
+    //}
+    @*function OnExcelExport(e)
+    {
+        e.preventDefault();
 
-    function onDataBound() {
-        var grid = $("#grid").data("kendoGrid");
-        for (var i = 0; i < grid.columns.length; i++) {
-            grid.autoFitColumn(i);
-        }
-    }
+        // Get the Excel file as a data URL.
+        var dataURL = new kendo.ooxml.Workbook(e.workbook).toDataURL();
+        // Strip the data URL prologue.
+        var base64 = dataURL.split(";base64,")[1];
+        // Post the base64 encoded content to the server which can save it.
+        $.get("@Url.Action("Excel_Export_Save", "Schedule")", {
+            contentType: "application/ms-excel",
+            base64: base64,
+            fileName: "ExcelExport.xlsx"
+        }, function (data) { console.log(data);});
+
+    }*@
+
 </script>

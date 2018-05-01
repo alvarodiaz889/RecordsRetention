@@ -40,3 +40,12 @@
 .text-danger {
     color: red;
 }
+.grid-column {
+    text-align: left;
+    font-size: 10px;
+}
+
+.grid-header {
+    text-align: left;
+    font-size: 10px;
+}

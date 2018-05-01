@@ -43,7 +43,7 @@ namespace IUERM_RRS.Controllers
             DataSourceResult result = schedules.AsQueryable().ToDataSourceResult(request);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         [AllowAnonymous]
         public ActionResult LoginError()
         {

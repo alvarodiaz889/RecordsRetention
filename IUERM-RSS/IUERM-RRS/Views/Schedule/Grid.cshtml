@@ -11,55 +11,59 @@
         .Columns(columns =>
         {
             columns.Command(command => { command.Edit().Text(" ").CancelText(" ").UpdateText(" "); command.Destroy().Text(" "); })
-                .Width(160).Title("Edit / Remove").Locked(true).Lockable(false);
-            columns.Bound(c => c.SCH_StewardDomain).Width(200)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RetentionArea).Width(200)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RetentionSubArea).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .Width(80).Title("Edit/Remove").Locked(true).Lockable(false).HeaderHtmlAttributes(new { @class = "grid-header" });
+            columns.Bound(c => c.SCH_StewardDomain).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionArea).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionSubArea).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_AreaScope).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RetentionAreaDescription).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_Type).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_Office).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Coordinator).Width(200)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Coordinator).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_RecordSeries).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_RecordSeriesCode).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_RecordSeriesCode).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_Description).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left;max-width: 450px" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_Retention).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_EventCode).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_Years).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_IsVital).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningStatute).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningRegulation).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_GoverningPolicy).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Reason).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningStatute)
+                .ClientTemplate("#=SCH_GoverningStatute#").Width(200)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningRegulation)
+                .ClientTemplate("#=SCH_GoverningRegulation#").Width(200)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_GoverningPolicy)
+                .ClientTemplate("#=SCH_GoverningPolicy#").Width(200)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Reason).Width(200)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_RecordMedium).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_Retainer).Width(300)
-                .HtmlAttributes(new { @style = "text-align:left" }).Sortable(false).Filterable(false);
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_Retainer).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" })
+                .Sortable(false).Filterable(false);
             columns.Bound(c => c.SCH_Disposition).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
             columns.Bound(c => c.SCH_RequiresDestruction).Width(150)
-                .HtmlAttributes(new { @style = "text-align:left" });
-            columns.Bound(c => c.SCH_CreationDate2).Width(250)
-                .HtmlAttributes(new { @style = "text-align:left" }); })
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" });
+            columns.Bound(c => c.SCH_CreationDate2).Width(150)
+                .HeaderHtmlAttributes(new { @class = "grid-header" }).HtmlAttributes(new { @class = "grid-column" }); })
         .ToolBar(toolbar =>
         {
             toolbar.Excel();
@@ -78,7 +82,7 @@
             .Update(update => update.Action("Schedules_Update", "Schedule"))
             .Destroy(destroy => destroy.Action("Schedules_Destroy", "Schedule"))
         )
-        .Events(e => { e.BeforeEdit("BeforeEdit"); e.DataBound("onDataBound"); e.Remove("OnRemove"); })
+        .Events(e => { e.BeforeEdit("BeforeEdit"); e.Remove("OnRemove"); })
         .HtmlAttributes(new { @style = "height: 600px;" })
     )
 
@@ -88,13 +92,6 @@
         e.preventDefault();
         var modelId = e.model.SCH_ID;
         window.location.href = "/Schedule/Edit/?Id=" + modelId;
-    }
-
-    function onDataBound() {
-        var grid = $("#grid").data("kendoGrid");
-        for (var i = 0; i < grid.columns.length; i++) {
-            grid.autoFitColumn(i);
-        }
     }
 
     function OnRemove(e) {

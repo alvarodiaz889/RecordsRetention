@@ -31,10 +31,15 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Area/Sub-Area Scope")]
         public string SCH_AreaScope { get;set; }
 
+        private string retentionAreaDescription;
         [Display(Name = "Area/Sub-Area Description")]
         [Validator()]
         [DataType(DataType.MultilineText)]
-        public string SCH_RetentionAreaDescription { get; set; }
+        public string SCH_RetentionAreaDescription {
+            //get { return retentionAreaDescription.ShortTo(40); }
+            get { return retentionAreaDescription; }
+            set { retentionAreaDescription = value; }
+        }
 
         [Display(Name = "Type")]
         [Validator()]
@@ -58,15 +63,14 @@ namespace IUERM_RRS.ViewModels
         [Validator()]
         public string SCH_RecordSeriesCode { get; set; }
 
-        private string _SCH_Description;
+        private string _description;
         [Display(Name = "Record Description")]
         [Validator()]
         [DataType(DataType.MultilineText)]
         public string SCH_Description {
-            get {
-                return _SCH_Description;
-            }
-            set { _SCH_Description = value; }
+            //get { return _description.ShortTo(40);}
+            get { return _description; }
+            set { _description = value; }
         }
 
         [Display(Name = "Based On")]
@@ -87,33 +91,50 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Vital")]
         public string SCH_IsVital { get;set; }
 
+        private string _governingStatute;
         [Display(Name = "Governing Statutes")]
-        public string SCH_GoverningStatute { get; set; }
+        public string SCH_GoverningStatute {
+            get { return _governingStatute.ReplaceCustom("#"); }
+            set { _governingStatute = value; }
+        }
         [Display(Name = "Governing Statutes")]
         public List<string> GoverningStatuteIds { get; set; }
         [Display(Name = "Governing Statutes")]
         public MultiSelectList GoverningStatutesMultiSelect { get; set; }
 
-        
+
+        private string _governingRegulation;
         [Display(Name = "Governing Regulations")]
-        public string SCH_GoverningRegulation { get; set; }
+        public string SCH_GoverningRegulation {
+            get { return _governingRegulation.ReplaceCustom("#"); }
+            set { _governingRegulation = value; }
+        }
         [Display(Name = "Governing Regulations")]
         public List<string> GoverningRegulationIds { get; set; }
         [Display(Name = "Governing Regulations")]
         public MultiSelectList GoverningRegulationsMultiSelect { get; set; }
 
-
+        private string _governingPolicy;
         [Display(Name = "Governing IU Policies")]
-        public string SCH_GoverningPolicy { get; set; }
+        public string SCH_GoverningPolicy
+        {
+            get{ return _governingPolicy.ReplaceCustom("#"); }
+            set{ _governingPolicy = value; }
+        }
         [Display(Name = "Governing IU Policies")]
         public List<string> GoverningPolicyIds { get; set; }
         [Display(Name = "Governing IU Policies")]
         public MultiSelectList GoverningPoliciesMultiSelect { get; set; }
 
+        private string _reason;
         [Display(Name = "Reason for Retention Period")]
         [Validator()]
         [DataType(DataType.MultilineText)]
-        public string SCH_Reason { get; set; }
+        public string SCH_Reason {
+            //get { return _reason.ShortTo(40); }
+            get { return _reason; }
+            set { _reason = value; }
+        }
 
         [Display(Name = "Official Record Medium")]
         [Validator()]
