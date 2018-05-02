@@ -48,4 +48,6 @@
 .grid-header {
     text-align: left;
     font-size: 10px;
+    word-wrap: break-word;
 }
+
