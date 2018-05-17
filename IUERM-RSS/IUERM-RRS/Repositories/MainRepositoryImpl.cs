@@ -353,7 +353,7 @@ namespace IUERM_RRS.Repositories
         public IEnumerable<SelectListItem> GetAllOfficeOfRecordsDDL()
         {
             List<SelectListItem> list = context.OfficeOfRecords
-                .Select(o => new SelectListItem { Value = o.OOR_Id.ToString(), Text = o.OOR_Name })
+                .Select(o => new SelectListItem { Value = o.OOR_Id.ToString(), Text = (o.OOR_Name ?? string.Empty) + " " + (o.OOR_Code ?? string.Empty) })
                 .OrderBy(o => o.Text)
                 .ToList();
             
