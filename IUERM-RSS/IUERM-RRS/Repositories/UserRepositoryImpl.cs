@@ -91,6 +91,14 @@ namespace IUERM_RRS.Repositories
             userManager.Create(user);
             return user.Id;
         }
+
+        public ApplicationUser InsertDefaultApplicationUser(string username)
+        {
+            ApplicationUser user = new ApplicationUser { UserName = username, Email = username + "@iu.edu" };
+            userManager.Create(user);
+            roleRepository.Insert(Guid.Parse(user.Id), "DefaultUser");
+            return user;
+        }
         private int InsertUser(UserViewModel userViewModel,string Id)
         {
             User user = new User()

@@ -51,7 +51,9 @@ namespace IUERM_RRS.Repositories
                         Id = r.Id,
                         Role = r.Name
                     }
-                ).ToList();
+                )
+                .Where(r => r.Id != "DefaultUser")
+                .ToList();
         }
         
 

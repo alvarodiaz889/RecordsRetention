@@ -168,8 +168,24 @@ namespace IUERM_RRS.ViewModels
         [Display(Name = "Event Code")]
         [Validator()]
         public int? SCH_EventCodeId { get; set; }
+
+        private string _eventCode;
         [Display(Name = "Event Code")]
-        public string SCH_EventCode { get; set; }
+        public string SCH_EventCode {
+            get
+            {
+                if (!string.IsNullOrEmpty(_eventCode))
+                {
+                    if (_eventCode.Trim().Equals("-")) return string.Empty;
+                    string[] split = _eventCode.Split('-');
+                    if (string.IsNullOrEmpty(split[0].Trim()) || string.IsNullOrEmpty(split[1].Trim()))
+                        return _eventCode.Replace("-", string.Empty).Trim();
+                    else return _eventCode;
+                }
+                else return _eventCode;
+            }
+            set { _eventCode = value; }
+        }
 
         [Display(Name = "Retention Period")]
         [Validator()]

@@ -211,7 +211,7 @@ namespace IUERM_RRS.Repositories
                     .FirstOrDefault()?.GoverningPolicies
                     .Select(s => s.GPO_Id).ToList();
 
-            MultiSelectList list = new MultiSelectList(context.GoverningPolicies.ToList().OrderBy(o => o.GPO_Id), "GPO_Id", "GPO_Name",policiyIds);
+            MultiSelectList list = new MultiSelectList(context.GoverningPolicies.ToList().OrderBy(o => o.GPO_Name), "GPO_Id", "GPO_Name",policiyIds);
             return list;
         }
 
@@ -260,7 +260,7 @@ namespace IUERM_RRS.Repositories
                     .Where(s => s.SCH_ID.ToString() == IdSchedule)
                     .FirstOrDefault()?.GoverningRegulations
                     .Select(s => s.GRE_Id).ToList();
-            MultiSelectList list = new MultiSelectList(context.GoverningRegulations.ToList().OrderBy(o => o.GRE_Id), "GRE_Id", "GRE_Name",regulationIds);
+            MultiSelectList list = new MultiSelectList(context.GoverningRegulations.ToList().OrderBy(o => o.GRE_Name), "GRE_Id", "GRE_Name",regulationIds);
             return list;
         }
 
@@ -309,7 +309,7 @@ namespace IUERM_RRS.Repositories
                     .Where(s => s.SCH_ID.ToString() == IdSchedule)
                     .FirstOrDefault()?.GoverningStatutes
                     .Select(s => s.GST_Id).ToList();
-            MultiSelectList list = new MultiSelectList(context.GoverningStatutes.ToList().OrderBy(o => o.GST_Id), "GST_Id", "GST_Name", statutesIds);
+            MultiSelectList list = new MultiSelectList(context.GoverningStatutes.ToList().OrderBy(o => o.GST_Name), "GST_Id", "GST_Name", statutesIds);
             return list;
         }
 

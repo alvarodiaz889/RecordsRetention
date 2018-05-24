@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IUERM_RRS.Models;
 using Unity.Attributes;
+using IUERM_RRS.Repositories;
 
 namespace IUERM_RRS.Controllers
 {
@@ -18,10 +19,12 @@ namespace IUERM_RRS.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserRepository userRepository = new UserRepositoryImpl();
 
         [InjectionConstructor()]
         public AccountController()
         {
+            
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -121,7 +124,13 @@ namespace IUERM_RRS.Controllers
                 SignInManager.SignIn(user, true, true);
                 return RedirectToAction("Index", "Schedule");
             }
-            return RedirectToAction("LoginError","Home");
+            else
+            {
+                user = userRepository.InsertDefaultApplicationUser(loginInfo.DefaultUserName);
+                SignInManager.SignIn(user, true, true);
+                return RedirectToAction("Index", "Schedule");
+            }
+            //return RedirectToAction("LoginError","Home");
 
         }
         //
