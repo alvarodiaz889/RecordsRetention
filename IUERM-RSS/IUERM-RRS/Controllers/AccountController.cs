@@ -115,22 +115,20 @@ namespace IUERM_RRS.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Index","Schedule");
+                return RedirectToAction("LoginError", "Home");
             }
 
             var user = UserManager.FindByName(loginInfo.DefaultUserName);
             if (user != null)
             {
                 SignInManager.SignIn(user, true, true);
-                return RedirectToAction("Index", "Schedule");
             }
             else
             {
                 user = userRepository.InsertDefaultApplicationUser(loginInfo.DefaultUserName);
                 SignInManager.SignIn(user, true, true);
-                return RedirectToAction("Index", "Schedule");
             }
-            //return RedirectToAction("LoginError","Home");
+            return RedirectToAction("Index", "Home");
 
         }
         //
