@@ -173,6 +173,7 @@ namespace IUERM_RRS.Controllers
         // POST: /Account/LogOff
         //[HttpPost]
         //[ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
 
