@@ -1,9 +1,39 @@
-﻿<div style="width: 80%; margin: 100px auto 100px; min-height:600px;">
+﻿<script type="text/javascript">
+
+    function search()
+    {
+        $('#grid').data("kendoGrid").dataSource.read();
+    }
+
+    function additionalData()
+    {
+        var searchValue = $('#searchValue').val();
+        console.log(searchValue);
+        return { searchValue: searchValue }
+    }
+
+    function ChangeView(e) {
+        var checked = e.checked;
+        var searchValue = $('#searchValue').val();
+        window.location.href = "/Home/AdvancedView/?check=" + checked + "&searchValue=" + searchValue;
+    }
+
+</script>
+<div style="width: 80%; margin: 100px auto 100px; min-height:600px;">
     <h3 class="section-title capitalize">RECORDS RETENTION SCHEDULE</h3>
+    <br />
 
-    
+    <div style="height:100px;">
+        <div style="float:right;margin-left:20px;">
+            <button class="button" onclick="search()" >Search</button>
+        </div>
+        <div style="height:100px;width:30%;float:right;">
+            <input type="text" id="searchValue"  value="@ViewBag.SearchValue" />
+        </div>
+
+    </div>
+
     <input type="checkbox" checked="@ViewBag.Checked" onclick="ChangeView(this);" /><label>Advanced View</label>
-
     @(Html.Kendo().Grid<IUERM_RRS.ViewModels.ScheduleViewModel>()
         .Name("grid")
         .Columns(columns =>
@@ -97,7 +127,7 @@
         .Scrollable()
         .DataSource(dataSource => dataSource
             .Ajax()
-            .Read(read => read.Action("Schedules_Read", "Home"))
+            .Read(read => read.Action("Schedules_Read", "Home").Data("additionalData"))
         )
         .HtmlAttributes(new { @style = "height: 600px;" })
         .Excel(excel => excel
@@ -108,11 +138,3 @@
         .Pdf(p => p.AllPages())
     )
 </div>
-<script type="text/javascript">
-    function ChangeView(e)
-    {
-        var checked = e.checked;
-        window.location.href = "/Home/AdvancedView/?check=" + checked;
-    }
-
-</script>
